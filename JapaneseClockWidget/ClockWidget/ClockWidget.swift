@@ -188,9 +188,9 @@ struct InlineClockView: View {
     var body: some View {
         switch mode {
         case .hiraganaOnly:
-            Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date) + " " + JapaneseTimeFormatter.formatTimeShortHiragana(from: date))
+            Text(JapaneseTimeFormatter.formatDateHiragana(from: date))
         default:
-            Text(JapaneseTimeFormatter.formatTime(from: date))
+            Text(JapaneseTimeFormatter.formatDate(from: date))
         }
     }
 }

@@ -192,10 +192,10 @@ struct RectangularClockView: View {
                     .font(.system(size: 10, weight: .medium))
                     .opacity(0.6)
                 Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.system(size: 16, weight: .bold))
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
-                        .font(.system(size: 15, weight: .bold))
+                        .font(.system(size: 16, weight: .bold))
                         .minimumScaleFactor(0.6)
                 }
             default:

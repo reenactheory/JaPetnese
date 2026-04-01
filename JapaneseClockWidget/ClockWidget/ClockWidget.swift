@@ -82,32 +82,6 @@ struct LockScreenClockWidget: Widget {
     }
 }
 
-// MARK: - StandBy Widget
-
-struct StandByClockWidget: Widget {
-    let kind: String = "StandByClockWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: ClockTimelineProvider()) { entry in
-            StandByClockView(entry: entry)
-                .containerBackground(for: .widget) {
-                    let colorMode = PetManager.loadWidgetColorMode()
-                    if colorMode == .petColor {
-                        ZStack {
-                            Color(.systemBackground)
-                            widgetPetAccentColor().opacity(0.08)
-                        }
-                    } else {
-                        Color(.systemBackground)
-                    }
-                }
-        }
-        .configurationDisplayName("日本語時計 (스탠바이)")
-        .description("스탠바이 모드에서 일본어 시계와 펫을 표시합니다")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-    }
-}
-
 // MARK: - Lock Screen Views
 
 struct LockScreenWidgetEntryView: View {
@@ -220,71 +194,6 @@ struct RectangularClockView: View {
     }
 }
 
-// MARK: - StandBy → 시간 + 동물
-
-struct StandByClockView: View {
-    var entry: ClockEntry
-
-    var body: some View {
-        let mode = PetManager.loadDisplayMode()
-        let minute = Calendar.current.component(.minute, from: entry.date)
-
-        VStack(spacing: 16) {
-            // 동물
-            if let pet = PetManager.loadCurrentPet() {
-                StaticPetView(pet: pet, pixelSize: 8)
-            }
-
-            // AM/PM
-            switch mode {
-            case .hiraganaOnly:
-                Text(JapaneseTimeFormatter.formatAmPmHiragana(from: entry.date))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(widgetSecondaryTextColor())
-            default:
-                Text(JapaneseTimeFormatter.formatAmPm(from: entry.date))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(widgetSecondaryTextColor())
-            }
-
-            // 시간
-            VStack(spacing: 4) {
-                switch mode {
-                case .hiraganaOnly:
-                    Text(JapaneseTimeFormatter.formatHourHiragana(from: entry.date))
-                        .font(.system(size: 48, weight: .bold))
-                    if minute != 0 {
-                        Text(JapaneseTimeFormatter.formatMinuteHiragana(from: entry.date))
-                            .font(.system(size: 40, weight: .bold))
-                            .minimumScaleFactor(0.6)
-                    }
-                default:
-                    Text(JapaneseTimeFormatter.formatHour(from: entry.date))
-                        .font(.system(size: 56, weight: .bold))
-                    if minute != 0 {
-                        Text(JapaneseTimeFormatter.formatMinute(from: entry.date))
-                            .font(.system(size: 56, weight: .bold))
-                    }
-                }
-            }
-            .foregroundStyle(widgetTextColor())
-
-            // 날짜
-            Group {
-                switch mode {
-                case .hiraganaOnly:
-                    Text(JapaneseTimeFormatter.formatDateHiragana(from: entry.date))
-                default:
-                    Text(JapaneseTimeFormatter.formatDate(from: entry.date))
-                }
-            }
-            .font(.system(size: 14, weight: .medium))
-            .foregroundStyle(widgetSecondaryTextColor())
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
 // MARK: - Bundle
 
 @main
@@ -292,6 +201,5 @@ struct ClockWidgetBundle: WidgetBundle {
     var body: some Widget {
         ClockWidget()
         LockScreenClockWidget()
-        StandByClockWidget()
     }
 }

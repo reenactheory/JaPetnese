@@ -136,48 +136,69 @@ struct ContentView: View {
     }
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 24) {
-                // Settings button
-                HStack {
-                    Spacer()
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.system(size: 15))
+        VStack(spacing: 0) {
+            // Settings button
+            HStack {
+                Spacer()
+                Button {
+                    showSettings = true
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 15))
+                        .foregroundStyle(textTertiary)
+                        .padding(12)
+                }
+            }
+            .padding(.horizontal, 8)
+
+            Spacer()
+
+            // Time section
+            VStack(spacing: 12) {
+                AmPmDisplayView(date: currentDate, mode: mode, size: 16)
+                    .foregroundStyle(textSecondary)
+
+                TimeDisplayView(date: currentDate, mode: mode, size: 64, alignment: .center)
+
+                DateDisplayView(date: currentDate, mode: mode, size: 14)
+                    .foregroundStyle(textSecondary)
+            }
+
+            Spacer().frame(height: 40)
+
+            // Pet section
+            VStack(spacing: 12) {
+                if let pet = petManager.store.currentPet {
+                    PetView(pet: pet, pixelSize: 8, animated: true)
+                        .frame(height: 80)
+
+                    // Pet info
+                    if pet.isNameRevealed {
+                        Text(pet.species.displayName)
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(textSecondary)
+                    }
+
+                    if let remaining = pet.nextStageIn {
+                        Text(remaining)
+                            .font(.system(size: 11, weight: .medium))
                             .foregroundStyle(textTertiary)
-                            .padding(12)
+                    }
+                } else {
+                    VStack(spacing: 8) {
+                        Image(systemName: "pawprint")
+                            .font(.system(size: 32))
+                            .foregroundStyle(textTertiary)
+                        Text("뽑기에서 펫을 뽑아보세요!")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(textTertiary)
                     }
                 }
-                .padding(.horizontal, 8)
-
-                // Main clock card
-                mainClockCard
-                    .padding(.horizontal, 16)
-
-                // Section label
-                Text("위젯 미리보기")
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(textTertiary)
-                    .tracking(2)
-                    .padding(.top, 8)
-
-                // Widget previews
-                VStack(spacing: 16) {
-                    WidgetPreviewSmall(date: currentDate, mode: mode)
-                    WidgetPreviewMedium(date: currentDate, mode: mode)
-                    WidgetPreviewLarge(date: currentDate, mode: mode)
-                }
-                .padding(.horizontal, 16)
-
-                // Footer
-                Text("홈 화면을 길게 눌러 위젯을 추가하세요")
-                    .font(.system(size: 11, weight: .light))
-                    .foregroundStyle(textTertiary)
-                    .padding(.vertical, 24)
             }
+
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(bgMain.ignoresSafeArea())
         .onReceive(timer) { input in
             currentDate = input
@@ -188,37 +209,11 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            // Sync display mode to App Group on launch
             PetManager.shared.saveDisplayMode(mode)
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }
-    }
-
-    private var mainClockCard: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer()
-
-                TimeDisplayView(date: currentDate, mode: mode, size: 72, alignment: .leading)
-
-                Spacer().frame(height: 16)
-
-                DateDisplayView(date: currentDate, mode: mode, size: 14)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 28)
-            .padding(.bottom, 28)
-
-            AmPmDisplayView(date: currentDate, mode: mode, size: 22)
-                .padding(.top, 28)
-                .padding(.trailing, 28)
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 300)
-        .background(bgCard, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
-        .shadow(color: .black.opacity(0.04), radius: 20, y: 8)
     }
 }
 

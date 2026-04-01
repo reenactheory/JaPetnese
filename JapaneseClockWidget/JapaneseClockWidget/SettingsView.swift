@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct SettingsView: View {
     @AppStorage("displayMode") private var displayMode: String = DisplayMode.kanjiOnly.rawValue
@@ -25,7 +26,7 @@ struct SettingsView: View {
                                     example: "3時45分",
                                     description: "한자로만 표시"
                                 ) {
-                                    withAnimation { displayMode = DisplayMode.kanjiOnly.rawValue }
+                                    setDisplayMode(.kanjiOnly)
                                 }
 
                                 SettingsModeRow(
@@ -34,7 +35,7 @@ struct SettingsView: View {
                                     example: "3時45分 (じ/ふん)",
                                     description: "한자 위에 읽는 법 표시"
                                 ) {
-                                    withAnimation { displayMode = DisplayMode.furigana.rawValue }
+                                    setDisplayMode(.furigana)
                                 }
 
                                 SettingsModeRow(
@@ -43,7 +44,7 @@ struct SettingsView: View {
                                     example: "さんじ よんじゅうごふん",
                                     description: "히라가나로만 표시"
                                 ) {
-                                    withAnimation { displayMode = DisplayMode.hiraganaOnly.rawValue }
+                                    setDisplayMode(.hiraganaOnly)
                                 }
                             }
                         }
@@ -67,6 +68,7 @@ struct SettingsView: View {
                                         withAnimation {
                                             widgetColorMode = mode
                                             PetManager.shared.saveWidgetColorMode(mode)
+                                            WidgetCenter.shared.reloadAllTimelines()
                                         }
                                     }
                                 }
@@ -88,6 +90,14 @@ struct SettingsView: View {
                     .foregroundStyle(.black)
                 }
             }
+        }
+    }
+
+    private func setDisplayMode(_ mode: DisplayMode) {
+        withAnimation {
+            displayMode = mode.rawValue
+            PetManager.shared.saveDisplayMode(mode)
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

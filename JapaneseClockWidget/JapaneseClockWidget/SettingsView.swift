@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("displayMode") private var displayMode: String = DisplayMode.kanjiOnly.rawValue
+    @State private var widgetColorMode: WidgetColorMode = PetManager.loadWidgetColorMode()
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -43,6 +44,31 @@ struct SettingsView: View {
                                     description: "히라가나로만 표시"
                                 ) {
                                     withAnimation { displayMode = DisplayMode.hiraganaOnly.rawValue }
+                                }
+                            }
+                        }
+
+                        // Widget color section
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("위젯 색상")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(.black.opacity(0.4))
+                                .padding(.horizontal, 4)
+                                .padding(.top, 8)
+
+                            VStack(spacing: 8) {
+                                ForEach(WidgetColorMode.allCases, id: \.rawValue) { mode in
+                                    SettingsModeRow(
+                                        isSelected: widgetColorMode == mode,
+                                        title: mode.displayName,
+                                        example: "",
+                                        description: mode.description
+                                    ) {
+                                        withAnimation {
+                                            widgetColorMode = mode
+                                            PetManager.shared.saveWidgetColorMode(mode)
+                                        }
+                                    }
                                 }
                             }
                         }

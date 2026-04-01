@@ -94,6 +94,25 @@ enum PetRarity: String, Codable {
     }
 }
 
+enum WidgetColorMode: String, Codable, CaseIterable {
+    case system
+    case petColor
+
+    var displayName: String {
+        switch self {
+        case .system: return "시스템 모드"
+        case .petColor: return "캐릭터 색상"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .system: return "라이트/다크 모드를 따릅니다"
+        case .petColor: return "장착한 펫의 색상이 반영됩니다"
+        }
+    }
+}
+
 enum PetAccessory: String, Codable, CaseIterable {
     case crown
     case ribbon
@@ -403,6 +422,7 @@ class PetManager: ObservableObject {
     // MARK: - Display Mode (shared with widget)
 
     private static let displayModeKey = "displayMode"
+    private static let widgetColorModeKey = "widgetColorMode"
 
     func saveDisplayMode(_ mode: DisplayMode) {
         defaults.set(mode.rawValue, forKey: Self.displayModeKey)
@@ -412,6 +432,16 @@ class PetManager: ObservableObject {
         let defaults = UserDefaults(suiteName: suiteName) ?? .standard
         let raw = defaults.string(forKey: displayModeKey) ?? DisplayMode.kanjiOnly.rawValue
         return DisplayMode(rawValue: raw) ?? .kanjiOnly
+    }
+
+    func saveWidgetColorMode(_ mode: WidgetColorMode) {
+        defaults.set(mode.rawValue, forKey: Self.widgetColorModeKey)
+    }
+
+    static func loadWidgetColorMode() -> WidgetColorMode {
+        let defaults = UserDefaults(suiteName: suiteName) ?? .standard
+        let raw = defaults.string(forKey: widgetColorModeKey) ?? WidgetColorMode.system.rawValue
+        return WidgetColorMode(rawValue: raw) ?? .system
     }
 
     // MARK: - Static helper for widget

@@ -40,18 +40,23 @@ struct ClockWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ClockTimelineProvider()) { entry in
+            let colorMode = PetManager.loadWidgetColorMode()
             ClockWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
-                    ZStack {
+                    if colorMode == .petColor {
+                        ZStack {
+                            Color(.systemBackground)
+                            LinearGradient(
+                                colors: [
+                                    widgetPetAccentColor().opacity(0.15),
+                                    widgetPetAccentColor().opacity(0.03)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        }
+                    } else {
                         Color(.systemBackground)
-                        LinearGradient(
-                            colors: [
-                                widgetPetAccentColor().opacity(0.08),
-                                widgetPetAccentColor().opacity(0.02)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
                     }
                 }
         }

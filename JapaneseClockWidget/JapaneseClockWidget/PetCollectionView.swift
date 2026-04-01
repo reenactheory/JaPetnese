@@ -55,83 +55,81 @@ struct PetCollectionView: View {
             petManager.equipPet(pet.id)
         } label: {
             VStack(spacing: 0) {
-                // Pet sprite area — top rounded, bottom flat
-                ZStack {
-                    Color.black.opacity(0.03)
-                    PetView(pet: pet, pixelSize: 4.5, animated: isEquipped)
-                }
-                .frame(height: 90)
-                .clipShape(
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 18,
-                        bottomLeadingRadius: 0,
-                        bottomTrailingRadius: 0,
-                        topTrailingRadius: 18,
-                        style: .continuous
-                    )
-                )
+                // Pet sprite
+                PetView(pet: pet, pixelSize: 4.5, animated: isEquipped)
+                    .frame(height: 60)
+                    .padding(.top, 20)
 
-                VStack(spacing: 10) {
-                    // Name
-                    Text(pet.displaySpeciesName)
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundStyle(.black)
+                Spacer().frame(height: 14)
 
-                    // Japanese name
-                    Text(pet.displayJapaneseName)
-                        .font(.custom("HiraginoSans-W3", size: 10))
-                        .foregroundStyle(.black.opacity(0.3))
+                // Name
+                Text(pet.displaySpeciesName)
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(.black)
 
-                    // Stage indicator
-                    stageIndicator(pet: pet)
+                Spacer().frame(height: 6)
 
-                    // Progress bar (non-adult)
-                    if pet.stage != .adult {
-                        VStack(spacing: 5) {
-                            GeometryReader { geo in
-                                ZStack(alignment: .leading) {
-                                    Capsule().fill(Color.black.opacity(0.05))
-                                    Capsule().fill(Color.black.opacity(0.2))
-                                        .frame(width: geo.size.width * pet.stageProgress)
-                                }
-                            }
-                            .frame(height: 3)
+                // Japanese name
+                Text(pet.displayJapaneseName)
+                    .font(.custom("HiraginoSans-W3", size: 10))
+                    .foregroundStyle(.black.opacity(0.3))
 
-                            if let remaining = pet.nextStageIn {
-                                Text(remaining)
-                                    .font(.system(size: 9, weight: .medium))
-                                    .foregroundStyle(.black.opacity(0.25))
+                Spacer().frame(height: 10)
+
+                // Stage indicator
+                stageIndicator(pet: pet)
+
+                Spacer().frame(height: 10)
+
+                // Progress bar (non-adult)
+                if pet.stage != .adult {
+                    VStack(spacing: 5) {
+                        GeometryReader { geo in
+                            ZStack(alignment: .leading) {
+                                Capsule().fill(Color.black.opacity(0.05))
+                                Capsule().fill(Color.black.opacity(0.2))
+                                    .frame(width: geo.size.width * pet.stageProgress)
                             }
                         }
-                    }
+                        .frame(height: 3)
+                        .padding(.horizontal, 12)
 
-                    // Bottom badges: rarity + equipped in one row
-                    HStack(spacing: 6) {
-                        if pet.stage == .adult {
-                            Text(pet.rarity.displayName)
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundStyle(rarityColor(pet.rarity))
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 4)
-                                .background(rarityColor(pet.rarity).opacity(0.08), in: Capsule())
-                        }
-
-                        if isEquipped {
-                            Text("장착 중")
-                                .font(.system(size: 9, weight: .bold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 4)
-                                .background(.black, in: Capsule())
+                        if let remaining = pet.nextStageIn {
+                            Text(remaining)
+                                .font(.system(size: 9, weight: .medium))
+                                .foregroundStyle(.black.opacity(0.25))
                         }
                     }
                 }
-                .padding(.horizontal, 12)
-                .padding(.top, 14)
-                .padding(.bottom, 16)
+
+                Spacer()
+
+                // Bottom badges — always reserve space
+                HStack(spacing: 6) {
+                    if pet.stage == .adult {
+                        Text(pet.rarity.displayName)
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(rarityColor(pet.rarity))
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(rarityColor(pet.rarity).opacity(0.08), in: Capsule())
+                    }
+
+                    if isEquipped {
+                        Text("장착 중")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(.black, in: Capsule())
+                    }
+                }
+                .frame(height: 24)
+
+                Spacer().frame(height: 14)
             }
             .frame(maxWidth: .infinity)
-            .frame(minHeight: 260)
+            .frame(height: 250)
             .background(bgCard, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
             .shadow(color: .black.opacity(isEquipped ? 0.1 : 0.04), radius: isEquipped ? 12 : 8, y: isEquipped ? 4 : 2)
         }

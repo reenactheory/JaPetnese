@@ -56,40 +56,57 @@ struct OnboardingView: View {
         VStack(spacing: 0) {
             Spacer()
 
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 Text("환영합니다")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(textSecondary)
                     .opacity(appearAnimation ? 1 : 0)
 
-                // Preview card
+                // Preview card with clock + pet
                 ZStack(alignment: .topTrailing) {
                     VStack(alignment: .leading, spacing: 8) {
                         Spacer()
                         Text("さんじ")
-                            .font(.custom(jpFontBold, size: 48))
+                            .font(.custom(jpFontBold, size: 44))
                         Text("はん")
-                            .font(.custom(jpFontBold, size: 48))
+                            .font(.custom(jpFontBold, size: 44))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 24)
                     .padding(.bottom, 24)
 
-                    Text("ごご")
-                        .font(.custom(jpFont, size: 18))
-                        .padding(.top, 20)
-                        .padding(.trailing, 20)
+                    VStack(alignment: .trailing, spacing: 12) {
+                        Text("ごご")
+                            .font(.custom(jpFont, size: 16))
+                        Spacer()
+                        // Sample pet sprites
+                        let samplePets: [(PetSpecies, Int)] = [(.cat, 0), (.shiba, 0), (.rabbit, 0)]
+                        HStack(spacing: 6) {
+                            ForEach(Array(samplePets.enumerated()), id: \.offset) { _, pair in
+                                let p = Pet(id: UUID(), species: pair.0, rarity: .normal, colorVariant: pair.1, accessory: nil, createdAt: Date(), accumulatedGrowth: 80 * 3600, equippedSince: nil)
+                                PetView(pet: p, pixelSize: 2, animated: true)
+                            }
+                        }
+                    }
+                    .padding(.top, 20)
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 20)
                 }
                 .foregroundStyle(textPrimary)
-                .frame(width: 240, height: 240)
+                .frame(width: 260, height: 220)
                 .background(bgCard, in: RoundedRectangle(cornerRadius: 28, style: .continuous))
                 .shadow(color: .black.opacity(0.05), radius: 20, y: 8)
                 .opacity(appearAnimation ? 1 : 0)
 
-                Text("일본어로 시간을 읽어보세요")
-                    .font(.system(size: 13, weight: .regular))
-                    .foregroundStyle(textSecondary)
-                    .padding(.top, 8)
+                VStack(spacing: 6) {
+                    Text("일본어로 시간을 읽고")
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundStyle(textSecondary)
+                    Text("귀여운 도트 펫도 키워보세요!")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.black.opacity(0.5))
+                }
+                .opacity(appearAnimation ? 1 : 0)
             }
 
             Spacer()

@@ -157,10 +157,10 @@ struct SmallClockView: View {
                 Spacer()
 
                 Text(hourText)
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.system(size: 18, weight: .bold))
                 if minute != 0 {
                     Text(minText)
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.system(size: 18, weight: .bold))
                         .fixedSize(horizontal: false, vertical: true)
                         .lineLimit(2)
                 }

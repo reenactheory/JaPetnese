@@ -279,7 +279,6 @@ class PetManager: ObservableObject {
         } else {
             self.store = .empty
         }
-
     }
 
     func save() {

@@ -104,8 +104,6 @@ struct ClockOnlyWidgetView: View {
                 Text(JapaneseTimeFormatter.formatHourHiragana(from: entry.date))
                     .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(Color(UIColor.label))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinuteHiragana(from: entry.date))
                         .font(.system(size: 28, weight: .bold))
@@ -116,7 +114,7 @@ struct ClockOnlyWidgetView: View {
                 Spacer().frame(height: 8)
 
                 Text(JapaneseTimeFormatter.formatDateHiragana(from: entry.date))
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(Color(UIColor.secondaryLabel))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)

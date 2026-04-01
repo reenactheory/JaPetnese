@@ -41,7 +41,19 @@ struct ClockWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ClockTimelineProvider()) { entry in
             ClockWidgetEntryView(entry: entry)
-                .containerBackground(Color(.systemBackground), for: .widget)
+                .containerBackground(for: .widget) {
+                    ZStack {
+                        Color(.systemBackground)
+                        LinearGradient(
+                            colors: [
+                                widgetPetAccentColor().opacity(0.08),
+                                widgetPetAccentColor().opacity(0.02)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    }
+                }
         }
         .configurationDisplayName("日本語時計")
         .description("日本語で時刻を表示するウィジェット")

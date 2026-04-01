@@ -34,6 +34,14 @@ func widgetPetView(pixelSize: CGFloat) -> some View {
     }
 }
 
+func widgetPetAccentColor() -> Color {
+    if let pet = PetManager.loadCurrentPet() {
+        let palette = paletteFor(species: pet.species, rarity: pet.rarity, variant: pet.colorVariant)
+        return palette.primary
+    }
+    return .clear
+}
+
 // MARK: - Small Widget
 
 struct SmallClockView: View {

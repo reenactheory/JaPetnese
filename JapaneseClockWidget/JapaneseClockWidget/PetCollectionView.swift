@@ -129,6 +129,12 @@ struct PetCollectionView: View {
             .frame(maxWidth: .infinity)
             .frame(height: 250)
             .background(bgCard, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .overlay(
+                isEquipped ?
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .strokeBorder(Color.black, lineWidth: 2)
+                : nil
+            )
             .shadow(color: .black.opacity(isEquipped ? 0.1 : 0.04), radius: isEquipped ? 12 : 8, y: isEquipped ? 4 : 2)
         }
         .buttonStyle(.plain)

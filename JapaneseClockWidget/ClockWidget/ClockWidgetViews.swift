@@ -140,37 +140,47 @@ struct SmallClockView: View {
     let mode: DisplayMode
 
     var body: some View {
-        // Small 위젯: 도트 동물 중심
-        VStack(spacing: 8) {
-            Spacer()
+        if mode == .hiraganaOnly {
+            let minute = Calendar.current.component(.minute, from: date)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    widgetPetView(pixelSize: 2)
+                    Spacer()
+                    Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date))
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(widgetSecondaryTextColor())
+                }
 
-            // 펫 크게 표시
-            if let pet = PetManager.loadCurrentPet() {
-                StaticPetView(pet: pet, pixelSize: 5)
-            } else {
-                Image(systemName: "pawprint.fill")
-                    .font(.system(size: 28))
-                    .foregroundStyle(widgetSecondaryTextColor())
+                Spacer()
+
+                Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
+                    .font(.system(size: 22, weight: .bold))
+                if minute != 0 {
+                    Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
+                        .font(.system(size: 22, weight: .bold))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
+            .foregroundStyle(widgetTextColor())
+            .padding(12)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    widgetPetView(pixelSize: 2.5)
+                    Spacer()
+                    WidgetAmPmView(date: date, mode: mode, size: 14)
+                        .foregroundStyle(widgetSecondaryTextColor())
+                }
 
-            Spacer()
+                Spacer()
 
-            // 시간 작게 하단
-            switch mode {
-            case .hiraganaOnly:
-                Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date) + " " + JapaneseTimeFormatter.formatTimeShortHiragana(from: date))
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(widgetSecondaryTextColor())
-                    .minimumScaleFactor(0.6)
-                    .lineLimit(1)
-            default:
-                Text(JapaneseTimeFormatter.formatTime(from: date))
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(widgetSecondaryTextColor())
+                WidgetTimeView(date: date, mode: mode, size: 36)
             }
+            .foregroundStyle(widgetTextColor())
+            .padding(14)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -181,28 +191,24 @@ struct MediumClockView: View {
     let mode: DisplayMode
 
     var body: some View {
-        HStack(spacing: 16) {
-            // 왼쪽: 시간
+        HStack(alignment: .bottom) {
             VStack(alignment: .leading) {
-                WidgetAmPmView(date: date, mode: mode, size: 12)
-                    .foregroundStyle(widgetSecondaryTextColor())
                 Spacer()
-                WidgetTimeView(date: date, mode: mode, size: 34)
-                    .foregroundStyle(widgetTextColor())
-                Spacer().frame(height: 4)
-                WidgetDateView(date: date, mode: mode, size: 11)
-                    .foregroundStyle(widgetSecondaryTextColor())
+                WidgetTimeView(date: date, mode: mode, size: 38)
             }
 
             Spacer()
 
-            // 오른쪽: 도트 동물 크게
-            VStack {
+            VStack(alignment: .trailing, spacing: 8) {
+                WidgetAmPmView(date: date, mode: mode, size: 14)
+                    .foregroundStyle(widgetSecondaryTextColor())
                 Spacer()
-                widgetPetView(pixelSize: 5)
-                Spacer()
+                widgetPetView(pixelSize: 3)
+                WidgetDateView(date: date, mode: mode, size: 13)
+                    .foregroundStyle(widgetSecondaryTextColor())
             }
         }
+        .foregroundStyle(widgetTextColor())
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -215,28 +221,36 @@ struct LargeClockView: View {
     let mode: DisplayMode
 
     var body: some View {
-        VStack(spacing: 0) {
-            // 상단: AM/PM + 날짜
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
-                WidgetAmPmView(date: date, mode: mode, size: 14)
-                    .foregroundStyle(widgetSecondaryTextColor())
                 Spacer()
-                WidgetDateView(date: date, mode: mode, size: 13)
+                WidgetAmPmView(date: date, mode: mode, size: 18)
                     .foregroundStyle(widgetSecondaryTextColor())
             }
 
             Spacer()
 
-            // 중앙: 도트 동물 크게
-            widgetPetView(pixelSize: 7)
+            WidgetTimeView(date: date, mode: mode, size: 64)
 
-            Spacer()
+            Spacer().frame(height: 16)
 
-            // 하단: 시간
-            WidgetTimeView(date: date, mode: mode, size: 56)
-                .foregroundStyle(widgetTextColor())
-                .frame(maxWidth: .infinity, alignment: .leading)
+            HStack(alignment: .bottom) {
+                Group {
+                    switch mode {
+                    case .hiraganaOnly:
+                        Text(JapaneseTimeFormatter.formatDateHiragana(from: date))
+                    default:
+                        Text(JapaneseTimeFormatter.formatDate(from: date))
+                    }
+                }
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(widgetSecondaryTextColor())
+
+                Spacer()
+                widgetPetView(pixelSize: 4.5)
+            }
         }
+        .foregroundStyle(widgetTextColor())
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

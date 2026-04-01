@@ -22,6 +22,10 @@ enum PetSpecies: String, Codable, CaseIterable {
     case monkey
     case duck
     case parrot
+    case hedgehog
+    case whale
+    case dolphin
+    case lizard
 
     var displayName: String {
         switch self {
@@ -44,6 +48,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .monkey: return "원숭이"
         case .duck: return "오리"
         case .parrot: return "앵무새"
+        case .hedgehog: return "고슴도치"
+        case .whale: return "고래"
+        case .dolphin: return "돌고래"
+        case .lizard: return "도마뱀"
         }
     }
 
@@ -68,6 +76,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .monkey: return "さる"
         case .duck: return "あひる"
         case .parrot: return "インコ"
+        case .hedgehog: return "はりねずみ"
+        case .whale: return "くじら"
+        case .dolphin: return "イルカ"
+        case .lizard: return "トカゲ"
         }
     }
 }

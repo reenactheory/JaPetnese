@@ -142,23 +142,31 @@ struct SmallClockView: View {
     var body: some View {
         if mode == .hiraganaOnly {
             let minute = Calendar.current.component(.minute, from: date)
+            let hourText = JapaneseTimeFormatter.formatHourHiragana(from: date)
+            let minText = minute != 0 ? JapaneseTimeFormatter.formatMinuteHiragana(from: date) : ""
+            let longest = max(hourText.count, minText.count)
+            let fontSize: CGFloat = longest <= 3 ? 26 : longest <= 5 ? 22 : longest <= 7 ? 18 : 15
+
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
                     widgetPetView(pixelSize: 2)
                     Spacer()
                     Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date))
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(.system(size: fontSize * 0.5, weight: .semibold))
                         .foregroundStyle(widgetSecondaryTextColor())
                 }
 
                 Spacer()
 
-                Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
-                    .font(.system(size: 22, weight: .bold))
+                Text(hourText)
+                    .font(.system(size: fontSize, weight: .bold))
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
                 if minute != 0 {
-                    Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
-                        .font(.system(size: 22, weight: .bold))
-                        .fixedSize(horizontal: false, vertical: true)
+                    Text(minText)
+                        .font(.system(size: fontSize, weight: .bold))
+                        .minimumScaleFactor(0.6)
+                        .lineLimit(1)
                 }
             }
             .foregroundStyle(widgetTextColor())

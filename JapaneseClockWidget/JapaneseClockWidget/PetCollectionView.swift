@@ -65,10 +65,15 @@ struct PetCollectionView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
 
                 VStack(spacing: 6) {
-                    // Name + stage
+                    // Name
                     Text(pet.displaySpeciesName)
                         .font(.system(size: 14, weight: .bold))
                         .foregroundStyle(.black)
+
+                    // Japanese name
+                    Text(pet.displayJapaneseName)
+                        .font(.custom("HiraginoSans-W3", size: 10))
+                        .foregroundStyle(.black.opacity(0.3))
 
                     // Stage indicator
                     stageIndicator(pet: pet)

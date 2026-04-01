@@ -13,7 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.japetnese.app.model.*
+import com.japetnese.app.model.DisplayMode
+import com.japetnese.app.model.PetManager
+import com.japetnese.app.model.WidgetColorMode
 import com.japetnese.app.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,6 +55,7 @@ fun SettingsScreen(petManager: PetManager, onDismiss: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsRow(title: String, description: String, isSelected: Boolean, onClick: () -> Unit) {
     Card(

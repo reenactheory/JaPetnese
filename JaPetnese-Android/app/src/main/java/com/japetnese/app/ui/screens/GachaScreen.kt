@@ -19,6 +19,7 @@ import com.japetnese.app.model.*
 import com.japetnese.app.ui.components.PixelPetView
 import com.japetnese.app.ui.theme.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,7 +93,7 @@ fun GachaScreen(petManager: PetManager) {
             if (petManager.canFreeGacha) {
                 GachaButton("무료 뽑기", "첫 1회 무료!", Icons.Default.CardGiftcard) {
                     isRolling = true
-                    kotlinx.coroutines.MainScope().launch {
+                    kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.Main) {
                         delay(1500)
                         rolledPet = petManager.useFreeGacha()
                         isRolling = false
@@ -104,7 +105,7 @@ fun GachaScreen(petManager: PetManager) {
             if (petManager.canAdGacha) {
                 GachaButton("광고 보고 뽑기", "오늘 ${petManager.adGachaRemaining}회 남음", Icons.Default.PlayCircle) {
                     isRolling = true
-                    kotlinx.coroutines.MainScope().launch {
+                    kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.Main) {
                         delay(1500)
                         rolledPet = petManager.useAdGacha()
                         isRolling = false
@@ -121,6 +122,7 @@ fun GachaScreen(petManager: PetManager) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GachaButton(title: String, subtitle: String, icon: ImageVector, onClick: () -> Unit) {
     Card(

@@ -2,6 +2,7 @@ package com.japetnese.app.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pets
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,7 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.japetnese.app.formatter.JapaneseTimeFormatter
-import com.japetnese.app.model.*
+import com.japetnese.app.model.DisplayMode
+import com.japetnese.app.model.PetManager
 import com.japetnese.app.ui.components.PixelPetView
 import com.japetnese.app.ui.theme.*
 import kotlinx.coroutines.delay

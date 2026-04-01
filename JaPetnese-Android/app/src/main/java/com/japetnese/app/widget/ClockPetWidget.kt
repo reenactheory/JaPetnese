@@ -1,40 +1,23 @@
 package com.japetnese.app.widget
 
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
 import android.content.Context
-import androidx.glance.*
-import androidx.glance.appwidget.*
-import androidx.glance.layout.*
-import androidx.glance.text.*
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import android.widget.RemoteViews
+import com.japetnese.app.R
 import com.japetnese.app.formatter.JapaneseTimeFormatter
 import java.util.Date
 
-class ClockPetWidget : GlanceAppWidget() {
-    override suspend fun provideGlance(context: Context, id: GlanceId) {
-        provideContent {
+class ClockPetWidgetReceiver : AppWidgetProvider() {
+    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+        for (id in appWidgetIds) {
+            val views = RemoteViews(context.packageName, R.layout.widget_clock_pet)
             val date = Date()
-            Column(
-                modifier = GlanceModifier.fillMaxSize().padding(14.dp),
-            ) {
-                Text(
-                    text = JapaneseTimeFormatter.formatAmPm(date),
-                    style = TextStyle(fontSize = 14.sp)
-                )
-                Spacer(modifier = GlanceModifier.defaultWeight())
-                Text(
-                    text = JapaneseTimeFormatter.formatHour(date),
-                    style = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold)
-                )
-                val min = JapaneseTimeFormatter.formatMinute(date)
-                if (min.isNotEmpty()) {
-                    Text(text = min, style = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold))
-                }
-            }
+            views.setTextViewText(R.id.widget_ampm, JapaneseTimeFormatter.formatAmPm(date))
+            views.setTextViewText(R.id.widget_hour, JapaneseTimeFormatter.formatHour(date))
+            val min = JapaneseTimeFormatter.formatMinute(date)
+            views.setTextViewText(R.id.widget_minute, min)
+            appWidgetManager.updateAppWidget(id, views)
         }
     }
-}
-
-class ClockPetWidgetReceiver : GlanceAppWidgetReceiver() {
-    override val glanceAppWidget = ClockPetWidget()
 }

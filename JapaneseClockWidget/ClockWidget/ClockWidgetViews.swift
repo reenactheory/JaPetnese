@@ -72,10 +72,14 @@ struct WidgetTimeView: View {
         case .hiraganaOnly:
             VStack(alignment: .leading, spacing: 2) {
                 Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
-                    .font(.system(size: size * 0.65, weight: .bold))
+                    .font(.system(size: size * 0.55, weight: .bold))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
-                        .font(.system(size: size * 0.55, weight: .bold))
+                        .font(.system(size: size * 0.45, weight: .bold))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                 }
             }
         }

@@ -124,20 +124,47 @@ struct SmallClockView: View {
     let mode: DisplayMode
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                widgetPetView(pixelSize: 2.5)
+        if mode == .hiraganaOnly {
+            // 히라가나: AM/PM 우상단, 시간 3줄로
+            let minute = Calendar.current.component(.minute, from: date)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    widgetPetView(pixelSize: 2)
+                    Spacer()
+                    Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date))
+                        .font(.system(size: 12, weight: .semibold))
+                }
+
                 Spacer()
-                WidgetAmPmView(date: date, mode: mode, size: 14)
+
+                Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
+                    .font(.system(size: 22, weight: .bold))
+                if minute != 0 {
+                    Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
+                        .font(.system(size: 22, weight: .bold))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
+            .foregroundStyle(Color(UIColor.label))
+            .padding(12)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            // 한자/후리가나: 기존 레이아웃
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    widgetPetView(pixelSize: 2.5)
+                    Spacer()
+                    WidgetAmPmView(date: date, mode: mode, size: 14)
+                }
 
-            Spacer()
+                Spacer()
 
-            WidgetTimeView(date: date, mode: mode, size: 36)
+                WidgetTimeView(date: date, mode: mode, size: 36)
+            }
+            .foregroundStyle(Color(UIColor.label))
+            .padding(14)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .foregroundStyle(Color(UIColor.label))
-        .padding(14)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

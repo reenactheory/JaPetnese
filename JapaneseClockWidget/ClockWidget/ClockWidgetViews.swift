@@ -68,7 +68,7 @@ struct SmallClockView: View {
                 }
             }
         }
-        .foregroundStyle(.primary)
+        .foregroundStyle(Color(UIColor.label))
         .padding(14)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -101,10 +101,10 @@ struct MediumClockView: View {
                 widgetPetView(pixelSize: 3)
                 Text(JapaneseTimeFormatter.formatDateShort(from: date))
                     .font(.custom(jpFontMid, size: 13))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color(UIColor.secondaryLabel))
             }
         }
-        .foregroundStyle(.primary)
+        .foregroundStyle(Color(UIColor.label))
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -140,12 +140,12 @@ struct LargeClockView: View {
             HStack(alignment: .bottom) {
                 Text(JapaneseTimeFormatter.formatDate(from: date))
                     .font(.custom(jpFontMid, size: 14))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color(UIColor.secondaryLabel))
                 Spacer()
                 widgetPetView(pixelSize: 4.5)
             }
         }
-        .foregroundStyle(.primary)
+        .foregroundStyle(Color(UIColor.label))
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

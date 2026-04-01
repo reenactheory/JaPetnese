@@ -89,13 +89,12 @@ struct ClockOnlyWidgetView: View {
 
     var body: some View {
         let mode = PetManager.loadDisplayMode()
-        let minute = Calendar.current.component(.minute, from: entry.date)
 
-        VStack(spacing: 8) {
-            Spacer()
-
+        VStack(alignment: .leading, spacing: 8) {
             WidgetAmPmView(date: entry.date, mode: mode, size: 14)
                 .foregroundStyle(Color(UIColor.secondaryLabel))
+
+            Spacer()
 
             WidgetTimeView(date: entry.date, mode: mode, size: 48)
                 .foregroundStyle(Color(UIColor.label))
@@ -112,10 +111,9 @@ struct ClockOnlyWidgetView: View {
             }
             .font(.system(size: 12, weight: .medium))
             .foregroundStyle(Color(UIColor.secondaryLabel))
-
-            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .padding(16)
     }
 }
 

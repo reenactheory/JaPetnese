@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JaPetnese</string>
+    <string name="widget_clock_pet_description">일본어 시계 + 펫</string>
+    <string name="widget_clock_description">시계만</string>
+    <string name="widget_pet_description">펫만</string>
+</resources>

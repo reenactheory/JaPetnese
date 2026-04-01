@@ -203,6 +203,13 @@ struct PetOnlyWidgetView: View {
                         .foregroundStyle(widgetSecondaryTextColor())
                         .padding(.top, 8)
                 }
+
+                if let remaining = pet.nextStageIn {
+                    Text(remaining)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(Color(UIColor.tertiaryLabel))
+                        .padding(.top, 4)
+                }
             } else {
                 Image(systemName: "pawprint.fill")
                     .font(.system(size: 36))

@@ -79,9 +79,9 @@ struct PetCollectionView: View {
                 // Stage indicator
                 stageIndicator(pet: pet)
 
-                Spacer().frame(height: 10)
+                Spacer()
 
-                // Progress bar (non-adult)
+                // Progress bar (non-adult) or spacer for adult
                 if pet.stage != .adult {
                     VStack(spacing: 5) {
                         GeometryReader { geo in
@@ -101,8 +101,6 @@ struct PetCollectionView: View {
                         }
                     }
                 }
-
-                Spacer()
 
                 // Bottom badges — always reserve space
                 HStack(spacing: 6) {

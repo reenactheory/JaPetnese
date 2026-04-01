@@ -34,9 +34,12 @@ struct TimeDisplayView: View {
     let mode: DisplayMode
     let size: CGFloat
     var alignment: HorizontalAlignment = .leading
+    var equalHiraganaSize: Bool = false
 
     var body: some View {
         let hasMinute = Calendar.current.component(.minute, from: date) != 0
+        let hiraganaHourSize = equalHiraganaSize ? size * 0.6 : size * 0.7
+        let hiraganaMinSize = size * 0.6
 
         switch mode {
         case .kanjiOnly:
@@ -63,11 +66,11 @@ struct TimeDisplayView: View {
         case .hiraganaOnly:
             VStack(alignment: alignment, spacing: 12) {
                 Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
-                    .font(.custom(jpFontBold, size: size * 0.7))
+                    .font(.custom(jpFontBold, size: hiraganaHourSize))
                     .lineSpacing(12)
                 if hasMinute {
                     Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
-                        .font(.custom(jpFontBold, size: size * 0.6))
+                        .font(.custom(jpFontBold, size: hiraganaMinSize))
                         .lineSpacing(12)
                 }
             }
@@ -238,7 +241,7 @@ struct WidgetPreviewSmall: View {
 
             Spacer()
 
-            TimeDisplayView(date: date, mode: mode, size: 36, alignment: .leading)
+            TimeDisplayView(date: date, mode: mode, size: 36, alignment: .leading, equalHiraganaSize: true)
         }
         .padding(16)
         .frame(width: 155, height: 155)

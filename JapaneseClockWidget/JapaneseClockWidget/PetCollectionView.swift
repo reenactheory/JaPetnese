@@ -55,19 +55,26 @@ struct PetCollectionView: View {
             petManager.equipPet(pet.id)
         } label: {
             VStack(spacing: 0) {
-                // Pet sprite area
+                // Pet sprite area — top rounded, bottom flat
                 ZStack {
-                    Color.black.opacity(0.02)
-
+                    Color.black.opacity(0.03)
                     PetView(pet: pet, pixelSize: 4.5, animated: isEquipped)
                 }
-                .frame(height: 70)
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .frame(height: 90)
+                .clipShape(
+                    UnevenRoundedRectangle(
+                        topLeadingRadius: 18,
+                        bottomLeadingRadius: 0,
+                        bottomTrailingRadius: 0,
+                        topTrailingRadius: 18,
+                        style: .continuous
+                    )
+                )
 
-                VStack(spacing: 6) {
+                VStack(spacing: 10) {
                     // Name
                     Text(pet.displaySpeciesName)
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.system(size: 15, weight: .bold))
                         .foregroundStyle(.black)
 
                     // Japanese name
@@ -80,16 +87,14 @@ struct PetCollectionView: View {
 
                     // Progress or rarity
                     if pet.stage == .adult {
-                        // Rarity badge
                         Text(pet.rarity.displayName)
                             .font(.system(size: 10, weight: .bold))
                             .foregroundStyle(rarityColor(pet.rarity))
                             .padding(.horizontal, 10)
-                            .padding(.vertical, 3)
+                            .padding(.vertical, 4)
                             .background(rarityColor(pet.rarity).opacity(0.08), in: Capsule())
                     } else {
-                        // Growth progress
-                        VStack(spacing: 3) {
+                        VStack(spacing: 5) {
                             GeometryReader { geo in
                                 ZStack(alignment: .leading) {
                                     Capsule().fill(Color.black.opacity(0.05))
@@ -106,29 +111,24 @@ struct PetCollectionView: View {
                             }
                         }
                     }
-                }
-                .padding(.horizontal, 10)
-                .padding(.top, 10)
-                .padding(.bottom, isEquipped ? 6 : 12)
 
-                // Equipped badge
-                if isEquipped {
-                    Text("장착 중")
-                        .font(.system(size: 9, weight: .bold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background(.black, in: Capsule())
-                        .padding(.bottom, 10)
+                    // Equipped badge
+                    if isEquipped {
+                        Text("장착 중")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 5)
+                            .background(.black, in: Capsule())
+                    }
                 }
+                .padding(.horizontal, 12)
+                .padding(.top, 14)
+                .padding(.bottom, 16)
             }
             .frame(maxWidth: .infinity)
             .background(bgCard, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .strokeBorder(isEquipped ? Color.black.opacity(0.2) : Color.black.opacity(0.04), lineWidth: isEquipped ? 1.5 : 0.5)
-            )
-            .shadow(color: .black.opacity(0.03), radius: 8, y: 2)
+            .shadow(color: .black.opacity(isEquipped ? 0.1 : 0.04), radius: isEquipped ? 12 : 8, y: isEquipped ? 4 : 2)
         }
         .buttonStyle(.plain)
     }

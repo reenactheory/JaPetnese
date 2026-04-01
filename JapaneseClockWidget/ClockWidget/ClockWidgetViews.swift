@@ -1,10 +1,6 @@
 import SwiftUI
 import WidgetKit
 
-private let jpFontBold = "HiraginoSans-W7"
-private let jpFont = "HiraginoSans-W6"
-private let jpFontMid = "HiraginoSans-W4"
-
 struct ClockWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
     var entry: ClockEntry
@@ -54,17 +50,17 @@ struct SmallClockView: View {
                 widgetPetView(pixelSize: 2.5)
                 Spacer()
                 Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.custom(jpFont, size: 14))
+                    .font(.system(size: 14, weight: .semibold))
             }
 
             Spacer()
 
             VStack(alignment: .leading, spacing: -2) {
                 Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.custom(jpFontBold, size: 36))
+                    .font(.system(size: 36, weight: .bold))
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.custom(jpFontBold, size: 36))
+                        .font(.system(size: 36, weight: .bold))
                 }
             }
         }
@@ -85,10 +81,10 @@ struct MediumClockView: View {
             VStack(alignment: .leading, spacing: -2) {
                 Spacer()
                 Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.custom(jpFontBold, size: 38))
+                    .font(.system(size: 38, weight: .bold))
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.custom(jpFontBold, size: 38))
+                        .font(.system(size: 38, weight: .bold))
                 }
             }
 
@@ -96,11 +92,11 @@ struct MediumClockView: View {
 
             VStack(alignment: .trailing, spacing: 8) {
                 Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.custom(jpFont, size: 14))
+                    .font(.system(size: 14, weight: .semibold))
                 Spacer()
                 widgetPetView(pixelSize: 3)
                 Text(JapaneseTimeFormatter.formatDateShort(from: date))
-                    .font(.custom(jpFontMid, size: 13))
+                    .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(Color(UIColor.secondaryLabel))
             }
         }
@@ -121,17 +117,17 @@ struct LargeClockView: View {
             HStack {
                 Spacer()
                 Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.custom(jpFont, size: 18))
+                    .font(.system(size: 18, weight: .semibold))
             }
 
             Spacer()
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.custom(jpFontBold, size: 64))
+                    .font(.system(size: 64, weight: .bold))
                 if minute != 0 {
                     Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.custom(jpFontBold, size: 64))
+                        .font(.system(size: 64, weight: .bold))
                 }
             }
 
@@ -139,7 +135,7 @@ struct LargeClockView: View {
 
             HStack(alignment: .bottom) {
                 Text(JapaneseTimeFormatter.formatDate(from: date))
-                    .font(.custom(jpFontMid, size: 14))
+                    .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(Color(UIColor.secondaryLabel))
                 Spacer()
                 widgetPetView(pixelSize: 4.5)

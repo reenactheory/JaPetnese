@@ -154,15 +154,17 @@ struct ContentView: View {
             Spacer()
 
             // Time section
-            VStack(spacing: 12) {
+            VStack(spacing: 6) {
                 AmPmDisplayView(date: currentDate, mode: mode, size: 16)
                     .foregroundStyle(textSecondary)
 
-                TimeDisplayView(date: currentDate, mode: mode, size: 64, alignment: .center)
-
-                DateDisplayView(date: currentDate, mode: mode, size: 14)
-                    .foregroundStyle(textSecondary)
+                TimeDisplayView(date: currentDate, mode: mode, size: 64, alignment: .center, equalHiraganaSize: true)
             }
+
+            Spacer().frame(height: 20)
+
+            DateDisplayView(date: currentDate, mode: mode, size: 14)
+                .foregroundStyle(textSecondary)
 
             Spacer().frame(height: 40)
 

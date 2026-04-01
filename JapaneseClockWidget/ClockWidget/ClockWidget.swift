@@ -94,27 +94,36 @@ struct ClockOnlyWidgetView: View {
         VStack(alignment: .leading, spacing: 0) {
             switch mode {
             case .hiraganaOnly:
+                let hourText = JapaneseTimeFormatter.formatHourHiragana(from: entry.date)
+                let minText = minute != 0 ? JapaneseTimeFormatter.formatMinuteHiragana(from: entry.date) : ""
+                let longest = max(hourText.count, minText.count)
+                // 짧으면 크게, 길면 작게
+                let fontSize: CGFloat = longest <= 3 ? 32 : longest <= 5 ? 28 : longest <= 7 ? 24 : 20
+
                 Text(JapaneseTimeFormatter.formatAmPmHiragana(from: entry.date))
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: fontSize * 0.5, weight: .semibold))
                     .foregroundStyle(Color(UIColor.secondaryLabel))
                     .lineLimit(1)
 
                 Spacer()
 
-                Text(JapaneseTimeFormatter.formatHourHiragana(from: entry.date))
-                    .font(.system(size: 24, weight: .bold))
+                Text(hourText)
+                    .font(.system(size: fontSize, weight: .bold))
                     .foregroundStyle(Color(UIColor.label))
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
                 if minute != 0 {
-                    Text(JapaneseTimeFormatter.formatMinuteHiragana(from: entry.date))
-                        .font(.system(size: 24, weight: .bold))
+                    Text(minText)
+                        .font(.system(size: fontSize, weight: .bold))
                         .foregroundStyle(Color(UIColor.label))
-                        .fixedSize(horizontal: false, vertical: true)
+                        .minimumScaleFactor(0.6)
+                        .lineLimit(1)
                 }
 
                 Spacer().frame(height: 8)
 
                 Text(JapaneseTimeFormatter.formatDateHiragana(from: entry.date))
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.system(size: fontSize * 0.5, weight: .bold))
                     .foregroundStyle(Color(UIColor.secondaryLabel))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)

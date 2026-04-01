@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0ACE26C41734FCFAEC19F74F /* PetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */; };
+		1DAACB5CF18D7C316ED88B8F /* ClockWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E1DB103FEAD3575C06FC1C /* ClockWidgetViews.swift */; };
+		2AF4DB81DA7C062637E89C8C /* PetPixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971B843B29AFD33BF31C57EA /* PetPixelData.swift */; };
+		2FD4F2FC3D6FF6FD24D1CEF7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB7E0A59DD1321BEB82ED2 /* OnboardingView.swift */; };
+		321F0D448C8D8019CCF5A704 /* JapaneseTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */; };
+		32CC6859E6B462DC3AB5B884 /* PetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D179CDFCE8381301F844C546 /* PetCollectionView.swift */; };
+		3A516EA7CE627082098A4B63 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D326EAD7BD37CFB03801A /* ContentView.swift */; };
+		50516B1194E1F1075B07949A /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FC1EF3B7EE6193AA1A16C /* PetModel.swift */; };
+		647F4A4E3F5E914E4ACD48EA /* PetPixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971B843B29AFD33BF31C57EA /* PetPixelData.swift */; };
+		6843BC014638A0DB2141F55A /* JapaneseClockWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */; };
+		6AEDC71A1BB7C194F4E37897 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43F40EC21E762C4BA6AC112A /* Assets.xcassets */; };
+		7B584DA0659401FCED0A8EF3 /* ClockWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C65C2E87022FAA2AD92920A /* ClockWidget.swift */; };
+		8632A8CC3E74D92943B56BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFC519CD62578FABF469D7B3 /* Assets.xcassets */; };
+		906B22DE412AEBC9B8142BE9 /* PixelCatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54706863C784481DB0CDCA /* PixelCatView.swift */; };
+		B89AA57B0E4F7A1A50D0A980 /* GachaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24235EB031E632874AC84A6 /* GachaView.swift */; };
+		D613BDEC8B589D3189626C1F /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FC1EF3B7EE6193AA1A16C /* PetModel.swift */; };
+		D8C3A95F7E986700EAAF61EB /* JapaneseTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */; };
+		DE805E1E13BF66CA7AE7DD00 /* PetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */; };
+		E7F4EFCFB8AD00F69524D341 /* ClockWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FAB6D17656CB95E0170346FA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D4CF4FAB8BB505C7EA83D /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EFC3CA628C0F6076FBA84A7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 822B5D35C23FCDB85C0DB56E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CB9B4D8238BF37EE1B35578;
+			remoteInfo = ClockWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BB8AD71954DEB1BC18248972 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E7F4EFCFB8AD00F69524D341 /* ClockWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		128FC1EF3B7EE6193AA1A16C /* PetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetModel.swift; sourceTree = "<group>"; };
+		288D326EAD7BD37CFB03801A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		34942AC50609BE7B4E975A0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		43F40EC21E762C4BA6AC112A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseClockWidgetApp.swift; sourceTree = "<group>"; };
+		74CB7E0A59DD1321BEB82ED2 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		782009D2E486B0253883C67D /* JapaneseClockWidget.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JapaneseClockWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83331E80E8FEB506673778C1 /* JapaneseClockWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JapaneseClockWidget.entitlements; sourceTree = "<group>"; };
+		86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetView.swift; sourceTree = "<group>"; };
+		946D4CF4FAB8BB505C7EA83D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		971B843B29AFD33BF31C57EA /* PetPixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetPixelData.swift; sourceTree = "<group>"; };
+		9C65C2E87022FAA2AD92920A /* ClockWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockWidget.swift; sourceTree = "<group>"; };
+		A24235EB031E632874AC84A6 /* GachaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GachaView.swift; sourceTree = "<group>"; };
+		AC9A8D91D2100D16876FE3E3 /* ClockWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClockWidgetExtension.entitlements; sourceTree = "<group>"; };
+		CFC519CD62578FABF469D7B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D179CDFCE8381301F844C546 /* PetCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCollectionView.swift; sourceTree = "<group>"; };
+		DF54706863C784481DB0CDCA /* PixelCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCatView.swift; sourceTree = "<group>"; };
+		E4E1DB103FEAD3575C06FC1C /* ClockWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockWidgetViews.swift; sourceTree = "<group>"; };
+		E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseTimeFormatter.swift; sourceTree = "<group>"; };
+		F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ClockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5E5F9E812D7DCF5B11176604 /* JapaneseClockWidget */ = {
+			isa = PBXGroup;
+			children = (
+				43F40EC21E762C4BA6AC112A /* Assets.xcassets */,
+				288D326EAD7BD37CFB03801A /* ContentView.swift */,
+				A24235EB031E632874AC84A6 /* GachaView.swift */,
+				83331E80E8FEB506673778C1 /* JapaneseClockWidget.entitlements */,
+				4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */,
+				E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */,
+				74CB7E0A59DD1321BEB82ED2 /* OnboardingView.swift */,
+				D179CDFCE8381301F844C546 /* PetCollectionView.swift */,
+				128FC1EF3B7EE6193AA1A16C /* PetModel.swift */,
+				971B843B29AFD33BF31C57EA /* PetPixelData.swift */,
+				86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */,
+				DF54706863C784481DB0CDCA /* PixelCatView.swift */,
+				946D4CF4FAB8BB505C7EA83D /* SettingsView.swift */,
+			);
+			path = JapaneseClockWidget;
+			sourceTree = "<group>";
+		};
+		865A2484FF9649B32E504781 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */,
+				782009D2E486B0253883C67D /* JapaneseClockWidget.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B276338F1DFA64899A03FE86 = {
+			isa = PBXGroup;
+			children = (
+				F842C9EBCC4FB7319C81BA65 /* ClockWidget */,
+				5E5F9E812D7DCF5B11176604 /* JapaneseClockWidget */,
+				865A2484FF9649B32E504781 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F842C9EBCC4FB7319C81BA65 /* ClockWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CFC519CD62578FABF469D7B3 /* Assets.xcassets */,
+				9C65C2E87022FAA2AD92920A /* ClockWidget.swift */,
+				AC9A8D91D2100D16876FE3E3 /* ClockWidgetExtension.entitlements */,
+				E4E1DB103FEAD3575C06FC1C /* ClockWidgetViews.swift */,
+				34942AC50609BE7B4E975A0F /* Info.plist */,
+			);
+			path = ClockWidget;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5CB9B4D8238BF37EE1B35578 /* ClockWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49150169D76386D33137ABB8 /* Build configuration list for PBXNativeTarget "ClockWidgetExtension" */;
+			buildPhases = (
+				2B24FEC6395621438201F033 /* Sources */,
+				CB5447D16490E6B3BE2E7B22 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClockWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = ClockWidgetExtension;
+			productReference = F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		EEE0497EEFBF8170378197DA /* JapaneseClockWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9097C5286CFB2E234DE88505 /* Build configuration list for PBXNativeTarget "JapaneseClockWidget" */;
+			buildPhases = (
+				25111F8C0C63FE5A52F5EF3A /* Sources */,
+				9196F1C2B6700C6A0FE0D439 /* Resources */,
+				BB8AD71954DEB1BC18248972 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				620E4F899A365618C35D40F4 /* PBXTargetDependency */,
+			);
+			name = JapaneseClockWidget;
+			packageProductDependencies = (
+			);
+			productName = JapaneseClockWidget;
+			productReference = 782009D2E486B0253883C67D /* JapaneseClockWidget.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		822B5D35C23FCDB85C0DB56E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					5CB9B4D8238BF37EE1B35578 = {
+						DevelopmentTeam = "";
+					};
+					EEE0497EEFBF8170378197DA = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = DACCC5069D1E691155CE4094 /* Build configuration list for PBXProject "JapaneseClockWidget" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = B276338F1DFA64899A03FE86;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 865A2484FF9649B32E504781 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5CB9B4D8238BF37EE1B35578 /* ClockWidgetExtension */,
+				EEE0497EEFBF8170378197DA /* JapaneseClockWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9196F1C2B6700C6A0FE0D439 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6AEDC71A1BB7C194F4E37897 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB5447D16490E6B3BE2E7B22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8632A8CC3E74D92943B56BD8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		25111F8C0C63FE5A52F5EF3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A516EA7CE627082098A4B63 /* ContentView.swift in Sources */,
+				B89AA57B0E4F7A1A50D0A980 /* GachaView.swift in Sources */,
+				6843BC014638A0DB2141F55A /* JapaneseClockWidgetApp.swift in Sources */,
+				D8C3A95F7E986700EAAF61EB /* JapaneseTimeFormatter.swift in Sources */,
+				2FD4F2FC3D6FF6FD24D1CEF7 /* OnboardingView.swift in Sources */,
+				32CC6859E6B462DC3AB5B884 /* PetCollectionView.swift in Sources */,
+				50516B1194E1F1075B07949A /* PetModel.swift in Sources */,
+				2AF4DB81DA7C062637E89C8C /* PetPixelData.swift in Sources */,
+				DE805E1E13BF66CA7AE7DD00 /* PetView.swift in Sources */,
+				906B22DE412AEBC9B8142BE9 /* PixelCatView.swift in Sources */,
+				FAB6D17656CB95E0170346FA /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B24FEC6395621438201F033 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B584DA0659401FCED0A8EF3 /* ClockWidget.swift in Sources */,
+				1DAACB5CF18D7C316ED88B8F /* ClockWidgetViews.swift in Sources */,
+				321F0D448C8D8019CCF5A704 /* JapaneseTimeFormatter.swift in Sources */,
+				D613BDEC8B589D3189626C1F /* PetModel.swift in Sources */,
+				647F4A4E3F5E914E4ACD48EA /* PetPixelData.swift in Sources */,
+				0ACE26C41734FCFAEC19F74F /* PetView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		620E4F899A365618C35D40F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CB9B4D8238BF37EE1B35578 /* ClockWidgetExtension */;
+			targetProxy = EFC3CA628C0F6076FBA84A7B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		057C9EBCDA9B7636EA440DB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		58EAEC8CD8F7A4D1CC406B84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClockWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7325E821336AB71F3BDCA971 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		A8FEC088A99B906AF0194008 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ClockWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC178F157D0C6EC14F6E7840 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF98D08183396C8ADA1645A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49150169D76386D33137ABB8 /* Build configuration list for PBXNativeTarget "ClockWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8FEC088A99B906AF0194008 /* Debug */,
+				58EAEC8CD8F7A4D1CC406B84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9097C5286CFB2E234DE88505 /* Build configuration list for PBXNativeTarget "JapaneseClockWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC178F157D0C6EC14F6E7840 /* Debug */,
+				EF98D08183396C8ADA1645A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DACCC5069D1E691155CE4094 /* Build configuration list for PBXProject "JapaneseClockWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7325E821336AB71F3BDCA971 /* Debug */,
+				057C9EBCDA9B7636EA440DB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 822B5D35C23FCDB85C0DB56E /* Project object */;
+}

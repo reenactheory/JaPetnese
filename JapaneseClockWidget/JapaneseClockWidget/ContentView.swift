@@ -182,6 +182,15 @@ struct ContentView: View {
         .onReceive(timer) { input in
             currentDate = input
         }
+        .onChange(of: displayModeRaw) { _, newValue in
+            if let mode = DisplayMode(rawValue: newValue) {
+                PetManager.shared.saveDisplayMode(mode)
+            }
+        }
+        .onAppear {
+            // Sync display mode to App Group on launch
+            PetManager.shared.saveDisplayMode(mode)
+        }
         .sheet(isPresented: $showSettings) {
             SettingsView()
         }

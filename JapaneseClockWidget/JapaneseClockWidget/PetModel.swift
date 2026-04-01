@@ -400,6 +400,20 @@ class PetManager: ObservableObject {
         return .normal
     }
 
+    // MARK: - Display Mode (shared with widget)
+
+    private static let displayModeKey = "displayMode"
+
+    func saveDisplayMode(_ mode: DisplayMode) {
+        defaults.set(mode.rawValue, forKey: Self.displayModeKey)
+    }
+
+    static func loadDisplayMode() -> DisplayMode {
+        let defaults = UserDefaults(suiteName: suiteName) ?? .standard
+        let raw = defaults.string(forKey: displayModeKey) ?? DisplayMode.kanjiOnly.rawValue
+        return DisplayMode(rawValue: raw) ?? .kanjiOnly
+    }
+
     // MARK: - Static helper for widget
 
     static func loadCurrentPet() -> Pet? {

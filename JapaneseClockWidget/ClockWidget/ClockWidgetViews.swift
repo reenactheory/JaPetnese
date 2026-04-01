@@ -6,20 +6,21 @@ struct ClockWidgetEntryView: View {
     var entry: ClockEntry
 
     var body: some View {
+        let mode = PetManager.loadDisplayMode()
         switch family {
         case .systemSmall:
-            SmallClockView(date: entry.date)
+            SmallClockView(date: entry.date, mode: mode)
         case .systemMedium:
-            MediumClockView(date: entry.date)
+            MediumClockView(date: entry.date, mode: mode)
         case .systemLarge:
-            LargeClockView(date: entry.date)
+            LargeClockView(date: entry.date, mode: mode)
         default:
-            SmallClockView(date: entry.date)
+            SmallClockView(date: entry.date, mode: mode)
         }
     }
 }
 
-// MARK: - Widget Pet Helper
+// MARK: - Widget Helpers
 
 @ViewBuilder
 func widgetPetView(pixelSize: CGFloat) -> some View {
@@ -38,31 +39,100 @@ func widgetPetAccentColor() -> Color {
     return .clear
 }
 
+// MARK: - Widget Time Text Helpers
+
+struct WidgetTimeView: View {
+    let date: Date
+    let mode: DisplayMode
+    let size: CGFloat
+
+    var body: some View {
+        let minute = Calendar.current.component(.minute, from: date)
+
+        switch mode {
+        case .kanjiOnly:
+            VStack(alignment: .leading, spacing: -2) {
+                Text(JapaneseTimeFormatter.formatHour(from: date))
+                    .font(.system(size: size, weight: .bold))
+                if minute != 0 {
+                    Text(JapaneseTimeFormatter.formatMinute(from: date))
+                        .font(.system(size: size, weight: .bold))
+                }
+            }
+        case .furigana:
+            // Widget에서는 후리가나 대신 한자 + 작은 읽기 표시
+            VStack(alignment: .leading, spacing: -2) {
+                Text(JapaneseTimeFormatter.formatHour(from: date))
+                    .font(.system(size: size, weight: .bold))
+                if minute != 0 {
+                    Text(JapaneseTimeFormatter.formatMinute(from: date))
+                        .font(.system(size: size, weight: .bold))
+                }
+            }
+        case .hiraganaOnly:
+            VStack(alignment: .leading, spacing: 2) {
+                Text(JapaneseTimeFormatter.formatHourHiragana(from: date))
+                    .font(.system(size: size * 0.65, weight: .bold))
+                if minute != 0 {
+                    Text(JapaneseTimeFormatter.formatMinuteHiragana(from: date))
+                        .font(.system(size: size * 0.55, weight: .bold))
+                }
+            }
+        }
+    }
+}
+
+struct WidgetAmPmView: View {
+    let date: Date
+    let mode: DisplayMode
+    let size: CGFloat
+
+    var body: some View {
+        switch mode {
+        case .hiraganaOnly:
+            Text(JapaneseTimeFormatter.formatAmPmHiragana(from: date))
+                .font(.system(size: size, weight: .semibold))
+        default:
+            Text(JapaneseTimeFormatter.formatAmPm(from: date))
+                .font(.system(size: size, weight: .semibold))
+        }
+    }
+}
+
+struct WidgetDateView: View {
+    let date: Date
+    let mode: DisplayMode
+    let size: CGFloat
+
+    var body: some View {
+        switch mode {
+        case .hiraganaOnly:
+            Text(JapaneseTimeFormatter.formatDateShortHiragana(from: date))
+                .font(.system(size: size, weight: .medium))
+        default:
+            Text(JapaneseTimeFormatter.formatDateShort(from: date))
+                .font(.system(size: size, weight: .medium))
+        }
+    }
+}
+
 // MARK: - Small Widget
 
 struct SmallClockView: View {
     let date: Date
+    let mode: DisplayMode
 
     var body: some View {
-        let minute = Calendar.current.component(.minute, from: date)
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 widgetPetView(pixelSize: 2.5)
                 Spacer()
-                Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.system(size: 14, weight: .semibold))
+                WidgetAmPmView(date: date, mode: mode, size: 14)
             }
 
             Spacer()
 
-            VStack(alignment: .leading, spacing: -2) {
-                Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.system(size: 36, weight: .bold))
-                if minute != 0 {
-                    Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.system(size: 36, weight: .bold))
-                }
-            }
+            WidgetTimeView(date: date, mode: mode, size: 36)
         }
         .foregroundStyle(Color(UIColor.label))
         .padding(14)
@@ -74,29 +144,22 @@ struct SmallClockView: View {
 
 struct MediumClockView: View {
     let date: Date
+    let mode: DisplayMode
 
     var body: some View {
-        let minute = Calendar.current.component(.minute, from: date)
         HStack(alignment: .bottom) {
-            VStack(alignment: .leading, spacing: -2) {
+            VStack(alignment: .leading) {
                 Spacer()
-                Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.system(size: 38, weight: .bold))
-                if minute != 0 {
-                    Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.system(size: 38, weight: .bold))
-                }
+                WidgetTimeView(date: date, mode: mode, size: 38)
             }
 
             Spacer()
 
             VStack(alignment: .trailing, spacing: 8) {
-                Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.system(size: 14, weight: .semibold))
+                WidgetAmPmView(date: date, mode: mode, size: 14)
                 Spacer()
                 widgetPetView(pixelSize: 3)
-                Text(JapaneseTimeFormatter.formatDateShort(from: date))
-                    .font(.system(size: 13, weight: .medium))
+                WidgetDateView(date: date, mode: mode, size: 13)
                     .foregroundStyle(Color(UIColor.secondaryLabel))
             }
         }
@@ -110,33 +173,33 @@ struct MediumClockView: View {
 
 struct LargeClockView: View {
     let date: Date
+    let mode: DisplayMode
 
     var body: some View {
-        let minute = Calendar.current.component(.minute, from: date)
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
-                Text(JapaneseTimeFormatter.formatAmPm(from: date))
-                    .font(.system(size: 18, weight: .semibold))
+                WidgetAmPmView(date: date, mode: mode, size: 18)
             }
 
             Spacer()
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(JapaneseTimeFormatter.formatHour(from: date))
-                    .font(.system(size: 64, weight: .bold))
-                if minute != 0 {
-                    Text(JapaneseTimeFormatter.formatMinute(from: date))
-                        .font(.system(size: 64, weight: .bold))
-                }
-            }
+            WidgetTimeView(date: date, mode: mode, size: 64)
 
             Spacer().frame(height: 16)
 
             HStack(alignment: .bottom) {
-                Text(JapaneseTimeFormatter.formatDate(from: date))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(Color(UIColor.secondaryLabel))
+                Group {
+                    switch mode {
+                    case .hiraganaOnly:
+                        Text(JapaneseTimeFormatter.formatDateHiragana(from: date))
+                    default:
+                        Text(JapaneseTimeFormatter.formatDate(from: date))
+                    }
+                }
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(Color(UIColor.secondaryLabel))
+
                 Spacer()
                 widgetPetView(pixelSize: 4.5)
             }

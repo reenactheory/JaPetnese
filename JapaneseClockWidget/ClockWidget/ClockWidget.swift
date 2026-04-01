@@ -66,6 +66,118 @@ struct ClockWidget: Widget {
     }
 }
 
+// MARK: - Clock Only Widget (시계만, 펫 없음)
+
+struct ClockOnlyWidget: Widget {
+    let kind: String = "ClockOnlyWidget"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: ClockTimelineProvider()) { entry in
+            ClockOnlyWidgetView(entry: entry)
+                .containerBackground(for: .widget) {
+                    Color(.systemBackground)
+                }
+        }
+        .configurationDisplayName("시계만")
+        .description("펫 없이 일본어 시계만 표시합니다")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+    }
+}
+
+struct ClockOnlyWidgetView: View {
+    var entry: ClockEntry
+
+    var body: some View {
+        let mode = PetManager.loadDisplayMode()
+        let minute = Calendar.current.component(.minute, from: entry.date)
+
+        VStack(spacing: 8) {
+            Spacer()
+
+            WidgetAmPmView(date: entry.date, mode: mode, size: 14)
+                .foregroundStyle(Color(UIColor.secondaryLabel))
+
+            WidgetTimeView(date: entry.date, mode: mode, size: 48)
+                .foregroundStyle(Color(UIColor.label))
+
+            Spacer().frame(height: 4)
+
+            Group {
+                switch mode {
+                case .hiraganaOnly:
+                    Text(JapaneseTimeFormatter.formatDateHiragana(from: entry.date))
+                default:
+                    Text(JapaneseTimeFormatter.formatDate(from: entry.date))
+                }
+            }
+            .font(.system(size: 12, weight: .medium))
+            .foregroundStyle(Color(UIColor.secondaryLabel))
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+// MARK: - Pet Only Widget (펫만, 시계 없음)
+
+struct PetOnlyWidget: Widget {
+    let kind: String = "PetOnlyWidget"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: ClockTimelineProvider()) { entry in
+            PetOnlyWidgetView()
+                .containerBackground(for: .widget) {
+                    let colorMode = PetManager.loadWidgetColorMode()
+                    if colorMode == .petColor {
+                        ZStack {
+                            Color(.systemBackground)
+                            LinearGradient(
+                                colors: [
+                                    widgetPetAccentColor().opacity(0.15),
+                                    widgetPetAccentColor().opacity(0.03)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        }
+                    } else {
+                        Color(.systemBackground)
+                    }
+                }
+        }
+        .configurationDisplayName("펫만")
+        .description("장착한 도트 펫만 크게 표시합니다")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+    }
+}
+
+struct PetOnlyWidgetView: View {
+    var body: some View {
+        VStack {
+            Spacer()
+
+            if let pet = PetManager.loadCurrentPet() {
+                StaticPetView(pet: pet, pixelSize: 8)
+
+                if pet.isNameRevealed {
+                    Text(pet.species.japaneseName)
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(widgetSecondaryTextColor())
+                        .padding(.top, 8)
+                }
+            } else {
+                Image(systemName: "pawprint.fill")
+                    .font(.system(size: 36))
+                    .foregroundStyle(Color(UIColor.tertiaryLabel))
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 // MARK: - Lock Screen Widget
 
 struct LockScreenClockWidget: Widget {
@@ -200,6 +312,8 @@ struct RectangularClockView: View {
 struct ClockWidgetBundle: WidgetBundle {
     var body: some Widget {
         ClockWidget()
+        ClockOnlyWidget()
+        PetOnlyWidget()
         LockScreenClockWidget()
     }
 }

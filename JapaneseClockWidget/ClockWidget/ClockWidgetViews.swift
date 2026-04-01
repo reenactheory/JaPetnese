@@ -39,6 +39,26 @@ func widgetPetAccentColor() -> Color {
     return .clear
 }
 
+func widgetTextColor() -> Color {
+    let colorMode = PetManager.loadWidgetColorMode()
+    if colorMode == .petColor {
+        let accent = widgetPetAccentColor()
+        if accent == .clear { return Color(UIColor.label) }
+        return accent
+    }
+    return Color(UIColor.label)
+}
+
+func widgetSecondaryTextColor() -> Color {
+    let colorMode = PetManager.loadWidgetColorMode()
+    if colorMode == .petColor {
+        let accent = widgetPetAccentColor()
+        if accent == .clear { return Color(UIColor.secondaryLabel) }
+        return accent.opacity(0.5)
+    }
+    return Color(UIColor.secondaryLabel)
+}
+
 // MARK: - Widget Time Text Helpers
 
 struct WidgetTimeView: View {
@@ -145,7 +165,7 @@ struct SmallClockView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
-            .foregroundStyle(Color(UIColor.label))
+            .foregroundStyle(widgetTextColor())
             .padding(12)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
@@ -161,7 +181,7 @@ struct SmallClockView: View {
 
                 WidgetTimeView(date: date, mode: mode, size: 36)
             }
-            .foregroundStyle(Color(UIColor.label))
+            .foregroundStyle(widgetTextColor())
             .padding(14)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
@@ -188,10 +208,10 @@ struct MediumClockView: View {
                 Spacer()
                 widgetPetView(pixelSize: 3)
                 WidgetDateView(date: date, mode: mode, size: 13)
-                    .foregroundStyle(Color(UIColor.secondaryLabel))
+                    .foregroundStyle(widgetSecondaryTextColor())
             }
         }
-        .foregroundStyle(Color(UIColor.label))
+        .foregroundStyle(widgetTextColor())
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -226,13 +246,13 @@ struct LargeClockView: View {
                     }
                 }
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Color(UIColor.secondaryLabel))
+                .foregroundStyle(widgetSecondaryTextColor())
 
                 Spacer()
                 widgetPetView(pixelSize: 4.5)
             }
         }
-        .foregroundStyle(Color(UIColor.label))
+        .foregroundStyle(widgetTextColor())
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

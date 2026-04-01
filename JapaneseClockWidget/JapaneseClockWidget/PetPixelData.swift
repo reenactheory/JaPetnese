@@ -454,17 +454,19 @@ let raccoonAdult = SpriteSet(
 let penguinBaby = SpriteSet(
     frame1: SpriteFrame(pixels: [
         [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,2,4,1,0],
+        [1,1,2,3,2,1,1],
         [0,1,2,2,2,1,0],
-        [1,4,2,2,2,4,1],
-        [1,1,2,2,2,1,1],
         [0,1,2,2,2,1,0],
         [0,0,3,0,3,0,0],
     ]),
     frame2: SpriteFrame(pixels: [
         [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,2,4,1,0],
+        [1,1,2,3,2,1,1],
         [0,1,2,2,2,1,0],
-        [1,4,2,2,2,4,1],
-        [1,1,2,2,2,1,1],
         [0,1,2,2,2,1,0],
         [0,3,0,0,0,3,0],
     ])
@@ -472,24 +474,24 @@ let penguinBaby = SpriteSet(
 
 let penguinAdult = SpriteSet(
     frame1: SpriteFrame(pixels: [
-        [0,0,0,0,0,0,0,0,1,1,1,0,0],
-        [0,0,0,0,0,0,0,1,2,2,2,1,0],
-        [0,0,0,0,0,0,1,4,2,2,2,4,1],
-        [0,0,0,0,0,0,1,1,2,2,2,1,1],
-        [0,0,0,0,1,1,1,1,2,2,2,1,1],
-        [0,0,0,0,1,1,1,1,2,2,2,1,0],
-        [0,0,0,0,0,1,1,2,2,2,1,0,0],
-        [0,0,0,0,0,0,3,0,0,3,0,0,0],
+        [0,0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,0,1,4,2,4,1,0],
+        [0,0,0,0,0,1,1,2,3,2,1,1],
+        [0,0,0,1,1,1,1,2,2,2,1,0],
+        [0,0,0,1,1,1,2,2,2,2,1,0],
+        [0,0,0,0,1,1,2,2,2,1,0,0],
+        [0,0,0,0,0,0,3,0,3,0,0,0],
     ]),
     frame2: SpriteFrame(pixels: [
-        [0,0,0,0,0,0,0,0,1,1,1,0,0],
-        [0,0,0,0,0,0,0,1,2,2,2,1,0],
-        [0,0,0,0,0,0,1,4,2,2,2,4,1],
-        [0,0,0,0,0,0,1,1,2,2,2,1,1],
-        [0,0,0,0,1,1,1,1,2,2,2,1,1],
-        [0,0,0,0,1,1,1,1,2,2,2,1,0],
-        [0,0,0,0,0,1,1,2,2,2,1,0,0],
-        [0,0,0,0,0,3,0,0,0,0,3,0,0],
+        [0,0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,0,1,4,2,4,1,0],
+        [0,0,0,0,0,1,1,2,3,2,1,1],
+        [0,0,0,1,1,1,1,2,2,2,1,0],
+        [0,0,0,1,1,1,2,2,2,2,1,0],
+        [0,0,0,0,1,1,2,2,2,1,0,0],
+        [0,0,0,0,0,3,0,0,0,3,0,0],
     ])
 )
 
@@ -504,7 +506,6 @@ let variantCounts: [PetSpecies: Int] = [
     .raccoon: 3,    // brown, gray, red
     .penguin: 3,    // classic, emperor, fairy
     .hamster: 3,    // cream, gray, golden
-    .capybara: 2,   // brown, dark
     .jellyfish: 3,  // blue, pink, purple
     .goldfish: 3,   // red, calico, black
     .clownfish: 2,  // orange, tomato
@@ -513,6 +514,10 @@ let variantCounts: [PetSpecies: Int] = [
     .polarBear: 2,  // white, cream
     .frog: 3,       // green, blue, red
     .panda: 2,      // classic, brown(red panda)
+    .turtle: 3,     // green, brown, blue
+    .monkey: 3,     // brown, golden, gray
+    .duck: 3,       // yellow, white, mandarin
+    .parrot: 3,     // green, blue, red
 ]
 
 func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPalette {
@@ -555,12 +560,6 @@ func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPale
             PetPalette(primary: .init(red: 0.85, green: 0.70, blue: 0.35), secondary: .init(red: 0.95, green: 0.90, blue: 0.70), accent: .init(red: 0.95, green: 0.65, blue: 0.68), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
         ]
         return palettes[min(variant, 2)]
-    case .capybara:
-        let palettes: [PetPalette] = [
-            PetPalette(primary: .init(red: 0.55, green: 0.40, blue: 0.30), secondary: .init(red: 0.75, green: 0.65, blue: 0.55), accent: .init(red: 0.30, green: 0.22, blue: 0.18), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
-            PetPalette(primary: .init(red: 0.35, green: 0.28, blue: 0.22), secondary: .init(red: 0.55, green: 0.48, blue: 0.40), accent: .init(red: 0.25, green: 0.18, blue: 0.15), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
-        ]
-        return palettes[min(variant, 1)]
     case .jellyfish:
         let palettes: [PetPalette] = [
             PetPalette(primary: .init(red: 0.55, green: 0.70, blue: 0.95), secondary: .init(red: 0.80, green: 0.88, blue: 1.0), accent: .init(red: 0.55, green: 0.70, blue: 0.95), eye: .init(red: 0.20, green: 0.30, blue: 0.60)),
@@ -613,6 +612,34 @@ func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPale
             PetPalette(primary: .init(red: 0.60, green: 0.30, blue: 0.15), secondary: .init(red: 0.90, green: 0.75, blue: 0.60), accent: .init(red: 0.40, green: 0.20, blue: 0.12), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
         ]
         return palettes[min(variant, 1)]
+    case .turtle:
+        let palettes: [PetPalette] = [
+            PetPalette(primary: .init(red: 0.35, green: 0.55, blue: 0.30), secondary: .init(red: 0.60, green: 0.78, blue: 0.55), accent: .init(red: 0.45, green: 0.65, blue: 0.40), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.50, green: 0.40, blue: 0.28), secondary: .init(red: 0.72, green: 0.62, blue: 0.48), accent: .init(red: 0.60, green: 0.50, blue: 0.35), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.30, green: 0.50, blue: 0.65), secondary: .init(red: 0.55, green: 0.72, blue: 0.85), accent: .init(red: 0.40, green: 0.60, blue: 0.75), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
+    case .monkey:
+        let palettes: [PetPalette] = [
+            PetPalette(primary: .init(red: 0.55, green: 0.35, blue: 0.22), secondary: .init(red: 0.90, green: 0.78, blue: 0.68), accent: .init(red: 0.90, green: 0.55, blue: 0.50), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.80, green: 0.65, blue: 0.30), secondary: .init(red: 0.95, green: 0.88, blue: 0.65), accent: .init(red: 0.90, green: 0.60, blue: 0.55), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.45, green: 0.45, blue: 0.48), secondary: .init(red: 0.75, green: 0.75, blue: 0.78), accent: .init(red: 0.85, green: 0.55, blue: 0.55), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
+    case .duck:
+        let palettes: [PetPalette] = [
+            PetPalette(primary: .init(red: 0.95, green: 0.85, blue: 0.30), secondary: .init(red: 0.98, green: 0.92, blue: 0.55), accent: .init(red: 0.95, green: 0.60, blue: 0.20), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.95, green: 0.95, blue: 0.92), secondary: .init(red: 0.98, green: 0.98, blue: 0.98), accent: .init(red: 0.95, green: 0.60, blue: 0.20), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.20, green: 0.50, blue: 0.30), secondary: .init(red: 0.90, green: 0.55, blue: 0.25), accent: .init(red: 0.95, green: 0.60, blue: 0.20), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
+    case .parrot:
+        let palettes: [PetPalette] = [
+            PetPalette(primary: .init(red: 0.30, green: 0.75, blue: 0.35), secondary: .init(red: 0.95, green: 0.90, blue: 0.30), accent: .init(red: 0.90, green: 0.35, blue: 0.30), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.30, green: 0.55, blue: 0.90), secondary: .init(red: 0.95, green: 0.85, blue: 0.30), accent: .init(red: 0.90, green: 0.35, blue: 0.30), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            PetPalette(primary: .init(red: 0.90, green: 0.30, blue: 0.25), secondary: .init(red: 0.30, green: 0.55, blue: 0.90), accent: .init(red: 0.95, green: 0.80, blue: 0.20), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
     }
 }
 
@@ -621,21 +648,46 @@ func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPale
 // MARK: - New Animals: Baby sprites (7x6~7)
 
 let hamsterBaby = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,1,1,1,1,1,0],[1,3,1,1,1,3,1],[1,4,1,2,1,4,1],[1,1,3,3,3,1,1],[0,1,2,2,2,1,0],[0,0,1,0,1,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,1,1,1,1,1,0],[1,3,1,1,1,3,1],[1,4,1,2,1,4,1],[1,1,3,3,3,1,1],[0,1,2,2,2,1,0],[0,1,0,0,0,1,0]])
+    frame1: SpriteFrame(pixels: [
+        [1,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1],
+        [1,4,1,1,1,4,1],
+        [3,1,1,3,1,1,3],
+        [0,1,2,2,2,1,0],
+        [0,1,2,2,2,1,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [1,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1],
+        [1,4,1,1,1,4,1],
+        [3,1,1,3,1,1,3],
+        [0,1,2,2,2,1,0],
+        [0,1,2,2,2,1,0],
+        [0,1,0,0,0,1,0],
+    ])
 )
 let hamsterAdult = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,0,0,0,0,0,1,1,1,1,1],[0,0,0,0,0,0,1,3,1,1,3,1],[0,0,0,0,0,0,1,4,1,1,4,1],[1,0,0,0,0,0,1,1,3,3,1,1],[0,1,1,1,1,1,1,2,2,2,2,1],[0,0,1,1,2,2,2,2,2,2,1,0],[0,0,0,1,1,1,1,1,1,1,0,0],[0,0,0,0,1,0,0,0,1,0,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,0,0,0,0,0,1,1,1,1,1],[0,0,0,0,0,0,1,3,1,1,3,1],[0,0,0,0,0,0,1,4,1,1,4,1],[0,0,0,0,0,0,1,1,3,3,1,1],[0,1,1,1,1,1,1,2,2,2,2,1],[1,0,1,1,2,2,2,2,2,2,1,0],[0,0,0,1,1,1,1,1,1,1,0,0],[0,0,0,0,1,0,0,0,1,0,0,0]])
-)
-
-let capybaraBaby = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,1,1,1,1,1,0],[1,1,1,1,1,1,1],[1,4,1,1,1,4,1],[1,1,1,3,1,1,1],[0,1,1,1,1,1,0],[0,0,1,0,1,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,1,1,1,1,1,0],[1,1,1,1,1,1,1],[1,4,1,1,1,4,1],[1,1,1,3,1,1,1],[0,1,1,1,1,1,0],[0,1,0,0,0,1,0]])
-)
-let capybaraAdult = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,0,0,0,0,0,0,1,1,1,1],[0,0,0,0,0,0,0,1,1,1,1,1],[0,0,0,0,0,0,0,1,4,1,4,1],[0,0,0,0,0,0,0,1,1,3,1,1],[0,0,0,1,1,1,1,1,1,1,1,1],[0,0,0,1,1,1,1,1,1,1,1,0],[0,0,0,1,2,1,0,0,1,2,1,0],[0,0,0,0,1,0,0,0,0,1,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,0,0,0,0,0,0,1,1,1,1],[0,0,0,0,0,0,0,1,1,1,1,1],[0,0,0,0,0,0,0,1,4,1,4,1],[0,0,0,0,0,0,0,1,1,3,1,1],[0,0,0,1,1,1,1,1,1,1,1,1],[0,0,0,1,1,1,1,1,1,1,1,0],[0,0,0,0,1,2,0,0,1,2,0,0],[0,0,0,0,0,1,0,0,0,1,0,0]])
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,1,0,0,0,0,1,0],
+        [0,0,0,0,0,1,1,1,1,1,1,0],
+        [0,0,0,0,0,1,4,1,1,4,1,0],
+        [0,0,0,0,0,3,1,3,1,1,3,0],
+        [0,0,1,1,1,1,1,2,2,2,1,0],
+        [0,0,1,1,2,2,2,2,2,2,1,0],
+        [0,0,0,1,2,2,2,2,2,1,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,1,0,0,0,0,1,0],
+        [0,0,0,0,0,1,1,1,1,1,1,0],
+        [0,0,0,0,0,1,4,1,1,4,1,0],
+        [0,0,0,0,0,3,1,3,1,1,3,0],
+        [0,0,1,1,1,1,1,2,2,2,1,0],
+        [0,0,1,1,2,2,2,2,2,2,1,0],
+        [0,0,0,1,2,2,2,2,2,1,0,0],
+        [0,0,0,1,0,0,0,0,0,1,0,0],
+    ])
 )
 
 let jellyfishBaby = SpriteSet(
@@ -648,21 +700,85 @@ let jellyfishAdult = SpriteSet(
 )
 
 let goldfishBaby = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,0,1,1,0,0],[0,0,1,1,1,1,0],[0,1,4,1,1,1,1],[0,0,1,1,1,3,0],[0,0,0,1,1,0,0],[0,0,1,0,0,1,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,0,1,1,0,0],[0,0,1,1,1,1,0],[0,1,4,1,1,1,1],[0,0,1,1,1,3,0],[0,0,0,1,1,0,0],[0,1,0,0,0,0,1]])
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [3,1,4,1,1,1,0],
+        [0,1,1,1,1,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,0,3,3,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [3,1,4,1,1,1,0],
+        [0,1,1,1,1,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,3,3,0,0,0],
+    ])
 )
 let goldfishAdult = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,0,0,0,1,1,0,0,0,0],[0,0,0,0,1,1,1,1,0,0,0],[3,3,0,1,1,1,1,1,1,0,0],[0,3,1,4,1,1,1,1,1,3,0],[0,0,0,1,1,1,1,1,1,0,0],[0,0,0,0,1,1,1,1,0,0,0],[0,0,0,0,0,1,1,0,0,0,0],[0,0,0,0,0,0,3,3,0,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,0,0,0,1,1,0,0,0,0],[0,0,0,0,1,1,1,1,0,0,0],[0,3,0,1,1,1,1,1,1,0,0],[3,3,1,4,1,1,1,1,1,3,0],[0,0,0,1,1,1,1,1,1,0,0],[0,0,0,0,1,1,1,1,0,0,0],[0,0,0,0,0,1,1,0,0,0,0],[0,0,0,0,3,3,0,0,0,0,0]])
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,0,0,0],
+        [0,0,0,0,0,1,1,1,1,0,0],
+        [0,0,0,0,1,1,1,1,1,0,0],
+        [3,3,0,0,1,4,1,1,1,0,0],
+        [0,3,3,1,1,1,1,1,1,3,0],
+        [0,0,0,0,1,1,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,0,0,0],
+        [0,0,0,0,0,0,3,3,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,0,0,0],
+        [0,0,0,0,0,1,1,1,1,0,0],
+        [0,0,0,0,1,1,1,1,1,0,0],
+        [0,3,0,0,1,4,1,1,1,0,0],
+        [3,3,3,1,1,1,1,1,1,3,0],
+        [0,0,0,0,1,1,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,0,0,0],
+        [0,0,0,0,0,3,3,0,0,0,0],
+    ])
 )
 
 let clownfishBaby = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,1,1,1,0,0],[0,1,2,1,2,1,0],[1,4,1,2,1,2,1],[0,1,2,1,2,1,0],[0,0,1,1,1,0,0],[0,0,0,3,0,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,1,1,1,0,0],[0,1,2,1,2,1,0],[1,4,1,2,1,2,1],[0,1,2,1,2,1,0],[0,0,1,1,1,0,0],[0,0,3,0,0,0,0]])
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,2,1,2,1,0],
+        [0,1,4,2,1,2,0],
+        [0,1,2,1,2,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,0,3,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,2,1,2,1,0],
+        [0,1,4,2,1,2,0],
+        [0,1,2,1,2,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,3,0,0,0,0],
+    ])
 )
 let clownfishAdult = SpriteSet(
-    frame1: SpriteFrame(pixels: [[0,0,0,0,1,1,1,0,0,0],[0,0,0,1,2,1,2,1,0,0],[3,0,1,1,2,1,2,1,1,0],[0,1,4,1,2,1,2,1,1,3],[0,0,1,1,2,1,2,1,1,0],[0,0,0,1,2,1,2,1,0,0],[0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,3,0,0,0,0]]),
-    frame2: SpriteFrame(pixels: [[0,0,0,0,1,1,1,0,0,0],[0,0,0,1,2,1,2,1,0,0],[0,0,1,1,2,1,2,1,1,0],[3,1,4,1,2,1,2,1,1,3],[0,0,1,1,2,1,2,1,1,0],[0,0,0,1,2,1,2,1,0,0],[0,0,0,0,1,1,1,0,0,0],[0,0,0,0,3,0,0,0,0,0]])
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,1,2,1,2,1,0],
+        [3,0,0,1,1,2,1,2,1,0],
+        [0,0,1,4,2,1,2,1,1,3],
+        [0,0,0,1,1,2,1,2,1,0],
+        [0,0,0,0,1,2,1,2,1,0],
+        [0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,0,3,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,1,2,1,2,1,0],
+        [0,0,0,1,1,2,1,2,1,0],
+        [3,0,1,4,2,1,2,1,1,3],
+        [0,0,0,1,1,2,1,2,1,0],
+        [0,0,0,0,1,2,1,2,1,0],
+        [0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,3,0,0,0,0],
+    ])
 )
 
 let otterBaby = SpriteSet(
@@ -710,6 +826,176 @@ let pandaAdult = SpriteSet(
     frame2: SpriteFrame(pixels: [[0,0,0,0,0,0,0,1,1,0,0,1,1],[0,0,0,0,0,0,0,1,1,2,2,1,1],[0,0,0,0,0,0,2,1,4,2,2,4,1],[0,0,0,0,0,0,2,2,2,3,2,2,2],[0,0,1,1,1,2,2,2,2,2,2,2,0],[0,0,1,1,2,2,2,2,2,2,2,0,0],[0,0,0,0,1,1,0,0,1,1,0,0,0],[0,0,0,0,1,0,0,0,0,1,0,0,0]])
 )
 
+// MARK: - Turtle Sprites
+
+let turtleBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0],
+        [0,0,0,1,1,0,0],
+        [0,0,1,4,1,0,0],
+        [0,3,3,3,3,3,0],
+        [0,3,1,3,1,3,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0],
+        [0,0,0,1,1,0,0],
+        [0,0,1,4,1,0,0],
+        [0,3,3,3,3,3,0],
+        [0,3,1,3,1,3,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+let turtleAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,0,0,1,1,0],
+        [0,0,0,0,0,0,0,0,1,4,1,0],
+        [0,0,0,0,0,0,0,0,1,1,1,0],
+        [0,0,0,3,3,3,3,3,3,1,0,0],
+        [0,0,3,1,3,1,3,1,3,3,0,0],
+        [0,0,0,3,3,3,3,3,3,0,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,0,0,1,1,0],
+        [0,0,0,0,0,0,0,0,1,4,1,0],
+        [0,0,0,0,0,0,0,0,1,1,1,0],
+        [0,0,0,3,3,3,3,3,3,1,0,0],
+        [0,0,3,1,3,1,3,1,3,3,0,0],
+        [0,0,0,3,3,3,3,3,3,0,0,0],
+        [0,0,1,0,0,0,0,0,0,1,0,0],
+    ])
+)
+
+// MARK: - Monkey Sprites
+
+let monkeyBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [3,1,1,1,1,1,3],
+        [1,1,1,1,1,1,1],
+        [1,4,2,2,2,4,1],
+        [0,2,2,3,2,2,0],
+        [0,1,1,1,1,1,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [3,1,1,1,1,1,3],
+        [1,1,1,1,1,1,1],
+        [1,4,2,2,2,4,1],
+        [0,2,2,3,2,2,0],
+        [0,1,1,1,1,1,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+let monkeyAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,3,1,1,1,1,3],
+        [0,0,0,0,0,0,1,1,1,1,1,1],
+        [0,0,0,0,0,0,1,4,2,2,4,1],
+        [1,0,0,0,0,0,0,2,2,3,2,0],
+        [0,1,0,0,0,1,1,1,1,1,1,0],
+        [0,0,1,1,1,1,1,1,1,1,0,0],
+        [0,0,0,1,1,0,0,1,1,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,3,1,1,1,1,3],
+        [0,0,0,0,0,0,1,1,1,1,1,1],
+        [0,0,0,0,0,0,1,4,2,2,4,1],
+        [0,0,0,0,0,0,0,2,2,3,2,0],
+        [0,1,0,0,0,1,1,1,1,1,1,0],
+        [1,0,1,1,1,1,1,1,1,1,0,0],
+        [0,0,0,1,1,0,0,1,1,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0],
+    ])
+)
+
+// MARK: - Duck Sprites
+
+let duckBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,1,4,1,0],
+        [0,1,1,3,3,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,3,0,3,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,1,4,1,0],
+        [0,1,1,3,3,1,0],
+        [0,0,1,1,1,0,0],
+        [0,3,0,0,0,3,0],
+    ])
+)
+let duckAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,0,1,4,1,4,1,0],
+        [0,0,0,0,0,0,1,1,3,3,1,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0],
+        [0,0,0,0,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,3,0,0,3,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,0,1,4,1,4,1,0],
+        [0,0,0,0,0,0,1,1,3,3,1,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0],
+        [0,0,0,0,1,1,1,1,1,0,0,0],
+        [0,0,0,0,3,0,0,0,0,3,0,0],
+    ])
+)
+
+// MARK: - Parrot Sprites
+
+let parrotBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,0,0,0],
+        [0,1,1,1,1,0,0],
+        [0,1,4,1,1,0,0],
+        [3,3,1,1,1,0,0],
+        [0,1,1,1,0,0,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,0,0,0],
+        [0,1,1,1,1,0,0],
+        [0,1,4,1,1,0,0],
+        [3,3,1,1,1,0,0],
+        [0,1,1,1,0,0,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+let parrotAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,1,4,1,1,1,0],
+        [0,0,0,0,3,3,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,1,0,0],
+        [0,0,0,0,1,2,1,1,0,0,0],
+        [0,0,0,0,1,1,1,0,0,0,0],
+        [0,0,0,0,0,1,0,1,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,1,1,0],
+        [0,0,0,0,0,1,4,1,1,1,0],
+        [0,0,0,0,3,3,1,1,1,0,0],
+        [0,0,0,0,0,1,1,1,1,0,0],
+        [0,0,0,0,1,2,1,1,0,0,0],
+        [0,0,0,0,1,1,1,0,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0],
+    ])
+)
+
 // MARK: - Accessory Overlays (rendered on top of adult sprite)
 // Uses separate color: 0=skip(transparent), 5=gold, 6=white, 7=pink, 8=red
 
@@ -729,32 +1015,22 @@ let accessoryBlue = Color(red: 0.55, green: 0.70, blue: 0.95)
 let accessorySprites: [PetAccessory: AccessoryData] = [
     .crown: AccessoryData(
         pixels: [[0,5,0,5,0],[5,5,5,5,5],[0,5,5,5,0]],
-        offsetY: -3,
+        offsetY: -5,
         colors: [5: accessoryGold]
-    ),
-    .wings: AccessoryData(
-        pixels: [[6,0,0,0,0,0,6],[6,6,0,0,0,6,6],[0,6,0,0,0,6,0]],
-        offsetY: 1,
-        colors: [6: accessoryWhite]
     ),
     .ribbon: AccessoryData(
         pixels: [[7,0,7],[0,7,0]],
-        offsetY: -2,
+        offsetY: -4,
         colors: [7: accessoryPink]
-    ),
-    .scarf: AccessoryData(
-        pixels: [[8,8,8,8,8,8],[0,0,0,0,8,8],[0,0,0,0,0,8]],
-        offsetY: 3,
-        colors: [8: accessoryRed]
     ),
     .halo: AccessoryData(
         pixels: [[0,5,5,5,0],[5,0,0,0,5],[0,5,5,5,0]],
-        offsetY: -3,
+        offsetY: -5,
         colors: [5: accessoryGold]
     ),
     .flowerCrown: AccessoryData(
         pixels: [[7,0,8,0,7],[0,7,0,8,0]],
-        offsetY: -2,
+        offsetY: -4,
         colors: [7: accessoryPink, 8: accessoryRed]
     ),
 ]
@@ -772,7 +1048,6 @@ func spriteFor(species: PetSpecies, stage: PetStage) -> SpriteSet {
     case .raccoon: return stage == .baby ? raccoonBaby : raccoonAdult
     case .penguin: return stage == .baby ? penguinBaby : penguinAdult
     case .hamster: return stage == .baby ? hamsterBaby : hamsterAdult
-    case .capybara: return stage == .baby ? capybaraBaby : capybaraAdult
     case .jellyfish: return stage == .baby ? jellyfishBaby : jellyfishAdult
     case .goldfish: return stage == .baby ? goldfishBaby : goldfishAdult
     case .clownfish: return stage == .baby ? clownfishBaby : clownfishAdult
@@ -781,5 +1056,9 @@ func spriteFor(species: PetSpecies, stage: PetStage) -> SpriteSet {
     case .polarBear: return stage == .baby ? polarBearBaby : polarBearAdult
     case .frog: return stage == .baby ? frogBaby : frogAdult
     case .panda: return stage == .baby ? pandaBaby : pandaAdult
+    case .turtle: return stage == .baby ? turtleBaby : turtleAdult
+    case .monkey: return stage == .baby ? monkeyBaby : monkeyAdult
+    case .duck: return stage == .baby ? duckBaby : duckAdult
+    case .parrot: return stage == .baby ? parrotBaby : parrotAdult
     }
 }

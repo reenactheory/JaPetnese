@@ -10,7 +10,6 @@ enum PetSpecies: String, Codable, CaseIterable {
     case raccoon
     case penguin
     case hamster
-    case capybara
     case jellyfish
     case goldfish
     case clownfish
@@ -19,6 +18,10 @@ enum PetSpecies: String, Codable, CaseIterable {
     case polarBear
     case frog
     case panda
+    case turtle
+    case monkey
+    case duck
+    case parrot
 
     var displayName: String {
         switch self {
@@ -29,7 +32,6 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .raccoon: return "너구리"
         case .penguin: return "펭귄"
         case .hamster: return "햄스터"
-        case .capybara: return "카피바라"
         case .jellyfish: return "해파리"
         case .goldfish: return "금붕어"
         case .clownfish: return "흰동가리"
@@ -38,6 +40,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .polarBear: return "북극곰"
         case .frog: return "개구리"
         case .panda: return "판다"
+        case .turtle: return "거북이"
+        case .monkey: return "원숭이"
+        case .duck: return "오리"
+        case .parrot: return "앵무새"
         }
     }
 
@@ -50,7 +56,6 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .raccoon: return "たぬき"
         case .penguin: return "ペンギン"
         case .hamster: return "ハムスター"
-        case .capybara: return "カピバラ"
         case .jellyfish: return "くらげ"
         case .goldfish: return "きんぎょ"
         case .clownfish: return "クマノミ"
@@ -59,6 +64,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .polarBear: return "しろくま"
         case .frog: return "かえる"
         case .panda: return "パンダ"
+        case .turtle: return "かめ"
+        case .monkey: return "さる"
+        case .duck: return "あひる"
+        case .parrot: return "インコ"
         }
     }
 }
@@ -87,18 +96,14 @@ enum PetRarity: String, Codable {
 
 enum PetAccessory: String, Codable, CaseIterable {
     case crown
-    case wings
     case ribbon
-    case scarf
     case halo
     case flowerCrown
 
     var displayName: String {
         switch self {
         case .crown: return "왕관"
-        case .wings: return "날개"
         case .ribbon: return "리본"
-        case .scarf: return "목도리"
         case .halo: return "천사 고리"
         case .flowerCrown: return "꽃관"
         }
@@ -275,41 +280,7 @@ class PetManager: ObservableObject {
             self.store = .empty
         }
 
-        #if DEBUG
-        if store.collection.isEmpty {
-            seedDebugPets()
-        }
-        #endif
     }
-
-    #if DEBUG
-    private func seedDebugPets() {
-        let pets: [Pet] = [
-            // 알 (방금 뽑음, 장착 중)
-            Pet(id: UUID(), species: .cat, rarity: .rare, colorVariant: 1, accessory: nil,
-                createdAt: Date(), accumulatedGrowth: 0, equippedSince: Date()),
-            // 유아기 (14시간 성장)
-            Pet(id: UUID(), species: .shiba, rarity: .normal, colorVariant: 2, accessory: nil,
-                createdAt: Date().addingTimeInterval(-20 * 3600), accumulatedGrowth: 14 * 3600, equippedSince: nil),
-            // 청소년기 (40시간 성장)
-            Pet(id: UUID(), species: .rabbit, rarity: .normal, colorVariant: 3, accessory: nil,
-                createdAt: Date().addingTimeInterval(-50 * 3600), accumulatedGrowth: 40 * 3600, equippedSince: nil),
-            // 성체 레전더리 + 왕관 (80시간 성장)
-            Pet(id: UUID(), species: .fox, rarity: .legendary, colorVariant: 0, accessory: .crown,
-                createdAt: Date().addingTimeInterval(-100 * 3600), accumulatedGrowth: 80 * 3600, equippedSince: nil),
-            // 성체 레전더리 + 날개
-            Pet(id: UUID(), species: .penguin, rarity: .legendary, colorVariant: 0, accessory: .wings,
-                createdAt: Date().addingTimeInterval(-100 * 3600), accumulatedGrowth: 80 * 3600, equippedSince: nil),
-            // 성체 노멀
-            Pet(id: UUID(), species: .raccoon, rarity: .normal, colorVariant: 2, accessory: nil,
-                createdAt: Date().addingTimeInterval(-100 * 3600), accumulatedGrowth: 80 * 3600, equippedSince: nil),
-        ]
-        store.collection = pets
-        store.currentPetId = pets[0].id
-        store.freeGachaUsed = true
-        save()
-    }
-    #endif
 
     func save() {
         if let data = try? JSONEncoder().encode(store) {
@@ -325,7 +296,8 @@ class PetManager: ObservableObject {
         let maxVariants = rarity == .legendary ? 1 : (variantCounts[species] ?? 2)
         let variant = rarity == .legendary ? 0 : Int.random(in: 0..<maxVariants)
 
-        let accessory: PetAccessory? = rarity == .legendary ? PetAccessory.allCases.randomElement() : nil
+        // 모든 펫에 랜덤 악세사리 부여 (성체가 되면 표시됨)
+        let accessory: PetAccessory? = PetAccessory.allCases.randomElement()
 
         var pet = Pet(
             id: UUID(),

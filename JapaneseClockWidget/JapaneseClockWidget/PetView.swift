@@ -19,7 +19,8 @@ struct PetView: View {
             PixelGrid(pixels: current.pixels, palette: palette, pixelSize: pixelSize)
 
             // Accessory overlay for adult legendaries
-            if pet.stage == .adult, let accessory = pet.accessory,
+            if pet.stage == .adult,
+               let accessory = pet.accessory,
                let data = accessorySprites[accessory] {
                 AccessoryOverlay(data: data, pixelSize: pixelSize, baseRows: current.pixels.count, baseCols: current.pixels.map { $0.count }.max() ?? 0)
             }
@@ -43,7 +44,8 @@ struct StaticPetView: View {
         ZStack {
             PixelGrid(pixels: sprite.frame1.pixels, palette: palette, pixelSize: pixelSize)
 
-            if pet.stage == .adult, let accessory = pet.accessory,
+            if pet.stage == .adult,
+               let accessory = pet.accessory,
                let data = accessorySprites[accessory] {
                 AccessoryOverlay(data: data, pixelSize: pixelSize, baseRows: sprite.frame1.pixels.count, baseCols: sprite.frame1.pixels.map { $0.count }.max() ?? 0)
             }

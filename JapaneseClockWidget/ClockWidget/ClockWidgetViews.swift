@@ -40,35 +40,19 @@ func widgetPetAccentColor() -> Color {
 }
 
 func widgetTextColor() -> Color {
-    let colorMode = PetManager.loadWidgetColorMode()
-    if colorMode == .petColor {
-        let accent = widgetPetAccentColor()
-        if accent == .clear { return Color(UIColor.label) }
-        // 펫 색상을 더 진하게 (어두운 색상으로 조정)
-        return darkenColor(accent, by: 0.3)
-    }
+    // 메인 시간 텍스트는 항상 가독성 우선
     return Color(UIColor.label)
 }
 
 func widgetSecondaryTextColor() -> Color {
+    // AM/PM, 날짜 등 보조 텍스트에 펫 색상 포인트
     let colorMode = PetManager.loadWidgetColorMode()
     if colorMode == .petColor {
         let accent = widgetPetAccentColor()
         if accent == .clear { return Color(UIColor.secondaryLabel) }
-        return darkenColor(accent, by: 0.15)
+        return accent
     }
     return Color(UIColor.secondaryLabel)
-}
-
-// 색상을 더 진하게 만드는 헬퍼
-func darkenColor(_ color: Color, by amount: Double) -> Color {
-    // 채도를 올리고 밝기를 낮춰서 가독성 확보
-    let uiColor = UIColor(color)
-    var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-    uiColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-    let newBrightness = max(b - CGFloat(amount), 0.15)
-    let newSaturation = min(s + 0.2, 1.0)
-    return Color(UIColor(hue: h, saturation: newSaturation, brightness: newBrightness, alpha: a))
 }
 
 // MARK: - Widget Time Text Helpers

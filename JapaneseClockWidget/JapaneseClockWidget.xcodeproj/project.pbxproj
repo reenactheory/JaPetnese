@@ -60,7 +60,7 @@
 		43F40EC21E762C4BA6AC112A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseClockWidgetApp.swift; sourceTree = "<group>"; };
 		74CB7E0A59DD1321BEB82ED2 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		782009D2E486B0253883C67D /* JapaneseClockWidget.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JapaneseClockWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		782009D2E486B0253883C67D /* JapaneseClockWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseClockWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83331E80E8FEB506673778C1 /* JapaneseClockWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JapaneseClockWidget.entitlements; sourceTree = "<group>"; };
 		86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetView.swift; sourceTree = "<group>"; };
 		946D4CF4FAB8BB505C7EA83D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		DF54706863C784481DB0CDCA /* PixelCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCatView.swift; sourceTree = "<group>"; };
 		E4E1DB103FEAD3575C06FC1C /* ClockWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockWidgetViews.swift; sourceTree = "<group>"; };
 		E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseTimeFormatter.swift; sourceTree = "<group>"; };
-		F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ClockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -176,14 +176,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					5CB9B4D8238BF37EE1B35578 = {
-						DevelopmentTeam = "";
-					};
-					EEE0497EEFBF8170378197DA = {
-						DevelopmentTeam = "";
-					};
-				};
 			};
 			buildConfigurationList = DACCC5069D1E691155CE4094 /* Build configuration list for PBXProject "JapaneseClockWidget" */;
 			developmentRegion = en;
@@ -324,24 +316,27 @@
 			};
 			name = Release;
 		};
-		58EAEC8CD8F7A4D1CC406B84 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = ClockWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
+	58EAEC8CD8F7A4D1CC406B84 /* Release */ = {
+		isa = XCBuildConfiguration;
+		buildSettings = {
+			ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+			CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+			CURRENT_PROJECT_VERSION = 1;
+			DEVELOPMENT_TEAM = 42Q2FTK7GK;
+			GENERATE_INFOPLIST_FILE = NO;
+			INFOPLIST_FILE = ClockWidget/Info.plist;
+			LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+				"@executable_path/../../Frameworks",
+			);
+			MARKETING_VERSION = 1.0.0;
+			PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
+			SDKROOT = iphoneos;
+			TARGETED_DEVICE_FAMILY = "1,2";
 		};
+		name = Release;
+	};
 		7325E821336AB71F3BDCA971 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -406,68 +401,77 @@
 			};
 			name = Debug;
 		};
-		A8FEC088A99B906AF0194008 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = ClockWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
+	A8FEC088A99B906AF0194008 /* Debug */ = {
+		isa = XCBuildConfiguration;
+		buildSettings = {
+			ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+			CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+			CURRENT_PROJECT_VERSION = 1;
+			DEVELOPMENT_TEAM = 42Q2FTK7GK;
+			GENERATE_INFOPLIST_FILE = NO;
+			INFOPLIST_FILE = ClockWidget/Info.plist;
+			LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+				"@executable_path/../../Frameworks",
+			);
+			MARKETING_VERSION = 1.0.0;
+			PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget.ClockWidget;
+			SDKROOT = iphoneos;
+			TARGETED_DEVICE_FAMILY = "1,2";
 		};
-		AC178F157D0C6EC14F6E7840 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
+		name = Debug;
+	};
+	AC178F157D0C6EC14F6E7840 /* Debug */ = {
+		isa = XCBuildConfiguration;
+		buildSettings = {
+			ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+			CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
+			CODE_SIGN_IDENTITY = "iPhone Developer";
+			CURRENT_PROJECT_VERSION = 1;
+			DEVELOPMENT_TEAM = 42Q2FTK7GK;
+			GENERATE_INFOPLIST_FILE = YES;
+			INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+			INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+			INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+			INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+			);
+			MARKETING_VERSION = 1.0.0;
+			PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
+			SDKROOT = iphoneos;
+			TARGETED_DEVICE_FAMILY = "1,2";
 		};
-		EF98D08183396C8ADA1645A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
+		name = Debug;
+	};
+	EF98D08183396C8ADA1645A8 /* Release */ = {
+		isa = XCBuildConfiguration;
+		buildSettings = {
+			ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+			CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
+			CODE_SIGN_IDENTITY = "iPhone Developer";
+			CURRENT_PROJECT_VERSION = 1;
+			DEVELOPMENT_TEAM = 42Q2FTK7GK;
+			GENERATE_INFOPLIST_FILE = YES;
+			INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+			INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+			INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+			INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+			LD_RUNPATH_SEARCH_PATHS = (
+				"$(inherited)",
+				"@executable_path/Frameworks",
+			);
+			MARKETING_VERSION = 1.0.0;
+			PRODUCT_BUNDLE_IDENTIFIER = com.jaeyeon.JapaneseClockWidget;
+			SDKROOT = iphoneos;
+			TARGETED_DEVICE_FAMILY = "1,2";
 		};
+		name = Release;
+	};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */

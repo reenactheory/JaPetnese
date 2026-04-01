@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/layout_widget_pet.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/layout/widget_pet.xml"
+    },
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/xml_clock_widget_info.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/xml/clock_widget_info.xml"
+    },
+    {
+        "merged": "com.japetnese.app-merged_res-50:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.japetnese.app-main-52:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/xml_clock_pet_widget_info.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/xml/clock_pet_widget_info.xml"
+    },
+    {
+        "merged": "com.japetnese.app-merged_res-50:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.japetnese.app-main-52:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.japetnese.app-merged_res-50:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.japetnese.app-main-52:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.japetnese.app-merged_res-50:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.japetnese.app-main-52:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/xml_pet_widget_info.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/xml/pet_widget_info.xml"
+    },
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/layout_widget_clock.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/layout/widget_clock.xml"
+    },
+    {
+        "merged": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-merged_res-50:/layout_widget_clock_pet.xml.flat",
+        "source": "/Users/jenna/.gradle/daemon/8.5/com.japetnese.app-main-52:/layout/widget_clock_pet.xml"
+    },
+    {
+        "merged": "com.japetnese.app-merged_res-50:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.japetnese.app-main-52:/mipmap-xxxhdpi/ic_launcher.png"
+    }
+]

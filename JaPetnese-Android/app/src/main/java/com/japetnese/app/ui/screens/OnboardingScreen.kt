@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -14,7 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.japetnese.app.model.*
+import com.japetnese.app.model.DisplayMode
+import com.japetnese.app.model.PetManager
 import com.japetnese.app.ui.components.PixelPetView
 import com.japetnese.app.ui.theme.*
 import kotlinx.coroutines.launch
@@ -102,6 +104,7 @@ fun WelcomePage() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisplayModePage(selectedMode: DisplayMode, onSelect: (DisplayMode) -> Unit) {
     Column(
@@ -124,7 +127,7 @@ fun DisplayModePage(selectedMode: DisplayMode, onSelect: (DisplayMode) -> Unit) 
                 modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
-                border = if (selectedMode == mode) CardDefaults.outlinedCardBorder().copy(width = 1.5.dp) else null
+                border = if (selectedMode == mode) BorderStroke(1.5.dp, Color.Black) else null
             ) {
                 Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                     Surface(

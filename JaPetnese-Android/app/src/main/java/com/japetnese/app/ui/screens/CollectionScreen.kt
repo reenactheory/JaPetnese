@@ -55,6 +55,7 @@ fun CollectionScreen(petManager: PetManager) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PetCard(pet: Pet, isEquipped: Boolean, onTap: () -> Unit) {
     val borderMod = if (isEquipped) Modifier.border(2.dp, Color.Black, RoundedCornerShape(18.dp)) else Modifier
@@ -111,10 +112,10 @@ fun PetCard(pet: Pet, isEquipped: Boolean, onTap: () -> Unit) {
             // Progress or badges
             if (pet.stage != PetStage.ADULT) {
                 LinearProgressIndicator(
-                    progress = { pet.stageProgress.toFloat() },
+                    progress = pet.stageProgress.toFloat(),
                     modifier = Modifier.fillMaxWidth().height(3.dp).clip(RoundedCornerShape(2.dp)),
-                    color = Color.Black.copy(0.2f),
-                    trackColor = Color.Black.copy(0.05f)
+                    color = Color.Black.copy(alpha = 0.2f),
+                    trackColor = Color.Black.copy(alpha = 0.05f)
                 )
                 pet.nextStageIn?.let {
                     Spacer(modifier = Modifier.height(4.dp))

@@ -1,0 +1,53 @@
+com.japetnese.app-animation-core-release-0 /Users/jenna/.gradle/caches/transforms-3/0529c9465a3d35e5aaf7f13be34aeffb/transformed/animation-core-release/res
+com.japetnese.app-material3-1.1.2-1 /Users/jenna/.gradle/caches/transforms-3/0a1108eec19a77de338aeebd0264f6a6/transformed/material3-1.1.2/res
+com.japetnese.app-core-ktx-1.12.0-2 /Users/jenna/.gradle/caches/transforms-3/0d26a5d34299e12cbf6ef4921ecf24e2/transformed/core-ktx-1.12.0/res
+com.japetnese.app-core-1.12.0-3 /Users/jenna/.gradle/caches/transforms-3/0d4ffc60e85a7c7f9fbeb27599893adc/transformed/core-1.12.0/res
+com.japetnese.app-startup-runtime-1.1.1-4 /Users/jenna/.gradle/caches/transforms-3/23c8dec9b033572aaa08768f349b79a6/transformed/startup-runtime-1.1.1/res
+com.japetnese.app-lifecycle-runtime-ktx-2.7.0-5 /Users/jenna/.gradle/caches/transforms-3/24becb4481a5c299e6a5958d0a459775/transformed/lifecycle-runtime-ktx-2.7.0/res
+com.japetnese.app-material-ripple-release-6 /Users/jenna/.gradle/caches/transforms-3/25e43c4b07faf58cf7fd1af0d66482f6/transformed/material-ripple-release/res
+com.japetnese.app-ui-release-7 /Users/jenna/.gradle/caches/transforms-3/2789cb8b9dbe77fa6c9c9cc7f08c7330/transformed/ui-release/res
+com.japetnese.app-ui-tooling-preview-release-8 /Users/jenna/.gradle/caches/transforms-3/2b48f8a2058bae5177d4af679da95f4d/transformed/ui-tooling-preview-release/res
+com.japetnese.app-lifecycle-viewmodel-compose-2.7.0-9 /Users/jenna/.gradle/caches/transforms-3/310a7e3a6bad36c9ac883100a769e717/transformed/lifecycle-viewmodel-compose-2.7.0/res
+com.japetnese.app-activity-compose-1.8.2-10 /Users/jenna/.gradle/caches/transforms-3/319623b53edbab3561b861891163bd48/transformed/activity-compose-1.8.2/res
+com.japetnese.app-savedstate-ktx-1.2.1-11 /Users/jenna/.gradle/caches/transforms-3/362366c28d898cfc302aea356ef4c011/transformed/savedstate-ktx-1.2.1/res
+com.japetnese.app-navigation-runtime-ktx-2.7.6-12 /Users/jenna/.gradle/caches/transforms-3/3ec6111a6a4342aa0f9ca603a61a2fd6/transformed/navigation-runtime-ktx-2.7.6/res
+com.japetnese.app-lifecycle-livedata-core-2.7.0-13 /Users/jenna/.gradle/caches/transforms-3/40569dcd3e4d92536f275665027f207a/transformed/lifecycle-livedata-core-2.7.0/res
+com.japetnese.app-customview-poolingcontainer-1.0.0-14 /Users/jenna/.gradle/caches/transforms-3/4e5e4fe17d9de3132a6a20b653dded98/transformed/customview-poolingcontainer-1.0.0/res
+com.japetnese.app-runtime-release-15 /Users/jenna/.gradle/caches/transforms-3/53f3022f3fd20a74083b2facae331663/transformed/runtime-release/res
+com.japetnese.app-emoji2-1.3.0-16 /Users/jenna/.gradle/caches/transforms-3/5fdb015c6a164b6c7ce1ba5a64866a1f/transformed/emoji2-1.3.0/res
+com.japetnese.app-foundation-layout-release-17 /Users/jenna/.gradle/caches/transforms-3/61acb2a618af0678c3b3aedce548c285/transformed/foundation-layout-release/res
+com.japetnese.app-runtime-saveable-release-18 /Users/jenna/.gradle/caches/transforms-3/61e03a2cc891031aef9033e82d30dc53/transformed/runtime-saveable-release/res
+com.japetnese.app-foundation-release-19 /Users/jenna/.gradle/caches/transforms-3/68428ad9184375791dd5d66332ff3898/transformed/foundation-release/res
+com.japetnese.app-ui-geometry-release-20 /Users/jenna/.gradle/caches/transforms-3/752ce0f56be85eff1a182bf32fc6e6e9/transformed/ui-geometry-release/res
+com.japetnese.app-ui-tooling-release-21 /Users/jenna/.gradle/caches/transforms-3/7bfce6c94e7b02d6ea72b2693f62dffb/transformed/ui-tooling-release/res
+com.japetnese.app-ui-graphics-release-22 /Users/jenna/.gradle/caches/transforms-3/7c752924a2c0690902fa3ac910288fd1/transformed/ui-graphics-release/res
+com.japetnese.app-savedstate-1.2.1-23 /Users/jenna/.gradle/caches/transforms-3/7f3e2d15d80e69e363c1fec1bc7bcc39/transformed/savedstate-1.2.1/res
+com.japetnese.app-ui-tooling-data-release-24 /Users/jenna/.gradle/caches/transforms-3/80bc349822f759d3272c583388ba8b90/transformed/ui-tooling-data-release/res
+com.japetnese.app-lifecycle-viewmodel-savedstate-2.7.0-25 /Users/jenna/.gradle/caches/transforms-3/8abc1c157ebdf90f5457161b4d339e42/transformed/lifecycle-viewmodel-savedstate-2.7.0/res
+com.japetnese.app-navigation-common-ktx-2.7.6-26 /Users/jenna/.gradle/caches/transforms-3/8b1fc4defa1ba301fbb12cc517c4e0d3/transformed/navigation-common-ktx-2.7.6/res
+com.japetnese.app-ui-text-release-27 /Users/jenna/.gradle/caches/transforms-3/957b538ba69e6beb5e98362928ca68e9/transformed/ui-text-release/res
+com.japetnese.app-profileinstaller-1.3.0-28 /Users/jenna/.gradle/caches/transforms-3/96880c6b062bc21963958e8d695bed5e/transformed/profileinstaller-1.3.0/res
+com.japetnese.app-lifecycle-viewmodel-2.7.0-29 /Users/jenna/.gradle/caches/transforms-3/97518eb11397457a6000fb411691ecc7/transformed/lifecycle-viewmodel-2.7.0/res
+com.japetnese.app-ui-util-release-30 /Users/jenna/.gradle/caches/transforms-3/9f54e416190fa4b75f658038557e6ae4/transformed/ui-util-release/res
+com.japetnese.app-lifecycle-runtime-2.7.0-31 /Users/jenna/.gradle/caches/transforms-3/a73d283cfd183bdbf1253d0cbab45cc7/transformed/lifecycle-runtime-2.7.0/res
+com.japetnese.app-activity-1.8.2-32 /Users/jenna/.gradle/caches/transforms-3/aa76a1514919bee467bd91ec12ec39c6/transformed/activity-1.8.2/res
+com.japetnese.app-lifecycle-viewmodel-ktx-2.7.0-33 /Users/jenna/.gradle/caches/transforms-3/ad186b2ab1859a072ba02073571110ce/transformed/lifecycle-viewmodel-ktx-2.7.0/res
+com.japetnese.app-animation-release-34 /Users/jenna/.gradle/caches/transforms-3/b403e594e1c93b27f65fddb7c8af197b/transformed/animation-release/res
+com.japetnese.app-ui-unit-release-35 /Users/jenna/.gradle/caches/transforms-3/bd38c1fc784498194bcd7ce7026080e2/transformed/ui-unit-release/res
+com.japetnese.app-material-icons-extended-release-36 /Users/jenna/.gradle/caches/transforms-3/bdd31ad0103a7825add0b2c64365059e/transformed/material-icons-extended-release/res
+com.japetnese.app-navigation-common-2.7.6-37 /Users/jenna/.gradle/caches/transforms-3/beaaed72c0cc82e34a93705434723643/transformed/navigation-common-2.7.6/res
+com.japetnese.app-core-runtime-2.2.0-38 /Users/jenna/.gradle/caches/transforms-3/bf75f771ce0c5fa68bd605e8f4b2797f/transformed/core-runtime-2.2.0/res
+com.japetnese.app-activity-ktx-1.8.2-39 /Users/jenna/.gradle/caches/transforms-3/cb5a98a40e0398ec7f07d3b6aa0783b3/transformed/activity-ktx-1.8.2/res
+com.japetnese.app-material-release-40 /Users/jenna/.gradle/caches/transforms-3/e1a9ffe8844ae9415e50d81f41cc39d6/transformed/material-release/res
+com.japetnese.app-material-icons-core-release-41 /Users/jenna/.gradle/caches/transforms-3/e24761fda1bcf0e08f7a09c91452de32/transformed/material-icons-core-release/res
+com.japetnese.app-annotation-experimental-1.3.0-42 /Users/jenna/.gradle/caches/transforms-3/e9a17e4d78facf388eb36755dc7f28df/transformed/annotation-experimental-1.3.0/res
+com.japetnese.app-lifecycle-process-2.7.0-43 /Users/jenna/.gradle/caches/transforms-3/f85ac06fc2d55a22491880112208a206/transformed/lifecycle-process-2.7.0/res
+com.japetnese.app-navigation-runtime-2.7.6-44 /Users/jenna/.gradle/caches/transforms-3/fb93055c6990452190f4a665ac779b05/transformed/navigation-runtime-2.7.6/res
+com.japetnese.app-navigation-compose-2.7.6-45 /Users/jenna/.gradle/caches/transforms-3/ffaae2643b44f83437ffde7f403b4b6d/transformed/navigation-compose-2.7.6/res
+com.japetnese.app-pngs-46 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/build/generated/res/pngs/debug
+com.japetnese.app-resValues-47 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/build/generated/res/resValues/debug
+com.japetnese.app-packageDebugResources-48 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.japetnese.app-packageDebugResources-49 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.japetnese.app-merged_res-50 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/build/intermediates/merged_res/debug
+com.japetnese.app-debug-51 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/src/debug/res
+com.japetnese.app-main-52 /Users/jenna/Jaeyeon First App/.claude/worktrees/charming-zhukovsky/JaPetnese-Android/app/src/main/res

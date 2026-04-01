@@ -85,15 +85,8 @@ struct PetCollectionView: View {
                     // Stage indicator
                     stageIndicator(pet: pet)
 
-                    // Progress or rarity
-                    if pet.stage == .adult {
-                        Text(pet.rarity.displayName)
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundStyle(rarityColor(pet.rarity))
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background(rarityColor(pet.rarity).opacity(0.08), in: Capsule())
-                    } else {
+                    // Progress bar (non-adult)
+                    if pet.stage != .adult {
                         VStack(spacing: 5) {
                             GeometryReader { geo in
                                 ZStack(alignment: .leading) {
@@ -112,14 +105,25 @@ struct PetCollectionView: View {
                         }
                     }
 
-                    // Equipped badge
-                    if isEquipped {
-                        Text("장착 중")
-                            .font(.system(size: 9, weight: .bold))
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 5)
-                            .background(.black, in: Capsule())
+                    // Bottom badges: rarity + equipped in one row
+                    HStack(spacing: 6) {
+                        if pet.stage == .adult {
+                            Text(pet.rarity.displayName)
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundStyle(rarityColor(pet.rarity))
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(rarityColor(pet.rarity).opacity(0.08), in: Capsule())
+                        }
+
+                        if isEquipped {
+                            Text("장착 중")
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(.black, in: Capsule())
+                        }
                     }
                 }
                 .padding(.horizontal, 12)
@@ -127,6 +131,7 @@ struct PetCollectionView: View {
                 .padding(.bottom, 16)
             }
             .frame(maxWidth: .infinity)
+            .frame(minHeight: 260)
             .background(bgCard, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
             .shadow(color: .black.opacity(isEquipped ? 0.1 : 0.04), radius: isEquipped ? 12 : 8, y: isEquipped ? 4 : 2)
         }

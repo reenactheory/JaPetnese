@@ -60,12 +60,11 @@ struct OnboardingView: View {
                 Text("환영합니다")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundStyle(textSecondary)
-                    .tracking(4)
                     .opacity(appearAnimation ? 1 : 0)
 
                 // Preview card
                 ZStack(alignment: .topTrailing) {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
                         Spacer()
                         Text("さんじ")
                             .font(.custom(jpFontBold, size: 48))
@@ -215,7 +214,7 @@ struct OnboardingView: View {
                                     }
                                 }
                             case .hiraganaOnly:
-                                VStack(alignment: .leading, spacing: -4) {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text("くじ")
                                         .font(.custom(jpFontBold, size: 44))
                                     Text("さんじゅっぷん")
@@ -320,6 +319,7 @@ struct DisplayModeCard: View {
                         }
                         Text(subtitle)
                             .font(.custom("HiraginoSans-W7", size: 20))
+                            .lineSpacing(6)
                             .foregroundStyle(isSelected ? .black : .black.opacity(0.3))
                     }
                 }

@@ -45,23 +45,16 @@ struct GachaView: View {
                                 }
                             }
 
-                            if petManager.store.canAdGacha {
-                                let remaining = 3 - (Calendar.current.isDateInToday(petManager.store.lastAdGachaDate ?? .distantPast) ? petManager.store.adGachaCountToday : 0)
-                                gachaButton(title: "광고 보고 뽑기", subtitle: "오늘 \(remaining)회 남음", icon: "play.rectangle.fill") {
-                                    performGacha { petManager.useAdGacha() }
-                                }
-                            }
+                            // TODO: 광고 연동 후 활성화
+                            // if petManager.store.canAdGacha { ... }
 
-                            if petManager.store.gachaTickets > 0 {
-                                gachaButton(title: "뽑기권 사용", subtitle: "\(petManager.store.gachaTickets)장 보유", icon: "ticket.fill") {
-                                    if let pet = petManager.useTicketGacha() {
-                                        performGachaWithPet(pet)
-                                    }
-                                }
-                            }
+                            // TODO: 스토어 연동 후 활성화
+                            // if petManager.store.gachaTickets > 0 { ... }
+                            // gachaButton(title: "뽑기권 구매", ...) { ... }
 
-                            gachaButton(title: "뽑기권 구매", subtitle: "스토어로 이동", icon: "cart.fill") {
-                                // TODO: Navigate to store
+                            gachaButton(title: "무료 뽑기", subtitle: "하루 3회", icon: "clock.fill") {
+                                // 광고 없는 버전: 하루 3회 무료 뽑기
+                                performGacha { petManager.useAdGacha() }
                             }
                         }
                         .padding(.horizontal, 16)

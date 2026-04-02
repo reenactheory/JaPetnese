@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JaPetnese — 일본어로 시간을 읽고, 펫도 키워보세요</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Noto Sans KR', sans-serif; background: #fff; color: #1a1a1a; overflow-x: hidden; }
@@ -17,8 +17,14 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 40px;
     }
-    .nav-logo { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; text-decoration: none; color: #1a1a1a; }
+    .nav-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: .75rem; text-decoration: none; color: #1a1a1a;
+      display: flex; align-items: center; gap: 8px;
+      image-rendering: pixelated;
+    }
     .nav-logo span { color: #e06080; }
+    #logoSprite { image-rendering: pixelated; display: block; }
     .nav-right { display: flex; align-items: center; gap: 24px; }
     .nav-link { font-size: .9rem; color: #666; text-decoration: none; transition: color .2s; }
     .nav-link:hover { color: #1a1a1a; }
@@ -160,7 +166,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Ja<span>Pet</span>nese</a>
+  <a href="#" class="nav-logo"><canvas id="logoSprite"></canvas>Ja<span>Pet</span>nese</a>
   <div class="nav-right">
     <a href="#how" class="nav-link">사용법</a>
     <a href="#pets" class="nav-link">펫 컬렉션</a>
@@ -388,6 +394,25 @@ const PAL = {
   raccoon: { p:'#736659', s:'#bfb3a6', a:'#403833', e:'#26262e' },
   penguin: { p:'#262e40', s:'#f2f2f2', a:'#f2b333', e:'#26262e' },
 };
+
+/* ── NAV LOGO SPRITE ── */
+(function() {
+  const logoC = document.getElementById('logoSprite');
+  const scale = 3;
+  const pixels = EGG;
+  const pal = PAL.cat;
+  const colMap = {1: pal.p, 2: pal.s, 3: pal.a, 4: pal.e};
+  const maxW = Math.max(...pixels.map(r => r.length));
+  logoC.width = maxW * scale;
+  logoC.height = pixels.length * scale;
+  logoC.style.width  = (maxW * scale) + 'px';
+  logoC.style.height = (pixels.length * scale) + 'px';
+  const ctx = logoC.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  pixels.forEach((row, y) => row.forEach((v, x) => {
+    if (v && colMap[v]) { ctx.fillStyle = colMap[v]; ctx.fillRect(x*scale, y*scale, scale, scale); }
+  }));
+})();
 
 /* ── HERO SCATTERED SPRITES ── */
 const heroEl = document.querySelector('.hero');

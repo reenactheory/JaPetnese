@@ -23,7 +23,8 @@
       display: flex; align-items: center; gap: 8px;
       image-rendering: pixelated;
     }
-    .nav-logo span { color: #e06080; }
+    .logo-text { letter-spacing: 0; word-spacing: 0; white-space: nowrap; }
+    .logo-accent { color: #e06080; }
     #logoSprite { image-rendering: pixelated; display: block; }
     .nav-right { display: flex; align-items: center; gap: 24px; }
     .nav-link { font-size: .9rem; color: #666; text-decoration: none; transition: color .2s; }
@@ -166,7 +167,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo"><canvas id="logoSprite"></canvas>Ja<span>Pet</span>nese</a>
+  <a href="#" class="nav-logo"><canvas id="logoSprite"></canvas><span class="logo-text">Ja<span class="logo-accent">Pet</span>nese</span></a>
   <div class="nav-right">
     <a href="#how" class="nav-link">사용법</a>
     <a href="#pets" class="nav-link">펫 컬렉션</a>

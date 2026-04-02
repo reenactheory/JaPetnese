@@ -39,22 +39,14 @@ struct GachaView: View {
 
                         // Gacha buttons
                         VStack(spacing: 12) {
-                            if petManager.store.canFreeGacha {
-                                gachaButton(title: "무료 뽑기", subtitle: "첫 1회 무료!", icon: "gift.fill") {
-                                    performGacha { petManager.useFreeGacha() }
+                            if petManager.canDailyFreeGacha {
+                                gachaButton(title: "무료 뽑기", subtitle: "하루 1회", icon: "gift.fill") {
+                                    performGacha { petManager.useDailyFreeGacha() }
                                 }
-                            }
-
-                            // TODO: 광고 연동 후 활성화
-                            // if petManager.store.canAdGacha { ... }
-
-                            // TODO: 스토어 연동 후 활성화
-                            // if petManager.store.gachaTickets > 0 { ... }
-                            // gachaButton(title: "뽑기권 구매", ...) { ... }
-
-                            gachaButton(title: "무료 뽑기", subtitle: "하루 3회", icon: "clock.fill") {
-                                // 광고 없는 버전: 하루 3회 무료 뽑기
-                                performGacha { petManager.useAdGacha() }
+                            } else {
+                                gachaButton(title: "무료 뽑기", subtitle: "내일 다시 뽑을 수 있어요", icon: "clock.fill") {}
+                                    .opacity(0.5)
+                                    .allowsHitTesting(false)
                             }
                         }
                         .padding(.horizontal, 16)

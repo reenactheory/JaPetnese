@@ -261,6 +261,7 @@ struct PetStore: Codable {
     var inviteCount: Int
     var adGachaCountToday: Int
     var lastAdGachaDate: Date?
+    var lastDailyFreeDate: Date?
 
     static let empty = PetStore(
         currentPetId: nil,
@@ -354,6 +355,18 @@ class PetManager: ObservableObject {
     func useFreeGacha() -> Pet {
         let pet = rollGacha()
         store.freeGachaUsed = true
+        save()
+        return pet
+    }
+
+    var canDailyFreeGacha: Bool {
+        guard let lastDate = store.lastDailyFreeDate else { return true }
+        return !Calendar.current.isDateInToday(lastDate)
+    }
+
+    func useDailyFreeGacha() -> Pet {
+        let pet = rollGacha()
+        store.lastDailyFreeDate = Date()
         save()
         return pet
     }

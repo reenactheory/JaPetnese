@@ -48,7 +48,22 @@
     /* ── HERO PHONE ── */
     .phone-wrap { position: relative; z-index: 2; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.22)); }
     .phone-outer { background: #1a1a1a; border-radius: 52px; padding: 14px; }
-    .phone-outer img { width: 272px; border-radius: 40px; display: block; }
+    .phone-slider { position: relative; width: 272px; border-radius: 40px; overflow: hidden; }
+    .phone-slider img {
+      width: 272px; display: block;
+      position: absolute; top: 0; left: 0;
+      opacity: 0; transition: opacity 0.7s ease;
+    }
+    .phone-slider img:first-child { position: relative; }
+    .phone-slider img.active { opacity: 1; }
+    .phone-dots {
+      display: flex; justify-content: center; gap: 6px; margin-top: 16px;
+    }
+    .phone-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #ccc; transition: background 0.3s;
+    }
+    .phone-dot.active { background: #1a1a1a; }
 
     /* ── STEPS ── */
     .steps { padding: 100px 24px; background: #fff; }
@@ -158,7 +173,20 @@
   <h1 class="hero-headline">일본어로 시간을 읽고,<br>펫도 키워보세요</h1>
   <div class="phone-wrap">
     <div class="phone-outer">
-      <img src="hero.png" alt="JaPetnese 앱 온보딩 화면" />
+      <div class="phone-slider" id="phoneSlider">
+        <img src="hero.png"   alt="JaPetnese 앱 화면 1" class="active" />
+        <img src="slide2.png" alt="JaPetnese 앱 화면 2" />
+        <img src="slide3.png" alt="JaPetnese 앱 화면 3" />
+        <img src="slide4.png" alt="JaPetnese 앱 화면 4" />
+        <img src="slide5.png" alt="JaPetnese 앱 화면 5" />
+      </div>
+    </div>
+    <div class="phone-dots" id="phoneDots">
+      <div class="phone-dot active"></div>
+      <div class="phone-dot"></div>
+      <div class="phone-dot"></div>
+      <div class="phone-dot"></div>
+      <div class="phone-dot"></div>
     </div>
   </div>
 </section>
@@ -419,6 +447,20 @@ pets.forEach(({grid, pal, name, jp, unlocked}) => {
   div.appendChild(nm); div.appendChild(j);
   petGrid.appendChild(div);
 });
+
+/* ── HERO PHONE SLIDESHOW ── */
+(function() {
+  const imgs = document.querySelectorAll('#phoneSlider img');
+  const dots = document.querySelectorAll('#phoneDots .phone-dot');
+  let cur = 0;
+  setInterval(() => {
+    imgs[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (cur + 1) % imgs.length;
+    imgs[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }, 2800);
+})();
 
 /* ── DRAG SCROLL ── */
 const scroll = document.getElementById('screensScroll');

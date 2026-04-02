@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JaPetnese — 일본어로 시간을 읽고, 펫도 키워보세요</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans KR', sans-serif; background: #fff; color: #1a1a1a; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #f0f0f0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+    }
+    .nav-logo { font-weight: 900; font-size: 1.3rem; letter-spacing: -0.5px; text-decoration: none; color: #1a1a1a; }
+    .nav-logo span { color: #e06080; }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-size: .9rem; color: #666; text-decoration: none; transition: color .2s; }
+    .nav-link:hover { color: #1a1a1a; }
+    .nav-btn {
+      background: #1a1a1a; color: #fff; border: none; padding: 10px 24px;
+      border-radius: 50px; font-size: .85rem; font-weight: 700; cursor: pointer;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .nav-btn:hover { opacity: .8; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; padding: 100px 20px 80px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; background: #fafafa;
+    }
+    .hero-headline {
+      font-weight: 900; font-size: clamp(1.8rem, 5vw, 3rem);
+      line-height: 1.35; text-align: center; color: #1a1a1a;
+      margin-bottom: 48px; position: relative; z-index: 2;
+    }
+    .sprite {
+      position: absolute; image-rendering: pixelated;
+      image-rendering: crisp-edges; pointer-events: none;
+    }
+
+    /* ── HERO PHONE ── */
+    .phone-wrap { position: relative; z-index: 2; filter: drop-shadow(0 40px 80px rgba(0,0,0,0.22)); }
+    .phone-outer { background: #1a1a1a; border-radius: 52px; padding: 14px; }
+    .phone-outer img { width: 272px; border-radius: 40px; display: block; }
+
+    /* ── STEPS ── */
+    .steps { padding: 100px 24px; background: #fff; }
+    .steps-inner { max-width: 960px; margin: 0 auto; }
+    .section-eyebrow {
+      display: block; text-align: center; font-size: .75rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: #e06080; margin-bottom: 14px;
+    }
+    .section-title { font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.4rem); text-align: center; color: #1a1a1a; margin-bottom: 60px; line-height: 1.3; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+    .step-card {
+      background: #fafafa; border-radius: 24px; padding: 36px 28px; text-align: center;
+      border: 1.5px solid #f0f0f0; transition: transform .25s, box-shadow .25s;
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+    .step-num {
+      display: inline-block; width: 36px; height: 36px; background: #1a1a1a; color: #fff;
+      border-radius: 50%; font-weight: 900; font-size: 1rem; line-height: 36px;
+      text-align: center; margin-bottom: 20px;
+    }
+    .step-icon-wrap { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .step-card h3 { font-weight: 900; font-size: 1.1rem; margin-bottom: 10px; }
+    .step-card p { font-size: .88rem; color: #666; line-height: 1.7; }
+
+    /* ── APP SCREENSHOTS ── */
+    .screenshots { padding: 100px 0 100px; background: #fafafa; overflow: hidden; }
+    .screenshots-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .screenshots-header { text-align: center; margin-bottom: 56px; }
+    .screenshots-header .section-eyebrow { color: #e06080; }
+    .screens-scroll {
+      display: flex; gap: 24px; overflow-x: auto; align-items: flex-start;
+      padding: 20px 0 40px; scrollbar-width: none; cursor: grab;
+    }
+    .screens-scroll:active { cursor: grabbing; }
+    .screens-scroll::-webkit-scrollbar { display: none; }
+    .screen-item { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .screen-item:first-child { margin-left: auto; }
+    .screen-item:last-child  { margin-right: auto; }
+    .screen-label { font-size: .82rem; color: #888; font-weight: 700; letter-spacing: 1px; }
+
+    /* marketing screenshot card */
+    .mini-phone { border-radius: 24px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.13); }
+    .mini-phone img { width: 300px; display: block; }
+
+    /* ── COLLECTION ── */
+    .collection { padding: 100px 24px; background: #fff; }
+    .collection-inner { max-width: 960px; margin: 0 auto; }
+    .pet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+    .pet-item {
+      background: #fafafa; border-radius: 18px; padding: 24px 12px 16px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      border: 1.5px solid #f0f0f0; transition: transform .2s; cursor: pointer;
+    }
+    .pet-item:hover { transform: translateY(-4px); }
+    .pet-item.locked { opacity: .35; filter: grayscale(1); }
+    .pet-name { font-size: .78rem; font-weight: 700; color: #1a1a1a; }
+    .pet-jp { font-size: .7rem; color: #aaa; font-family: 'M PLUS Rounded 1c', sans-serif; }
+
+    /* ── CTA ── */
+    .cta { padding: 100px 24px; background: #1a1a1a; text-align: center; position: relative; overflow: hidden; }
+    .cta-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+    .cta h2 { font-weight: 900; font-size: clamp(1.8rem, 5vw, 2.8rem); color: #fff; line-height: 1.3; margin-bottom: 16px; }
+    .cta p { color: rgba(255,255,255,.5); font-size: 1rem; line-height: 1.7; margin-bottom: 36px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .store-btn {
+      display: flex; align-items: center; gap: 12px; background: #fff; color: #1a1a1a;
+      padding: 14px 28px; border-radius: 16px; text-decoration: none; font-weight: 700; transition: opacity .2s;
+    }
+    .store-btn:hover { opacity: .85; }
+    .store-icon { font-size: 1.6rem; }
+    .store-text { text-align: left; }
+    .store-text small { display: block; font-size: .7rem; font-weight: 400; color: #888; }
+    .store-text span { font-size: .95rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #111; padding: 40px 24px; text-align: center; color: rgba(255,255,255,.3); font-size: .82rem; }
+    footer strong { color: rgba(255,255,255,.6); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-right .nav-link { display: none; }
+      .hero-headline { font-size: 1.7rem; }
+    }
+    @media (max-width: 480px) {
+      .sprite { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ja<span>Pet</span>nese</a>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">사용법</a>
+    <a href="#pets" class="nav-link">펫 컬렉션</a>
+    <a href="#download" class="nav-btn">다운로드</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <h1 class="hero-headline">일본어로 시간을 읽고,<br>펫도 키워보세요</h1>
+  <div class="phone-wrap">
+    <div class="phone-outer">
+      <img src="hero.png" alt="JaPetnese 앱 온보딩 화면" />
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps" id="how">
+  <div class="steps-inner">
+    <span class="section-eyebrow">How it works</span>
+    <h2 class="section-title">딱 3단계면 충분해요</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon-wrap" id="step1icon"></div>
+        <h3>시간 퀴즈 풀기</h3>
+        <p>일본어로 표현된 시간을 읽고 정답을 고르세요. 매일 반복하다 보면 자연스럽게 익혀져요.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon-wrap" id="step2icon"></div>
+        <h3>펫이 성장해요</h3>
+        <p>정답을 맞출수록 귀여운 도트 펫이 레벨업! 더 다양한 친구들을 만날 수 있어요.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon-wrap" id="step3icon"></div>
+        <h3>컬렉션 채우기</h3>
+        <p>개성 넘치는 도트 펫들을 모아 나만의 컬렉션을 완성하세요. 희귀 펫도 있어요!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP SCREENSHOTS -->
+<section class="screenshots" id="preview">
+  <div class="screenshots-inner">
+    <div class="screenshots-header">
+      <span class="section-eyebrow">App Preview</span>
+      <h2 class="section-title">앱을 미리 둘러보세요</h2>
+    </div>
+  </div>
+  <div class="screens-scroll" id="screensScroll">
+
+    <div class="screen-item">
+      <div class="mini-phone"><img src="screen1.png" alt="온보딩" /></div>
+      <span class="screen-label">온보딩</span>
+    </div>
+    <div class="screen-item">
+      <div class="mini-phone"><img src="screen2.png" alt="시계" /></div>
+      <span class="screen-label">시계</span>
+    </div>
+    <div class="screen-item">
+      <div class="mini-phone"><img src="screen3.png" alt="뽑기" /></div>
+      <span class="screen-label">뽑기</span>
+    </div>
+    <div class="screen-item">
+      <div class="mini-phone"><img src="screen4.png" alt="도감" /></div>
+      <span class="screen-label">도감</span>
+    </div>
+    <div class="screen-item">
+      <div class="mini-phone"><img src="screen5.png" alt="시계 + 펫" /></div>
+      <span class="screen-label">시계 + 펫</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PET COLLECTION -->
+<section class="collection" id="pets">
+  <div class="collection-inner">
+    <span class="section-eyebrow">Pet Collection</span>
+    <h2 class="section-title">어떤 펫을 키울 수 있을까요?</h2>
+    <div class="pet-grid" id="petGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="download">
+  <div class="cta-inner">
+    <h2>지금 바로<br>다운로드하세요</h2>
+    <p>무료로 시작하고, 일본어 시간 마스터가 되어보세요.</p>
+    <div class="cta-btns">
+      <a href="#" class="store-btn">
+        <div class="store-icon">🍎</div>
+        <div class="store-text"><small>Download on the</small><span>App Store</span></div>
+      </a>
+      <a href="#" class="store-btn">
+        <div class="store-icon">▶</div>
+        <div class="store-text"><small>Get it on</small><span>Google Play</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>JaPetnese</strong> · 일본어 시간 학습 + 도트 펫 키우기</p>
+  <p style="margin-top:8px">© 2026 JaPetnese. All rights reserved.</p>
+</footer>
+
+<script>
+/* ════════════════════════════════════
+   PIXEL ART ENGINE
+════════════════════════════════════ */
+
+// Renders a palette-indexed sprite (0=clear, 1=primary, 2=secondary, 3=accent, 4=eye)
+function makePaletteSprite(pixels, pal, scale) {
+  const colMap = {1: pal.p, 2: pal.s, 3: pal.a, 4: pal.e};
+  const maxW = Math.max(...pixels.map(r => r.length));
+  const c = document.createElement('canvas');
+  c.width = maxW * scale; c.height = pixels.length * scale;
+  c.style.imageRendering = 'pixelated';
+  const ctx = c.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  pixels.forEach((row, y) => row.forEach((v, x) => {
+    if (v && colMap[v]) { ctx.fillStyle = colMap[v]; ctx.fillRect(x*scale, y*scale, scale, scale); }
+  }));
+  return c;
+}
+
+/* ── EXACT PIXEL GRIDS from PetPixelData.swift ── */
+// 0=clear, 1=primary, 2=secondary, 3=accent, 4=eye
+
+const EGG = [
+  [0,0,1,1,1,0,0],
+  [0,1,2,2,2,1,0],
+  [1,2,2,3,2,2,1],
+  [1,2,2,2,2,2,1],
+  [1,2,2,2,3,2,1],
+  [0,1,2,2,2,1,0],
+  [0,0,1,1,1,0,0],
+];
+const CAT = [
+  [0,0,0,0,0,0,0,0,1,0,1],
+  [0,0,0,0,0,0,0,1,3,1,3,1],
+  [1,0,0,0,0,0,0,1,1,1,1,1],
+  [0,1,0,0,0,0,0,1,4,1,1,4,1],
+  [0,0,1,1,1,1,1,1,1,3,1,1,1],
+  [0,0,0,1,1,1,1,1,1,1,1,1,1],
+  [0,0,0,1,2,1,1,1,1,1,2,1,0],
+  [0,0,0,0,1,0,0,0,0,1,0,0,0],
+];
+const SHIBA = [
+  [0,0,0,0,0,0,0,1,1,0,0,1,1],
+  [0,0,0,0,0,0,0,1,2,1,1,2,1],
+  [0,0,0,0,0,0,1,2,4,2,2,4,2,1],
+  [1,1,0,0,0,0,1,2,2,3,3,2,2,1],
+  [0,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [0,0,1,1,1,1,1,1,2,2,2,1,1,0],
+  [0,0,0,1,2,1,0,0,1,2,1,0,0,0],
+  [0,0,0,0,1,0,0,0,0,1,0,0,0,0],
+];
+const RABBIT = [
+  [0,0,0,0,0,0,0,0,1,0,0,1,0],
+  [0,0,0,0,0,0,0,0,1,0,0,1,0],
+  [0,0,0,0,0,0,0,1,3,1,1,3,1],
+  [0,0,0,0,0,0,0,1,4,2,2,4,1],
+  [0,0,0,1,1,1,1,1,1,3,1,1,1],
+  [1,0,0,1,1,2,2,2,1,1,1,1,0],
+  [0,0,0,1,1,1,1,1,1,1,1,0,0],
+  [0,0,0,0,1,0,0,0,0,1,0,0,0],
+];
+const FOX = [
+  [0,0,0,0,0,0,0,1,0,0,0,0,1],
+  [0,0,0,0,0,0,0,1,1,0,0,1,1],
+  [0,0,0,0,0,0,1,1,4,1,1,4,1,1],
+  [1,1,0,0,0,0,0,1,2,2,2,2,1],
+  [0,1,1,1,1,1,1,1,1,3,1,1,1],
+  [0,0,1,1,1,1,1,1,2,2,2,1,0],
+  [0,0,0,1,2,1,0,0,1,2,1,0,0],
+  [0,0,0,0,1,0,0,0,0,1,0,0,0],
+];
+const RACCOON = [
+  [0,0,0,0,0,0,0,1,1,0,0,1,1],
+  [0,0,0,0,0,0,0,1,2,1,1,2,1],
+  [0,0,0,0,0,0,1,3,4,3,3,4,3,1],
+  [1,1,0,0,0,0,0,1,1,3,1,1,1],
+  [0,1,1,1,1,1,1,1,1,1,1,1,1],
+  [0,0,1,1,2,2,2,1,2,2,1,1,0],
+  [0,0,0,1,1,1,0,0,1,1,1,0,0],
+  [0,0,0,0,1,0,0,0,0,1,0,0,0],
+];
+const PENGUIN = [
+  [0,0,0,0,0,0,0,1,1,1,0,0],
+  [0,0,0,0,0,0,1,1,1,1,1,0],
+  [0,0,0,0,0,0,1,4,2,4,1,0],
+  [0,0,0,0,0,1,1,2,3,2,1,1],
+  [0,0,0,1,1,1,1,2,2,2,1,0],
+  [0,0,0,1,1,1,2,2,2,2,1,0],
+  [0,0,0,0,1,1,2,2,2,1,0,0],
+  [0,0,0,0,0,0,3,0,3,0,0,0],
+];
+
+/* ── PALETTES from PetPalette.swift (Color(r,g,b) × 255 → hex) ── */
+const PAL = {
+  cat:     { p:'#66666d', s:'#9999a1', a:'#f2a6ad', e:'#26262e' },
+  shiba:   { p:'#cc8c4d', s:'#f2e6cc', a:'#f2a6ad', e:'#26262e' },
+  rabbit:  { p:'#ebe6e0', s:'#faf7f5', a:'#f299a6', e:'#bf3340' },
+  fox:     { p:'#e68c33', s:'#f2ebd9', a:'#f2a6ad', e:'#26262e' },
+  raccoon: { p:'#736659', s:'#bfb3a6', a:'#403833', e:'#26262e' },
+  penguin: { p:'#262e40', s:'#f2f2f2', a:'#f2b333', e:'#26262e' },
+};
+
+/* ── HERO SCATTERED SPRITES ── */
+const heroEl = document.querySelector('.hero');
+const heroSprites = [
+  { grid: EGG,     pal: PAL.cat,     scale: 7, top:'8%',   left:'4%',    rotate:-10 },
+  { grid: EGG,     pal: PAL.shiba,   scale: 7, top:'7%',   right:'5%',   rotate:8   },
+  { grid: CAT,     pal: PAL.cat,     scale: 6, top:'24%',  left:'5%',    rotate:10  },
+  { grid: EGG,     pal: PAL.rabbit,  scale: 7, top:'28%',  right:'4%',   rotate:-6  },
+  { grid: RABBIT,  pal: PAL.rabbit,  scale: 6, top:'50%',  left:'3%',    rotate:-12 },
+  { grid: EGG,     pal: PAL.penguin, scale: 7, top:'53%',  right:'5%',   rotate:14  },
+  { grid: RACCOON, pal: PAL.raccoon, scale: 6, top:'70%',  left:'6%',    rotate:-5  },
+  { grid: EGG,     pal: PAL.fox,     scale: 7, top:'73%',  right:'3%',   rotate:-8  },
+  { grid: EGG,     pal: PAL.raccoon, scale: 6, top:'73%',  left:'2%',    rotate:20  },
+  { grid: FOX,     pal: PAL.fox,     scale: 5, top:'40%',  right:'7%',   rotate:5   },
+  { grid: SHIBA,   pal: PAL.shiba,   scale: 5, top:'62%',  right:'2%',   rotate:-18 },
+  { grid: PENGUIN, pal: PAL.penguin, scale: 5, top:'18%',  right:'10%',  rotate:-8  },
+];
+heroSprites.forEach(({grid, pal, scale, top, left, right, bottom, rotate}) => {
+  const c = makePaletteSprite(grid, pal, scale);
+  c.classList.add('sprite');
+  Object.assign(c.style, {
+    top: top||'auto', left: left||'auto', right: right||'auto', bottom: bottom||'auto',
+    transform: `rotate(${rotate||0}deg)`,
+  });
+  heroEl.appendChild(c);
+});
+
+/* ── STEP ICONS ── */
+[
+  ['step1icon', EGG,     PAL.rabbit,  8],
+  ['step2icon', SHIBA,   PAL.shiba,   7],
+  ['step3icon', PENGUIN, PAL.penguin, 6],
+].forEach(([id, grid, pal, sc]) => document.getElementById(id).appendChild(makePaletteSprite(grid, pal, sc)));
+
+/* ── PET COLLECTION GRID ── */
+const pets = [
+  { grid: EGG,     pal: PAL.cat,     name:'고양이알',  jp:'たまご',   unlocked:true  },
+  { grid: EGG,     pal: PAL.shiba,   name:'시바알',    jp:'たまご',   unlocked:true  },
+  { grid: EGG,     pal: PAL.rabbit,  name:'토끼알',    jp:'たまご',   unlocked:true  },
+  { grid: EGG,     pal: PAL.fox,     name:'여우알',    jp:'たまご',   unlocked:true  },
+  { grid: EGG,     pal: PAL.raccoon, name:'너구리알',  jp:'たまご',   unlocked:true  },
+  { grid: EGG,     pal: PAL.penguin, name:'펭귄알',    jp:'たまご',   unlocked:true  },
+  { grid: CAT,     pal: PAL.cat,     name:'냥냥이',    jp:'ねこ',     unlocked:true  },
+  { grid: SHIBA,   pal: PAL.shiba,   name:'시바견',    jp:'しば',     unlocked:true  },
+  { grid: RABBIT,  pal: PAL.rabbit,  name:'토끼',      jp:'うさぎ',   unlocked:true  },
+  { grid: FOX,     pal: PAL.fox,     name:'여우',      jp:'きつね',   unlocked:false },
+  { grid: RACCOON, pal: PAL.raccoon, name:'너구리',    jp:'たぬき',   unlocked:false },
+  { grid: PENGUIN, pal: PAL.penguin, name:'펭귄',      jp:'ペンギン', unlocked:false },
+];
+const petGrid = document.getElementById('petGrid');
+pets.forEach(({grid, pal, name, jp, unlocked}) => {
+  const div = document.createElement('div');
+  div.className = 'pet-item' + (unlocked ? '' : ' locked');
+  div.appendChild(makePaletteSprite(grid, pal, 6));
+  const nm = document.createElement('div'); nm.className='pet-name'; nm.textContent=name;
+  const j  = document.createElement('div'); j.className='pet-jp';   j.textContent=jp;
+  div.appendChild(nm); div.appendChild(j);
+  petGrid.appendChild(div);
+});
+
+/* ── DRAG SCROLL ── */
+const scroll = document.getElementById('screensScroll');
+let isDown=false, startX, scrollLeft;
+scroll.addEventListener('mousedown', e => { isDown=true; startX=e.pageX-scroll.offsetLeft; scrollLeft=scroll.scrollLeft; });
+scroll.addEventListener('mouseleave', () => isDown=false);
+scroll.addEventListener('mouseup', () => isDown=false);
+scroll.addEventListener('mousemove', e => { if(!isDown)return; e.preventDefault(); scroll.scrollLeft=scrollLeft-(e.pageX-scroll.offsetLeft-startX); });
+
+/* ── SCROLL REVEAL ── */
+const revealEls = [...document.querySelectorAll('.step-card, .pet-item')];
+revealEls.forEach(el => el.classList.add('reveal'));
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+// Fallback: reveal everything after 1.5s in case observer doesn't fire
+setTimeout(() => revealEls.forEach(el => el.classList.add('on')), 1500);
+</script>
+</body>
+</html>

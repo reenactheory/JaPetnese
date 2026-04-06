@@ -26,6 +26,10 @@ enum PetSpecies: String, Codable, CaseIterable {
     case whale
     case dolphin
     case lizard
+    case owl
+    case seal
+    case axolotl
+    case kiwi
 
     var displayName: String {
         switch self {
@@ -52,6 +56,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .whale: return "고래"
         case .dolphin: return "돌고래"
         case .lizard: return "도마뱀"
+        case .owl: return "부엉이"
+        case .seal: return "물범"
+        case .axolotl: return "우파루파"
+        case .kiwi: return "키위새"
         }
     }
 
@@ -80,6 +88,10 @@ enum PetSpecies: String, Codable, CaseIterable {
         case .whale: return "くじら"
         case .dolphin: return "イルカ"
         case .lizard: return "トカゲ"
+        case .owl: return "ふくろう"
+        case .seal: return "アザラシ"
+        case .axolotl: return "ウーパールーパー"
+        case .kiwi: return "キーウィ"
         }
     }
 }
@@ -99,9 +111,9 @@ enum PetRarity: String, Codable {
 
     var probability: Double {
         switch self {
-        case .normal: return 0.70
-        case .rare: return 0.25
-        case .legendary: return 0.05
+        case .normal: return 0.80
+        case .rare: return 0.18
+        case .legendary: return 0.02
         }
     }
 }
@@ -121,6 +133,38 @@ enum WidgetColorMode: String, Codable, CaseIterable {
         switch self {
         case .system: return "라이트/다크 모드를 따릅니다"
         case .petColor: return "장착한 펫의 색상이 반영됩니다"
+        }
+    }
+}
+
+// MARK: - Pet Item
+
+enum PetItem: String, Codable, CaseIterable {
+    case growthPotion   // 성장 촉진 포션
+    case food           // 먹이 (30분 단축)
+    case dualSlotTicket // 펫 선택 슬롯권
+
+    var displayName: String {
+        switch self {
+        case .growthPotion: return "성장 촉진 포션"
+        case .food: return "먹이"
+        case .dualSlotTicket: return "펫 선택 슬롯권"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .growthPotion: return "펫이 한 단계 성장해요"
+        case .food: return "성장 시간이 30분 단축돼요"
+        case .dualSlotTicket: return "두 마리를 동시에 장착할 수 있어요 (1회)"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .growthPotion: return "bolt.fill"
+        case .food: return "bag.fill"
+        case .dualSlotTicket: return "person.2.fill"
         }
     }
 }
@@ -262,6 +306,11 @@ struct PetStore: Codable {
     var adGachaCountToday: Int
     var lastAdGachaDate: Date?
     var lastDailyFreeDate: Date?
+    // 아이템 관련 (신규)
+    var itemInventory: [String: Int]  // PetItem.rawValue → count
+    var secondaryPetId: UUID?
+    var adItemCountToday: Int
+    var lastAdItemDate: Date?
 
     static let empty = PetStore(
         currentPetId: nil,
@@ -271,11 +320,65 @@ struct PetStore: Codable {
         inviteCode: UUID().uuidString.prefix(8).lowercased().description,
         inviteCount: 0,
         adGachaCountToday: 0,
-        lastAdGachaDate: nil
+        lastAdGachaDate: nil,
+        lastDailyFreeDate: nil,
+        itemInventory: [:],
+        secondaryPetId: nil,
+        adItemCountToday: 0,
+        lastAdItemDate: nil
     )
+
+    // Backward-compatible decoding (기존 저장 데이터에 신규 필드 없어도 OK)
+    enum CodingKeys: String, CodingKey {
+        case currentPetId, collection, freeGachaUsed, gachaTickets
+        case inviteCode, inviteCount, adGachaCountToday, lastAdGachaDate, lastDailyFreeDate
+        case itemInventory, secondaryPetId, adItemCountToday, lastAdItemDate
+    }
+
+    init(currentPetId: UUID?, collection: [Pet], freeGachaUsed: Bool, gachaTickets: Int,
+         inviteCode: String, inviteCount: Int, adGachaCountToday: Int,
+         lastAdGachaDate: Date?, lastDailyFreeDate: Date? = nil,
+         itemInventory: [String: Int] = [:], secondaryPetId: UUID? = nil,
+         adItemCountToday: Int = 0, lastAdItemDate: Date? = nil) {
+        self.currentPetId = currentPetId
+        self.collection = collection
+        self.freeGachaUsed = freeGachaUsed
+        self.gachaTickets = gachaTickets
+        self.inviteCode = inviteCode
+        self.inviteCount = inviteCount
+        self.adGachaCountToday = adGachaCountToday
+        self.lastAdGachaDate = lastAdGachaDate
+        self.lastDailyFreeDate = lastDailyFreeDate
+        self.itemInventory = itemInventory
+        self.secondaryPetId = secondaryPetId
+        self.adItemCountToday = adItemCountToday
+        self.lastAdItemDate = lastAdItemDate
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        currentPetId = try c.decodeIfPresent(UUID.self, forKey: .currentPetId)
+        collection = try c.decode([Pet].self, forKey: .collection)
+        freeGachaUsed = try c.decode(Bool.self, forKey: .freeGachaUsed)
+        gachaTickets = try c.decode(Int.self, forKey: .gachaTickets)
+        inviteCode = try c.decode(String.self, forKey: .inviteCode)
+        inviteCount = try c.decode(Int.self, forKey: .inviteCount)
+        adGachaCountToday = try c.decode(Int.self, forKey: .adGachaCountToday)
+        lastAdGachaDate = try c.decodeIfPresent(Date.self, forKey: .lastAdGachaDate)
+        lastDailyFreeDate = try c.decodeIfPresent(Date.self, forKey: .lastDailyFreeDate)
+        itemInventory = try c.decodeIfPresent([String: Int].self, forKey: .itemInventory) ?? [:]
+        secondaryPetId = try c.decodeIfPresent(UUID.self, forKey: .secondaryPetId)
+        adItemCountToday = try c.decodeIfPresent(Int.self, forKey: .adItemCountToday) ?? 0
+        lastAdItemDate = try c.decodeIfPresent(Date.self, forKey: .lastAdItemDate)
+    }
 
     var currentPet: Pet? {
         guard let id = currentPetId else { return nil }
+        return collection.first { $0.id == id }
+    }
+
+    var secondaryPet: Pet? {
+        guard let id = secondaryPetId else { return nil }
         return collection.first { $0.id == id }
     }
 
@@ -285,6 +388,14 @@ struct PetStore: Codable {
         if let lastDate = lastAdGachaDate,
            Calendar.current.isDateInToday(lastDate) {
             return adGachaCountToday < 3
+        }
+        return true
+    }
+
+    var canAdItemDraw: Bool {
+        if let lastDate = lastAdItemDate,
+           Date().timeIntervalSince(lastDate) < 12 * 3600 {
+            return adItemCountToday < 5
         }
         return true
     }
@@ -425,6 +536,148 @@ class PetManager: ObservableObject {
         store.collection[index].equippedSince = nil
         store.currentPetId = nil
         save()
+    }
+
+    // MARK: - Item System
+
+    var canAdItemDraw: Bool { store.canAdItemDraw }
+
+    func itemCount(for item: PetItem) -> Int {
+        store.itemInventory[item.rawValue] ?? 0
+    }
+
+    /// 확률 기반 랜덤 아이템 반환 (인벤토리에 추가)
+    @discardableResult
+    func drawRandomItem() -> PetItem {
+        let roll = Double.random(in: 0..<1)
+        let item: PetItem
+        if roll < 0.75 {
+            item = .food
+        } else if roll < 0.95 {
+            item = .growthPotion
+        } else {
+            item = .dualSlotTicket
+        }
+        store.itemInventory[item.rawValue, default: 0] += 1
+        save()
+        return item
+    }
+
+    /// 광고 시청 후 아이템 뽑기 (카운터 업데이트 포함)
+    func useAdItemDraw() -> PetItem {
+        let item = drawRandomItem()
+        if let lastDate = store.lastAdItemDate,
+           Date().timeIntervalSince(lastDate) < 12 * 3600 {
+            store.adItemCountToday += 1
+        } else {
+            store.adItemCountToday = 1
+            store.lastAdItemDate = Date()
+        }
+        save()
+        return item
+    }
+
+    /// 성장 촉진 포션 사용 — 다음 단계 임계값까지 성장 추가
+    @discardableResult
+    func useGrowthPotion(on petId: UUID) -> Bool {
+        guard let index = store.collection.firstIndex(where: { $0.id == petId }),
+              itemCount(for: .growthPotion) > 0 else { return false }
+
+        // 성체면 사용 불가
+        guard store.collection[index].stage != .adult else { return false }
+
+        // 현재 장착 중이면 누적 시간 먼저 flush
+        if let since = store.collection[index].equippedSince {
+            store.collection[index].accumulatedGrowth += Date().timeIntervalSince(since)
+            store.collection[index].equippedSince = Date()
+        }
+
+        let thresholds: [Double] = [12.0, 36.0, 72.0]  // hours
+        let currentHours = store.collection[index].totalGrowthHours
+        if let nextThreshold = thresholds.first(where: { $0 > currentHours }) {
+            let needed = (nextThreshold - currentHours) * 3600
+            store.collection[index].accumulatedGrowth += needed
+        }
+
+        store.itemInventory[PetItem.growthPotion.rawValue, default: 1] -= 1
+        save()
+        return true
+    }
+
+    /// 먹이 사용 — 30분(1800초) 성장 단축
+    @discardableResult
+    func useFood(on petId: UUID) -> Bool {
+        guard let index = store.collection.firstIndex(where: { $0.id == petId }),
+              itemCount(for: .food) > 0 else { return false }
+
+        guard store.collection[index].stage != .adult else { return false }
+
+        if let since = store.collection[index].equippedSince {
+            store.collection[index].accumulatedGrowth += Date().timeIntervalSince(since)
+            store.collection[index].equippedSince = Date()
+        }
+        store.collection[index].accumulatedGrowth += 1800
+
+        store.itemInventory[PetItem.food.rawValue, default: 1] -= 1
+        save()
+        return true
+    }
+
+    /// 듀얼 슬롯권 사용 — 두 번째 슬롯 활성화
+    @discardableResult
+    func useDualSlotTicket() -> Bool {
+        guard itemCount(for: .dualSlotTicket) > 0 else { return false }
+        store.itemInventory[PetItem.dualSlotTicket.rawValue, default: 1] -= 1
+        // secondaryPetId는 equipSecondaryPet()에서 지정
+        save()
+        return true
+    }
+
+    /// 두 번째 슬롯에 펫 장착
+    func equipSecondaryPet(_ id: UUID) {
+        guard let index = store.collection.firstIndex(where: { $0.id == id }) else { return }
+        // 기존 세컨더리 펫 해제
+        clearSecondaryPet()
+        store.collection[index].equippedSince = Date()
+        store.secondaryPetId = id
+        save()
+    }
+
+    /// 두 번째 슬롯 해제
+    func clearSecondaryPet() {
+        guard let secId = store.secondaryPetId,
+              let index = store.collection.firstIndex(where: { $0.id == secId }) else { return }
+        if let since = store.collection[index].equippedSince {
+            store.collection[index].accumulatedGrowth += Date().timeIntervalSince(since)
+        }
+        store.collection[index].equippedSince = nil
+        store.secondaryPetId = nil
+        save()
+    }
+
+    // MARK: - Time-based Reset
+
+    /// 앱 포그라운드 복귀 / 뷰 진입 시 호출 — 만료된 카운터 초기화
+    func checkAndResetTimers() {
+        var changed = false
+
+        // 광고 알 뽑기: 하루(자정) 기준 리셋
+        if let lastDate = store.lastAdGachaDate,
+           !Calendar.current.isDateInToday(lastDate) {
+            store.adGachaCountToday = 0
+            store.lastAdGachaDate = nil
+            changed = true
+        }
+
+        // 광고 아이템 뽑기: 12시간 기준 리셋
+        if let lastDate = store.lastAdItemDate,
+           Date().timeIntervalSince(lastDate) >= 12 * 3600 {
+            store.adItemCountToday = 0
+            store.lastAdItemDate = nil
+            changed = true
+        }
+
+        if changed { save() }
     }
 
     // MARK: - Invite

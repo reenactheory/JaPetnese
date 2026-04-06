@@ -5,10 +5,15 @@ private let bgCard = Color.white
 
 struct GachaView: View {
     @ObservedObject var petManager = PetManager.shared
+    @ObservedObject var adManager = AdManager.shared
     @State private var rolledPet: Pet?
     @State private var isRolling = false
     @State private var showResult = false
     @State private var eggShake = false
+    @State private var itemResult: PetItem?
+    @State private var showItemResult = false
+    @State private var isLoadingAd = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         NavigationStack {
@@ -21,7 +26,10 @@ struct GachaView: View {
 
                         // Gacha display area
                         ZStack {
-                            if showResult, let pet = rolledPet {
+                            if showItemResult, let item = itemResult {
+                                itemResultView(item: item)
+                                    .transition(.scale.combined(with: .opacity))
+                            } else if showResult, let pet = rolledPet {
                                 resultView(pet: pet)
                                     .transition(.scale.combined(with: .opacity))
                             } else if isRolling {
@@ -39,12 +47,45 @@ struct GachaView: View {
 
                         // Gacha buttons
                         VStack(spacing: 12) {
+                            // 무료 뽑기
                             if petManager.canDailyFreeGacha {
-                                gachaButton(title: "무료 뽑기", subtitle: "하루 1회", icon: "gift.fill") {
+                                gachaButton(title: "무료 뽑기", subtitle: "하루 1회", buttonIcon: .gift) {
                                     performGacha { petManager.useDailyFreeGacha() }
                                 }
                             } else {
-                                gachaButton(title: "무료 뽑기", subtitle: "내일 다시 뽑을 수 있어요", icon: "clock.fill") {}
+                                gachaButton(title: "무료 뽑기", subtitle: "내일 다시 뽑을 수 있어요", buttonIcon: .cooldown) {}
+                                    .opacity(0.5)
+                                    .allowsHitTesting(false)
+                            }
+
+                            // 광고 보고 알 뽑기
+                            if petManager.store.canAdGacha {
+                                gachaButton(
+                                    title: "광고 보고 알 뽑기",
+                                    subtitle: "하루 3회 (\(3 - petManager.store.adGachaCountToday)회 남음)",
+                                    buttonIcon: .egg,
+                                    isLoading: isLoadingAd
+                                ) {
+                                    watchAdForGacha()
+                                }
+                            } else {
+                                gachaButton(title: "광고 보고 알 뽑기", subtitle: "오늘 다 사용했어요", buttonIcon: .cooldown) {}
+                                    .opacity(0.5)
+                                    .allowsHitTesting(false)
+                            }
+
+                            // 광고 보고 아이템 받기
+                            if petManager.canAdItemDraw {
+                                gachaButton(
+                                    title: "광고 보고 아이템 받기",
+                                    subtitle: "12시간 5회 (\(5 - petManager.store.adItemCountToday)회 남음)",
+                                    buttonIcon: .itemBag,
+                                    isLoading: isLoadingAd
+                                ) {
+                                    watchAdForItem()
+                                }
+                            } else {
+                                gachaButton(title: "광고 보고 아이템 받기", subtitle: "잠시 후 다시 이용해주세요", buttonIcon: .cooldown) {}
                                     .opacity(0.5)
                                     .allowsHitTesting(false)
                             }
@@ -66,6 +107,14 @@ struct GachaView: View {
             }
             .navigationTitle("뽑기")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                petManager.checkAndResetTimers()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    petManager.checkAndResetTimers()
+                }
+            }
         }
     }
 
@@ -73,7 +122,6 @@ struct GachaView: View {
 
     private var idleView: some View {
         VStack(spacing: 16) {
-            // Egg preview
             let eggPet = Pet(id: UUID(), species: .cat, rarity: .normal, colorVariant: 0, accessory: nil, createdAt: Date(), accumulatedGrowth: 0, equippedSince: nil)
             PetView(pet: eggPet, pixelSize: 8)
 
@@ -103,7 +151,6 @@ struct GachaView: View {
 
     private func resultView(pet: Pet) -> some View {
         VStack(spacing: 16) {
-            // Show egg only — species is hidden!
             PetView(pet: pet, pixelSize: 10, animated: true)
 
             Text("알을 획득했어요!")
@@ -114,7 +161,6 @@ struct GachaView: View {
                 .font(.system(size: 13, weight: .regular))
                 .foregroundStyle(.black.opacity(0.35))
 
-            // Growth timer
             if let remaining = pet.nextStageIn {
                 HStack(spacing: 4) {
                     Image(systemName: "clock")
@@ -141,15 +187,52 @@ struct GachaView: View {
         }
     }
 
+    private func itemResultView(item: PetItem) -> some View {
+        VStack(spacing: 16) {
+            ItemPixelView(item: item, pixelSize: 8)
+
+            Text(item.displayName)
+                .font(.system(size: 20, weight: .bold))
+                .foregroundStyle(.black)
+
+            Text(item.description)
+                .font(.system(size: 13))
+                .foregroundStyle(.black.opacity(0.45))
+                .multilineTextAlignment(.center)
+
+            Text("아이템 탭에서 사용할 수 있어요")
+                .font(.system(size: 11))
+                .foregroundStyle(.black.opacity(0.25))
+
+            Button {
+                withAnimation {
+                    showItemResult = false
+                    itemResult = nil
+                }
+            } label: {
+                Text("확인")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 10)
+                    .background(.black, in: Capsule())
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+
     // MARK: - Gacha Button
 
-    private func gachaButton(title: String, subtitle: String, icon: String, action: @escaping () -> Void) -> some View {
+    private func gachaButton(title: String, subtitle: String, buttonIcon: ButtonIcon, isLoading: Bool = false, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 14) {
-                Image(systemName: icon)
-                    .font(.system(size: 18))
-                    .foregroundStyle(.black.opacity(0.6))
-                    .frame(width: 36)
+                if isLoading {
+                    ProgressView()
+                        .frame(width: 36, height: 28)
+                } else {
+                    ButtonIconView(icon: buttonIcon, pixelSize: 4)
+                        .frame(width: 36, height: 28)
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
@@ -172,6 +255,35 @@ struct GachaView: View {
             .shadow(color: .black.opacity(0.03), radius: 8, y: 2)
         }
         .buttonStyle(.plain)
+        .disabled(isLoading)
+    }
+
+    // MARK: - Ad Actions
+
+    private func watchAdForGacha() {
+        isLoadingAd = true
+        adManager.showAd { success in
+            isLoadingAd = false
+            if success {
+                performGacha { petManager.useAdGacha() }
+            }
+        }
+    }
+
+    private func watchAdForItem() {
+        isLoadingAd = true
+        adManager.showAd { success in
+            isLoadingAd = false
+            if success {
+                let item = petManager.useAdItemDraw()
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                    itemResult = item
+                    showItemResult = true
+                    showResult = false
+                    rolledPet = nil
+                }
+            }
+        }
     }
 
     // MARK: - Helpers
@@ -185,19 +297,7 @@ struct GachaView: View {
                 isRolling = false
                 rolledPet = pet
                 showResult = true
-                eggShake = false
-            }
-        }
-    }
-
-    private func performGachaWithPet(_ pet: Pet) {
-        withAnimation { isRolling = true }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                isRolling = false
-                rolledPet = pet
-                showResult = true
+                showItemResult = false
                 eggShake = false
             }
         }

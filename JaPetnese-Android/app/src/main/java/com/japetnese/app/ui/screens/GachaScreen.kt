@@ -27,10 +27,15 @@ fun GachaScreen(petManager: PetManager) {
     var rolledPet by remember { mutableStateOf<Pet?>(null) }
     var isRolling by remember { mutableStateOf(false) }
     var showResult by remember { mutableStateOf(false) }
+    var storeVersion by remember { mutableIntStateOf(0) }
+    var drawnItem by remember { mutableStateOf<com.japetnese.app.model.PetItem?>(null) }
+    var showItemResult by remember { mutableStateOf(false) }
 
     Scaffold(topBar = {
         TopAppBar(title = { Text("뽑기") }, colors = TopAppBarDefaults.topAppBarColors(containerColor = BgMain))
     }) { padding ->
+        @Suppress("UNUSED_EXPRESSION")
+        storeVersion // trigger recomposition
         Column(
             modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -116,8 +121,94 @@ fun GachaScreen(petManager: PetManager) {
 
             GachaButton("뽑기권 구매", "스토어로 이동", Icons.Default.ShoppingCart) {}
 
+            if (petManager.canAdItemDraw) {
+                GachaButton(
+                    title = "광고 보고 아이템 받기",
+                    subtitle = "12시간 ${petManager.adItemRemaining}회 남음 • 먹이/성장물약/슬롯티켓",
+                    icon = Icons.Default.Redeem
+                ) {
+                    val item = petManager.useAdItemDraw()
+                    drawnItem = item
+                    showItemResult = true
+                    storeVersion++
+                }
+            } else {
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.5f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Default.Redeem, "아이템", tint = TextTertiary)
+                        Spacer(modifier = Modifier.width(14.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("광고 보고 아이템 받기", fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = TextSecondary)
+                            Text("12시간 후 다시 받을 수 있어요", fontSize = 11.sp, color = TextTertiary)
+                        }
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
             Text("수집한 펫: ${petManager.store.collection.size}마리", fontSize = 12.sp, color = TextTertiary)
+        }
+    }
+
+    // 광고 아이템 획득 결과 다이얼로그
+    if (showItemResult && drawnItem != null) {
+        AdItemResultDialog(
+            item = drawnItem!!,
+            onDismiss = {
+                showItemResult = false
+                drawnItem = null
+            }
+        )
+    }
+}
+
+@Composable
+fun AdItemResultDialog(item: com.japetnese.app.model.PetItem, onDismiss: () -> Unit) {
+    val emoji = when (item) {
+        com.japetnese.app.model.PetItem.FOOD -> "🍖"
+        com.japetnese.app.model.PetItem.GROWTH_POTION -> "✨"
+        com.japetnese.app.model.PetItem.DUAL_SLOT_TICKET -> "🎫"
+    }
+    val particle = when (item) {
+        com.japetnese.app.model.PetItem.FOOD -> "🍖❤️✨"
+        com.japetnese.app.model.PetItem.GROWTH_POTION -> "✨⭐💫"
+        com.japetnese.app.model.PetItem.DUAL_SLOT_TICKET -> "🎉🎊⭐"
+    }
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = onDismiss) {
+        Card(
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White)
+        ) {
+            Column(
+                modifier = Modifier.padding(28.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(particle, fontSize = 28.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(emoji, fontSize = 48.sp)
+                Spacer(modifier = Modifier.height(12.dp))
+                Text("아이템을 획득했어요!", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(item.displayName, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = TextSecondary)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(item.description, fontSize = 12.sp, color = TextTertiary)
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = onDismiss,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
+                ) {
+                    Text("확인")
+                }
+            }
         }
     }
 }

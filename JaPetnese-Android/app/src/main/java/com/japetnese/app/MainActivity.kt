@@ -59,6 +59,12 @@ fun MainScreen(petManager: PetManager) {
                     icon = { Icon(Icons.Default.Pets, "도감") },
                     label = { Text("도감") }
                 )
+                NavigationBarItem(
+                    selected = selectedTab == 3,
+                    onClick = { selectedTab = 3 },
+                    icon = { Icon(Icons.Default.Inventory2, "아이템") },
+                    label = { Text("아이템") }
+                )
             }
         }
     ) { padding ->
@@ -67,6 +73,7 @@ fun MainScreen(petManager: PetManager) {
                 0 -> ClockScreen(petManager)
                 1 -> GachaScreen(petManager)
                 2 -> CollectionScreen(petManager)
+                3 -> ItemInventoryScreen(petManager)
             }
         }
     }

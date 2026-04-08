@@ -2,6 +2,12 @@ package com.japetnese.app.model
 
 import java.util.UUID
 
+enum class PetItem(val displayName: String, val description: String) {
+    FOOD("먹이", "펫에게 먹이를 줘서 성장을 30분 단축해요"),
+    GROWTH_POTION("성장 물약", "펫의 성장 단계를 즉시 다음 단계로 올려줘요"),
+    DUAL_SLOT_TICKET("두 번째 슬롯 티켓", "두 번째 펫 슬롯을 열어서 펫을 2마리 동시에 키울 수 있어요")
+}
+
 enum class PetSpecies(val displayName: String, val japaneseName: String) {
     CAT("고양이", "ねこ"), SHIBA("시바견", "しば"), RABBIT("토끼", "うさぎ"),
     FOX("여우", "きつね"), RACCOON("너구리", "たぬき"), PENGUIN("펭귄", "ペンギン"),
@@ -100,7 +106,16 @@ data class Pet(
                 if (hours < t.h) {
                     if (!isEquipped) return "장착하면 성장해요"
                     val remaining = t.h - hours
-                    return if (remaining < 1) "${(remaining * 60).toInt()}분" else "${remaining.toInt()}시간"
+                    val totalMinutes = (remaining * 60).toInt()
+                    return when {
+                        totalMinutes < 1 -> "${t.label}까지 잠시 후"
+                        totalMinutes < 60 -> "${t.label}까지 ${totalMinutes}분"
+                        else -> {
+                            val h = totalMinutes / 60
+                            val m = totalMinutes % 60
+                            if (m > 0) "${t.label}까지 ${h}시간 ${m}분" else "${t.label}까지 ${h}시간"
+                        }
+                    }
                 }
             }
             return null
@@ -113,5 +128,9 @@ data class PetStore(
     var freeGachaUsed: Boolean = false,
     var gachaTickets: Int = 0,
     var adGachaCountToday: Int = 0,
-    var lastAdGachaDate: Long? = null
+    var lastAdGachaDate: Long? = null,
+    var itemInventory: MutableMap<String, Int> = mutableMapOf(),
+    var secondaryPetId: String? = null,
+    var adItemCountToday: Int = 0,
+    var lastAdItemDate: Long? = null
 )

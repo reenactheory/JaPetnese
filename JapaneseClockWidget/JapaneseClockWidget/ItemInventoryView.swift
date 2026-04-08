@@ -248,15 +248,16 @@ struct ItemInventoryView: View {
         VStack(spacing: 16) {
             Image(systemName: "bag")
                 .font(.system(size: 48))
-                .foregroundStyle(.black.opacity(0.15))
+                .foregroundStyle(.black.opacity(0.35))
             Text("아이템이 없어요")
                 .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(.black.opacity(0.3))
+                .foregroundStyle(.black.opacity(0.55))
             Text("뽑기 탭에서 광고를 보고\n아이템을 받아보세요!")
                 .font(.system(size: 13))
-                .foregroundStyle(.black.opacity(0.2))
+                .foregroundStyle(.black.opacity(0.4))
                 .multilineTextAlignment(.center)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     // MARK: - Item Card

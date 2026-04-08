@@ -48,7 +48,12 @@ struct JapaneseTimeFormatter {
         ]
         let suffix: String = {
             switch m {
-            case 1, 6, 8, 10, 16, 18, 20, 26, 28, 30, 36, 38, 40, 46, 48, 50, 56, 58:
+            case 1, 3, 4, 6, 8, 10,
+                 11, 13, 14, 16, 18, 20,
+                 21, 23, 24, 26, 28, 30,
+                 31, 33, 34, 36, 38, 40,
+                 41, 43, 44, 46, 48, 50,
+                 51, 53, 54, 56, 58:
                 return "ぷん"
             default:
                 return "ふん"
@@ -291,8 +296,14 @@ struct JapaneseTimeFormatter {
     // MARK: - Helpers
 
     private static func minuteSuffix(_ minute: Int) -> String {
+        // ぷん: 1, 3, 4, 6, 8, 10 — and their multiples (e.g. 13, 14, 23, 24 ...)
         switch minute {
-        case 1, 3, 6, 8, 10: return "ぷん"
+        case 1, 3, 4, 6, 8, 10,
+             11, 13, 14, 16, 18, 20,
+             21, 23, 24, 26, 28, 30,
+             31, 33, 34, 36, 38, 40,
+             41, 43, 44, 46, 48, 50,
+             51, 53, 54, 56, 58: return "ぷん"
         default: return "ふん"
         }
     }

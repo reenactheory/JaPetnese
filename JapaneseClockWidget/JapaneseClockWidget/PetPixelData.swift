@@ -522,6 +522,10 @@ let variantCounts: [PetSpecies: Int] = [
     .whale: 3,      // blue, gray, white
     .dolphin: 2,    // gray, pink
     .lizard: 3,     // green, brown, blue
+    .owl: 3,        // brown, snowy, barn
+    .seal: 2,       // gray, spotted
+    .axolotl: 3,    // pink, white, wild
+    .kiwi: 3,       // brown, dark, golden
 ]
 
 func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPalette {
@@ -669,6 +673,44 @@ func paletteFor(species: PetSpecies, rarity: PetRarity, variant: Int) -> PetPale
             PetPalette(primary: .init(red: 0.35, green: 0.65, blue: 0.35), secondary: .init(red: 0.60, green: 0.82, blue: 0.55), accent: .init(red: 0.45, green: 0.75, blue: 0.40), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
             PetPalette(primary: .init(red: 0.60, green: 0.45, blue: 0.30), secondary: .init(red: 0.82, green: 0.70, blue: 0.55), accent: .init(red: 0.70, green: 0.55, blue: 0.38), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
             PetPalette(primary: .init(red: 0.30, green: 0.55, blue: 0.80), secondary: .init(red: 0.55, green: 0.75, blue: 0.92), accent: .init(red: 0.40, green: 0.65, blue: 0.85), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
+    case .owl:
+        let palettes: [PetPalette] = [
+            // brown owl
+            PetPalette(primary: .init(red: 0.50, green: 0.35, blue: 0.22), secondary: .init(red: 0.85, green: 0.78, blue: 0.65), accent: .init(red: 0.80, green: 0.60, blue: 0.25), eye: .init(red: 0.90, green: 0.70, blue: 0.15)),
+            // snowy owl
+            PetPalette(primary: .init(red: 0.92, green: 0.92, blue: 0.95), secondary: .init(red: 0.98, green: 0.98, blue: 1.0), accent: .init(red: 0.70, green: 0.70, blue: 0.75), eye: .init(red: 0.85, green: 0.70, blue: 0.15)),
+            // barn owl
+            PetPalette(primary: .init(red: 0.72, green: 0.55, blue: 0.35), secondary: .init(red: 0.95, green: 0.92, blue: 0.88), accent: .init(red: 0.85, green: 0.65, blue: 0.40), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 2)]
+    case .seal:
+        let palettes: [PetPalette] = [
+            // gray seal
+            PetPalette(primary: .init(red: 0.55, green: 0.58, blue: 0.62), secondary: .init(red: 0.82, green: 0.85, blue: 0.88), accent: .init(red: 0.20, green: 0.20, blue: 0.22), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            // spotted seal
+            PetPalette(primary: .init(red: 0.75, green: 0.72, blue: 0.68), secondary: .init(red: 0.92, green: 0.90, blue: 0.88), accent: .init(red: 0.45, green: 0.42, blue: 0.38), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+        ]
+        return palettes[min(variant, 1)]
+    case .axolotl:
+        let palettes: [PetPalette] = [
+            // pink axolotl
+            PetPalette(primary: .init(red: 0.95, green: 0.75, blue: 0.78), secondary: .init(red: 0.98, green: 0.90, blue: 0.92), accent: .init(red: 0.90, green: 0.40, blue: 0.50), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            // white axolotl (leucistic)
+            PetPalette(primary: .init(red: 0.95, green: 0.95, blue: 0.97), secondary: .init(red: 0.98, green: 0.98, blue: 1.0), accent: .init(red: 0.85, green: 0.45, blue: 0.50), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            // wild type (dark)
+            PetPalette(primary: .init(red: 0.30, green: 0.32, blue: 0.28), secondary: .init(red: 0.50, green: 0.52, blue: 0.48), accent: .init(red: 0.75, green: 0.35, blue: 0.40), eye: .init(red: 0.85, green: 0.75, blue: 0.20)),
+        ]
+        return palettes[min(variant, 2)]
+    case .kiwi:
+        let palettes: [PetPalette] = [
+            // brown kiwi
+            PetPalette(primary: .init(red: 0.50, green: 0.35, blue: 0.20), secondary: .init(red: 0.70, green: 0.55, blue: 0.38), accent: .init(red: 0.75, green: 0.60, blue: 0.40), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            // dark kiwi
+            PetPalette(primary: .init(red: 0.25, green: 0.22, blue: 0.18), secondary: .init(red: 0.42, green: 0.38, blue: 0.32), accent: .init(red: 0.55, green: 0.45, blue: 0.30), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
+            // golden kiwi
+            PetPalette(primary: .init(red: 0.80, green: 0.62, blue: 0.28), secondary: .init(red: 0.92, green: 0.80, blue: 0.50), accent: .init(red: 0.85, green: 0.70, blue: 0.35), eye: .init(red: 0.15, green: 0.15, blue: 0.18)),
         ]
         return palettes[min(variant, 2)]
     }
@@ -1199,6 +1241,186 @@ let lizardAdult = SpriteSet(
     ])
 )
 
+// MARK: - Owl Sprites
+
+let owlBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,1,0,0,0,1,0],
+        [1,1,1,1,1,1,1],
+        [1,4,2,1,2,4,1],
+        [0,1,1,3,1,1,0],
+        [0,1,2,2,2,1,0],
+        [0,1,1,1,1,1,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,1,0,0,0,1,0],
+        [1,1,1,1,1,1,1],
+        [1,1,2,1,2,1,1],
+        [0,1,1,3,1,1,0],
+        [0,1,2,2,2,1,0],
+        [0,1,1,1,1,1,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+
+let owlAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,1,0,0,0,1,0],
+        [0,0,0,0,0,0,1,1,1,1,1,1,1],
+        [0,0,0,0,0,0,1,4,2,1,2,4,1],
+        [0,0,0,0,0,0,0,1,1,3,1,1,0],
+        [0,0,1,1,1,1,1,1,2,2,2,1,0],
+        [0,1,1,2,1,2,1,1,2,2,1,0,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,0,1,0,0,0,1,0],
+        [0,0,0,0,0,0,1,1,1,1,1,1,1],
+        [0,0,0,0,0,0,1,1,2,1,2,1,1],
+        [0,0,0,0,0,0,0,1,1,3,1,1,0],
+        [0,1,1,1,1,1,1,1,2,2,2,1,0],
+        [1,1,2,1,2,1,1,1,2,2,1,0,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0,0],
+    ])
+)
+
+// MARK: - Seal Sprites
+
+let sealBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,2,2,2,1,0],
+        [0,1,4,2,4,1,0],
+        [0,1,2,3,2,1,0],
+        [1,1,2,2,2,1,1],
+        [0,0,1,1,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,2,2,2,1,0],
+        [0,1,4,2,4,1,0],
+        [0,1,2,3,2,1,0],
+        [1,1,2,2,2,1,1],
+        [0,1,1,1,1,1,0],
+    ])
+)
+
+let sealAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0,0],
+        [0,0,0,0,0,1,2,2,2,1,0,0],
+        [0,0,0,0,0,1,4,2,4,1,0,0],
+        [0,0,0,0,0,1,2,3,2,1,0,0],
+        [0,0,1,1,1,1,2,2,2,1,1,0],
+        [0,1,2,2,2,2,2,2,2,2,1,0],
+        [0,0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,0,0,0,1,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0,0],
+        [0,0,0,0,0,1,2,2,2,1,0,0],
+        [0,0,0,0,0,1,4,2,4,1,0,0],
+        [0,0,0,0,0,1,2,3,2,1,0,0],
+        [0,1,1,1,1,1,2,2,2,1,1,0],
+        [1,2,2,2,2,2,2,2,2,2,1,0],
+        [0,0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,0,0,1,1,0,0,0],
+    ])
+)
+
+// MARK: - Axolotl Sprites
+
+let axolotlBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [3,0,0,0,0,0,3],
+        [0,3,1,1,1,3,0],
+        [0,1,4,1,4,1,0],
+        [0,1,1,3,1,1,0],
+        [0,1,2,2,2,1,0],
+        [0,0,1,1,1,0,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,3,0,0,0,3,0],
+        [3,0,1,1,1,0,3],
+        [0,1,4,1,4,1,0],
+        [0,1,1,3,1,1,0],
+        [0,1,2,2,2,1,0],
+        [0,0,1,1,1,0,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+
+let axolotlAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,3,0,0,0,3,0,0,0],
+        [0,0,0,0,0,0,3,1,3,0,0,0,0],
+        [0,0,0,0,0,1,4,1,4,1,0,0,0],
+        [0,0,0,0,0,1,1,3,1,1,0,0,0],
+        [1,1,0,1,1,1,2,2,2,1,0,0,0],
+        [0,0,1,1,2,2,2,2,2,1,0,0,0],
+        [0,0,0,1,1,1,1,1,1,0,0,0,0],
+        [0,0,0,0,1,0,0,0,1,0,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,3,0,3,0,0,0,0],
+        [0,0,0,0,0,3,0,1,0,3,0,0,0],
+        [0,0,0,0,0,1,4,1,4,1,0,0,0],
+        [0,0,0,0,0,1,1,3,1,1,0,0,0],
+        [0,1,0,1,1,1,2,2,2,1,0,0,0],
+        [1,0,1,1,2,2,2,2,2,1,0,0,0],
+        [0,0,0,1,1,1,1,1,1,0,0,0,0],
+        [0,0,0,1,0,0,0,0,0,1,0,0,0],
+    ])
+)
+
+// MARK: - Kiwi Sprites
+
+let kiwiBaby = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,1,4,1,0],
+        [0,1,1,1,1,3,3],
+        [0,0,1,2,1,0,0],
+        [0,0,1,0,1,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,1,1,1,0,0],
+        [0,1,1,1,1,1,0],
+        [0,1,4,1,4,1,0],
+        [0,1,1,1,1,3,3],
+        [0,0,1,2,1,0,0],
+        [0,1,0,0,0,1,0],
+    ])
+)
+
+let kiwiAdult = SpriteSet(
+    frame1: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0,0,0],
+        [0,0,0,0,0,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,1,4,1,4,1,0,0,0],
+        [0,0,0,0,0,1,1,1,1,3,3,3,0],
+        [0,0,0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,1,1,2,2,2,2,1,0,0,0,0],
+        [0,0,0,1,1,1,1,1,0,0,0,0,0],
+        [0,0,0,1,0,0,0,1,0,0,0,0,0],
+    ]),
+    frame2: SpriteFrame(pixels: [
+        [0,0,0,0,0,0,1,1,1,0,0,0,0],
+        [0,0,0,0,0,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,1,4,1,4,1,0,0,0],
+        [0,0,0,0,0,1,1,1,1,3,3,3,0],
+        [0,0,1,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,1,2,2,2,2,1,0,0,0,0],
+        [0,0,0,1,1,1,1,1,0,0,0,0,0],
+        [0,0,0,0,1,0,1,0,0,0,0,0,0],
+    ])
+)
+
 // MARK: - Accessory Overlays (rendered on top of adult sprite)
 // Uses separate color: 0=skip(transparent), 5=gold, 6=white, 7=pink, 8=red
 
@@ -1267,5 +1489,152 @@ func spriteFor(species: PetSpecies, stage: PetStage) -> SpriteSet {
     case .whale: return stage == .baby ? whaleBaby : whaleAdult
     case .dolphin: return stage == .baby ? dolphinBaby : dolphinAdult
     case .lizard: return stage == .baby ? lizardBaby : lizardAdult
+    case .owl: return stage == .baby ? owlBaby : owlAdult
+    case .seal: return stage == .baby ? sealBaby : sealAdult
+    case .axolotl: return stage == .baby ? axolotlBaby : axolotlAdult
+    case .kiwi: return stage == .baby ? kiwiBaby : kiwiAdult
     }
 }
+
+// MARK: - Item Sprites
+// 0=clear, 1~5=item-specific colors (mapped per item)
+
+struct ItemSpriteData {
+    let pixels: [[Int]]
+    let colors: [Int: Color]
+}
+
+let itemSprites: [PetItem: ItemSpriteData] = [
+    // 성장 촉진 포션 — 보라색 물약병
+    .growthPotion: ItemSpriteData(
+        pixels: [
+            [0,0,0,3,0,0,0],
+            [0,0,3,3,3,0,0],
+            [0,0,0,3,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,1,2,5,2,1,0],
+            [0,1,2,2,2,1,0],
+            [0,1,5,2,5,1,0],
+            [0,0,1,1,1,0,0],
+        ],
+        colors: [
+            1: Color(red: 0.55, green: 0.50, blue: 0.70),  // glass outline
+            2: Color(red: 0.60, green: 0.85, blue: 0.45),   // green liquid
+            3: Color(red: 0.60, green: 0.42, blue: 0.25),   // cork
+            5: Color(red: 0.85, green: 1.0, blue: 0.70),    // bubble highlight
+        ]
+    ),
+    // 먹이 — 사료 봉투
+    .food: ItemSpriteData(
+        pixels: [
+            [0,0,3,3,3,0,0],
+            [0,1,1,1,1,1,0],
+            [0,1,2,2,2,1,0],
+            [0,1,2,5,2,1,0],
+            [0,1,2,2,2,1,0],
+            [0,1,1,1,1,1,0],
+            [0,1,1,1,1,1,0],
+        ],
+        colors: [
+            1: Color(red: 0.70, green: 0.50, blue: 0.30),   // bag
+            2: Color(red: 0.85, green: 0.70, blue: 0.50),   // bag front
+            3: Color(red: 0.60, green: 0.42, blue: 0.25),   // bag top fold
+            5: Color(red: 0.95, green: 0.55, blue: 0.25),   // paw print accent
+        ]
+    ),
+    // 펫 선택 슬롯권 — 골든 티켓
+    .dualSlotTicket: ItemSpriteData(
+        pixels: [
+            [1,1,1,1,1,1,1],
+            [1,2,2,2,2,2,1],
+            [1,2,5,2,5,2,1],
+            [0,2,2,2,2,2,0],
+            [1,2,5,2,5,2,1],
+            [1,2,2,2,2,2,1],
+            [1,1,1,1,1,1,1],
+        ],
+        colors: [
+            1: Color(red: 0.85, green: 0.68, blue: 0.25),   // gold border
+            2: Color(red: 0.98, green: 0.95, blue: 0.88),   // paper
+            5: Color(red: 0.90, green: 0.50, blue: 0.60),   // star accent
+        ]
+    ),
+]
+
+// MARK: - Button Icon Sprites
+
+enum ButtonIcon: String {
+    case gift       // 무료 뽑기
+    case egg        // 광고 보고 알 뽑기
+    case itemBag    // 광고 보고 아이템 받기
+    case cooldown   // 쿨다운 (시계)
+}
+
+let buttonIconSprites: [ButtonIcon: ItemSpriteData] = [
+    // 선물 상자
+    .gift: ItemSpriteData(
+        pixels: [
+            [0,0,0,3,0,0,0],
+            [0,3,3,3,3,3,0],
+            [3,1,1,3,1,1,3],
+            [0,1,1,3,1,1,0],
+            [0,1,1,3,1,1,0],
+            [0,1,1,1,1,1,0],
+        ],
+        colors: [
+            1: Color(red: 0.90, green: 0.35, blue: 0.35),
+            3: Color(red: 0.95, green: 0.75, blue: 0.25),
+        ]
+    ),
+    // 알
+    .egg: ItemSpriteData(
+        pixels: [
+            [0,0,1,1,1,0,0],
+            [0,1,2,2,2,1,0],
+            [1,2,2,3,2,2,1],
+            [1,2,2,2,2,2,1],
+            [1,2,2,2,3,2,1],
+            [0,1,2,2,2,1,0],
+            [0,0,1,1,1,0,0],
+        ],
+        colors: [
+            1: Color(red: 0.65, green: 0.62, blue: 0.58),
+            2: Color(red: 0.88, green: 0.86, blue: 0.83),
+            3: Color(red: 0.95, green: 0.65, blue: 0.68),
+        ]
+    ),
+    // 아이템 가방
+    .itemBag: ItemSpriteData(
+        pixels: [
+            [0,0,1,1,1,0,0],
+            [0,1,0,0,0,1,0],
+            [1,1,1,1,1,1,1],
+            [1,2,2,2,2,2,1],
+            [1,2,2,3,2,2,1],
+            [1,2,2,2,2,2,1],
+            [0,1,1,1,1,1,0],
+        ],
+        colors: [
+            1: Color(red: 0.50, green: 0.40, blue: 0.30),
+            2: Color(red: 0.72, green: 0.58, blue: 0.42),
+            3: Color(red: 0.90, green: 0.75, blue: 0.30),
+        ]
+    ),
+    // 쿨다운 시계
+    .cooldown: ItemSpriteData(
+        pixels: [
+            [0,0,1,1,1,0,0],
+            [0,1,2,2,2,1,0],
+            [1,2,2,3,2,2,1],
+            [1,2,2,3,3,2,1],
+            [1,2,2,2,2,2,1],
+            [0,1,2,2,2,1,0],
+            [0,0,1,1,1,0,0],
+        ],
+        colors: [
+            1: Color(red: 0.45, green: 0.45, blue: 0.48),
+            2: Color(red: 0.90, green: 0.90, blue: 0.92),
+            3: Color(red: 0.25, green: 0.25, blue: 0.28),
+        ]
+    ),
+]

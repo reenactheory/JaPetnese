@@ -21,7 +21,12 @@
 		7B584DA0659401FCED0A8EF3 /* ClockWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C65C2E87022FAA2AD92920A /* ClockWidget.swift */; };
 		8632A8CC3E74D92943B56BD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFC519CD62578FABF469D7B3 /* Assets.xcassets */; };
 		906B22DE412AEBC9B8142BE9 /* PixelCatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54706863C784481DB0CDCA /* PixelCatView.swift */; };
+		A1B2C3D4E5F60001293A4B5C /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718293A4B5C /* AdManager.swift */; };
+		AABB001122334455667788A1 /* GoogleMobileAds.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455667788A0 /* GoogleMobileAds.xcframework */; };
+		AABB001122334455667788A2 /* GoogleMobileAds.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AABB001122334455667788A0 /* GoogleMobileAds.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B2C3D4E5F6070001293A4B5C /* ItemInventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F607182A3B4C5D6E /* ItemInventoryView.swift */; };
 		B89AA57B0E4F7A1A50D0A980 /* GachaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24235EB031E632874AC84A6 /* GachaView.swift */; };
+		D4E5F607182A0001293A4B5C /* ItemPixelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F607182A3B4C5D6E7F80 /* ItemPixelView.swift */; };
 		D613BDEC8B589D3189626C1F /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128FC1EF3B7EE6193AA1A16C /* PetModel.swift */; };
 		D8C3A95F7E986700EAAF61EB /* JapaneseTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */; };
 		DE805E1E13BF66CA7AE7DD00 /* PetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */; };
@@ -40,6 +45,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		AABB001122334455667788B1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AABB001122334455667788A2 /* GoogleMobileAds.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BB8AD71954DEB1BC18248972 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -60,29 +76,49 @@
 		43F40EC21E762C4BA6AC112A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseClockWidgetApp.swift; sourceTree = "<group>"; };
 		74CB7E0A59DD1321BEB82ED2 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		782009D2E486B0253883C67D /* JapaneseClockWidget.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JapaneseClockWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		782009D2E486B0253883C67D /* JapaneseClockWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseClockWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83331E80E8FEB506673778C1 /* JapaneseClockWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JapaneseClockWidget.entitlements; sourceTree = "<group>"; };
 		86D1B4FF65BBC23EF0B5C1F3 /* PetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetView.swift; sourceTree = "<group>"; };
 		946D4CF4FAB8BB505C7EA83D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		971B843B29AFD33BF31C57EA /* PetPixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetPixelData.swift; sourceTree = "<group>"; };
 		9C65C2E87022FAA2AD92920A /* ClockWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockWidget.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718293A4B5C /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
 		A24235EB031E632874AC84A6 /* GachaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GachaView.swift; sourceTree = "<group>"; };
+		AABB001122334455667788A0 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:EQHXZ8M8AV:Google LLC"; lastKnownFileType = wrapper.xcframework; path = GoogleMobileAds.xcframework; sourceTree = "<group>"; };
 		AC9A8D91D2100D16876FE3E3 /* ClockWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClockWidgetExtension.entitlements; sourceTree = "<group>"; };
+		B2C3D4E5F607182A3B4C5D6E /* ItemInventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInventoryView.swift; sourceTree = "<group>"; };
+		C3D4E5F607182A3B4C5D6E7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CFC519CD62578FABF469D7B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D179CDFCE8381301F844C546 /* PetCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCollectionView.swift; sourceTree = "<group>"; };
+		D4E5F607182A3B4C5D6E7F80 /* ItemPixelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPixelView.swift; sourceTree = "<group>"; };
 		DF54706863C784481DB0CDCA /* PixelCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCatView.swift; sourceTree = "<group>"; };
 		E4E1DB103FEAD3575C06FC1C /* ClockWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockWidgetViews.swift; sourceTree = "<group>"; };
 		E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseTimeFormatter.swift; sourceTree = "<group>"; };
-		F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ClockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7E05F2CB011E4923EBB84A2 /* ClockWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ClockWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AABB001122334455667788B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABB001122334455667788A1 /* GoogleMobileAds.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		5E5F9E812D7DCF5B11176604 /* JapaneseClockWidget */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D4E5F60718293A4B5C /* AdManager.swift */,
 				43F40EC21E762C4BA6AC112A /* Assets.xcassets */,
 				288D326EAD7BD37CFB03801A /* ContentView.swift */,
 				A24235EB031E632874AC84A6 /* GachaView.swift */,
+				C3D4E5F607182A3B4C5D6E7F /* Info.plist */,
+				B2C3D4E5F607182A3B4C5D6E /* ItemInventoryView.swift */,
+				D4E5F607182A3B4C5D6E7F80 /* ItemPixelView.swift */,
 				83331E80E8FEB506673778C1 /* JapaneseClockWidget.entitlements */,
 				4E4886CC1767AB22A1B536B6 /* JapaneseClockWidgetApp.swift */,
 				E8F706C45129ECB41D283D48 /* JapaneseTimeFormatter.swift */,
@@ -110,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				F842C9EBCC4FB7319C81BA65 /* ClockWidget */,
+				AABB001122334455667788A0 /* GoogleMobileAds.xcframework */,
 				5E5F9E812D7DCF5B11176604 /* JapaneseClockWidget */,
 				865A2484FF9649B32E504781 /* Products */,
 			);
@@ -153,8 +190,10 @@
 			buildConfigurationList = 9097C5286CFB2E234DE88505 /* Build configuration list for PBXNativeTarget "JapaneseClockWidget" */;
 			buildPhases = (
 				25111F8C0C63FE5A52F5EF3A /* Sources */,
+				AABB001122334455667788B0 /* Frameworks */,
 				9196F1C2B6700C6A0FE0D439 /* Resources */,
 				BB8AD71954DEB1BC18248972 /* Embed Foundation Extensions */,
+				AABB001122334455667788B1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,14 +215,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					5CB9B4D8238BF37EE1B35578 = {
-						DevelopmentTeam = "";
-					};
-					EEE0497EEFBF8170378197DA = {
-						DevelopmentTeam = "";
-					};
-				};
 			};
 			buildConfigurationList = DACCC5069D1E691155CE4094 /* Build configuration list for PBXProject "JapaneseClockWidget" */;
 			developmentRegion = en;
@@ -194,6 +225,8 @@
 			);
 			mainGroup = B276338F1DFA64899A03FE86;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 865A2484FF9649B32E504781 /* Products */;
 			projectDirPath = "";
@@ -229,8 +262,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F60001293A4B5C /* AdManager.swift in Sources */,
 				3A516EA7CE627082098A4B63 /* ContentView.swift in Sources */,
 				B89AA57B0E4F7A1A50D0A980 /* GachaView.swift in Sources */,
+				B2C3D4E5F6070001293A4B5C /* ItemInventoryView.swift in Sources */,
+				D4E5F607182A0001293A4B5C /* ItemPixelView.swift in Sources */,
 				6843BC014638A0DB2141F55A /* JapaneseClockWidgetApp.swift in Sources */,
 				D8C3A95F7E986700EAAF61EB /* JapaneseTimeFormatter.swift in Sources */,
 				2FD4F2FC3D6FF6FD24D1CEF7 /* OnboardingView.swift in Sources */,
@@ -329,6 +365,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+				DEVELOPMENT_TEAM = 42Q2FTK7GK;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ClockWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -411,6 +448,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ClockWidget/ClockWidgetExtension.entitlements;
+				DEVELOPMENT_TEAM = 42Q2FTK7GK;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ClockWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -430,7 +468,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 42Q2FTK7GK;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JapaneseClockWidget/Info.plist;
+				MARKETING_VERSION = 1.0;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -452,7 +494,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = JapaneseClockWidget/JapaneseClockWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 42Q2FTK7GK;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JapaneseClockWidget/Info.plist;
+				MARKETING_VERSION = 1.0;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -3,19 +3,16 @@ import SwiftUI
 struct ItemInventoryView: View {
     @ObservedObject var petManager = PetManager.shared
     @State private var selectedItem: PetItem?       // non-nil이면 sheet 표시
-    @State private var lastSelectedItem: PetItem?   // onDismiss에서 참조용
     @State private var dualSlotPending = false
-    @State private var pendingPetId: UUID?
     // 먹이 수량 선택
-    @State private var showFoodQuantity = false
+    @State private var foodSheetData: FoodSheetData?
     @State private var foodQuantity = 1
-    @State private var foodTargetPetId: UUID?
     // 결과 피드백
     @State private var resultMessage: String?
     @State private var resultItem: PetItem?
     @State private var showResult = false
     @State private var resultPet: Pet?
-    @State private var foodParticles: [FoodParticle] = []
+    @State private var itemParticles: [FoodParticle] = []
 
     private var ownedItems: [PetItem] {
         PetItem.allCases.filter { petManager.itemCount(for: $0) > 0 }
@@ -52,59 +49,48 @@ struct ItemInventoryView: View {
             }
             .navigationTitle("아이템")
             .navigationBarTitleDisplayMode(.inline)
-            // .sheet(item:) 사용 — selectedItem이 non-nil일 때만 sheet 열림
-            // if let 없이 item을 직접 받으므로 race condition 없음
-            .sheet(item: $selectedItem, onDismiss: {
-                guard let item = lastSelectedItem, let petId = pendingPetId else {
-                    lastSelectedItem = nil; pendingPetId = nil; return
-                }
-                lastSelectedItem = nil; pendingPetId = nil
-
-                if item == .food && petManager.itemCount(for: .food) > 1 {
-                    foodTargetPetId = petId
-                    foodQuantity = 1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        showFoodQuantity = true
-                    }
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        applyItemToPet(item: item, petId: petId, quantity: 1)
-                    }
-                }
-            }) { item in
+            // onDismiss 없이 sheet(item:) 사용 — item과 petId를 클로저 안에서 직접 캡처
+            // (onDismiss는 렌더 시점의 nil 값을 캡처하므로 사용 금지)
+            .sheet(item: $selectedItem) { item in
                 PetPickerSheet(item: item, isDualSlot: false) { petId in
-                    lastSelectedItem = item  // onDismiss에서 쓸 item 저장
-                    pendingPetId = petId
-                    selectedItem = nil       // sheet 닫기
-                }
-            }
-            .sheet(isPresented: $showFoodQuantity) {
-                if let petId = foodTargetPetId {
-                    FoodQuantitySheet(
-                        maxCount: petManager.itemCount(for: .food),
-                        quantity: $foodQuantity
-                    ) {
-                        applyItemToPet(item: .food, petId: petId, quantity: foodQuantity)
-                        showFoodQuantity = false
-                        foodTargetPetId = nil
+                    selectedItem = nil  // sheet 닫기
+                    let capturedItem = item
+                    let capturedPetId = petId
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        if capturedItem == .food && petManager.itemCount(for: .food) > 1 {
+                            foodQuantity = 1
+                            foodSheetData = FoodSheetData(petId: capturedPetId)
+                        } else {
+                            applyItemToPet(item: capturedItem, petId: capturedPetId, quantity: 1)
+                        }
                     }
                 }
             }
-            .sheet(isPresented: $dualSlotPending, onDismiss: {
-                guard let petId = pendingPetId else { pendingPetId = nil; return }
-                pendingPetId = nil
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                    petManager.equipSecondaryPet(petId)
-                    showResultFeedback(
-                        item: .dualSlotTicket,
-                        message: "두 번째 슬롯에 펫을 장착했어요!",
-                        pet: petManager.store.collection.first { $0.id == petId }
-                    )
+            .sheet(item: $foodSheetData) { data in
+                FoodQuantitySheet(
+                    maxCount: petManager.itemCount(for: .food),
+                    quantity: $foodQuantity
+                ) {
+                    let capturedPetId = data.petId
+                    let capturedQty = foodQuantity
+                    foodSheetData = nil
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        applyItemToPet(item: .food, petId: capturedPetId, quantity: capturedQty)
+                    }
                 }
-            }) {
+            }
+            .sheet(isPresented: $dualSlotPending) {
                 PetPickerSheet(item: .dualSlotTicket, isDualSlot: true) { petId in
-                    pendingPetId = petId
                     dualSlotPending = false
+                    let capturedPetId = petId
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        petManager.equipSecondaryPet(capturedPetId)
+                        showResultFeedback(
+                            item: .dualSlotTicket,
+                            message: "두 번째 슬롯에 펫을 장착했어요!",
+                            pet: petManager.store.collection.first { $0.id == capturedPetId }
+                        )
+                    }
                 }
             }
         }
@@ -158,14 +144,20 @@ struct ItemInventoryView: View {
         // withAnimation 없이 동기적으로 설정 — save()의 objectWillChange와 같은
         // 렌더 사이클에 묶어서 중간에 흰 화면이 뜨지 않도록 함
         showResult = true
-        if item == .food {
-            launchFoodParticles()
-        }
+        launchParticles(for: item)
     }
 
-    private func launchFoodParticles() {
-        let emojis = ["🍖", "❤️", "✨", "💛", "🍖", "❤️", "✨"]
-        foodParticles = (0..<7).map { i in
+    private func launchParticles(for item: PetItem) {
+        let emojis: [String]
+        switch item {
+        case .food:
+            emojis = ["🍖", "❤️", "✨", "💛", "🍖", "❤️", "✨"]
+        case .growthPotion:
+            emojis = ["✨", "⭐", "💫", "🌟", "✨", "⭐", "💫"]
+        case .dualSlotTicket:
+            emojis = ["🎉", "⭐", "🎊", "✨", "🎉", "⭐", "🎊"]
+        }
+        itemParticles = (0..<7).map { i in
             FoodParticle(
                 id: i,
                 emoji: emojis[i % emojis.count],
@@ -174,7 +166,7 @@ struct ItemInventoryView: View {
             )
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
-            foodParticles = []
+            itemParticles = []
         }
     }
 
@@ -191,15 +183,14 @@ struct ItemInventoryView: View {
                         .padding(.top, 8)
                 }
 
-                // 펫 + 먹이 파티클
+                // 펫 + 이펙트 파티클
                 ZStack {
                     if let pet = resultPet {
                         PetView(pet: pet, pixelSize: 7, animated: true)
-                            .scaleEffect(resultItem == .food ? 1.0 : 1.0)
-                            .modifier(FoodBounceModifier(active: resultItem == .food))
+                            .modifier(ItemEffectModifier(item: resultItem))
                     }
                     // 파티클 레이어
-                    ForEach(foodParticles) { particle in
+                    ForEach(itemParticles) { particle in
                         FoodParticleView(particle: particle)
                     }
                 }
@@ -523,6 +514,13 @@ struct FoodQuantitySheet: View {
     }
 }
 
+// MARK: - Food Sheet Data
+
+struct FoodSheetData: Identifiable {
+    let id = UUID()
+    let petId: UUID
+}
+
 // MARK: - Food Particle Models & Views
 
 struct FoodParticle: Identifiable {
@@ -552,23 +550,60 @@ struct FoodParticleView: View {
     }
 }
 
-// 먹이 사용 시 펫 통통 바운스
-struct FoodBounceModifier: ViewModifier {
-    let active: Bool
-    @State private var bouncing = false
+// 아이템별 펫 이펙트
+struct ItemEffectModifier: ViewModifier {
+    let item: PetItem?
+    @State private var animating = false
 
     func body(content: Content) -> some View {
-        content
-            .offset(y: bouncing ? -10 : 0)
-            .onAppear {
-                guard active else { return }
-                withAnimation(.interpolatingSpring(stiffness: 300, damping: 8).repeatCount(3, autoreverses: true)) {
-                    bouncing = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    bouncing = false
-                }
+        switch item {
+        case .food:
+            // 통통 바운스
+            content
+                .offset(y: animating ? -10 : 0)
+                .onAppear { bounce() }
+        case .growthPotion:
+            // 커졌다 돌아오는 성장 애니메이션
+            content
+                .scaleEffect(animating ? 1.4 : 1.0)
+                .onAppear { grow() }
+        case .dualSlotTicket:
+            // 빙글 회전
+            content
+                .rotationEffect(.degrees(animating ? 360 : 0))
+                .onAppear { spin() }
+        case nil:
+            content
+        }
+    }
+
+    private func bounce() {
+        withAnimation(.interpolatingSpring(stiffness: 300, damping: 8).repeatCount(3, autoreverses: true)) {
+            animating = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            animating = false
+        }
+    }
+
+    private func grow() {
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+            animating = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
+                animating = false
             }
+        }
+    }
+
+    private func spin() {
+        withAnimation(.easeInOut(duration: 0.6)) {
+            animating = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            animating = false
+        }
     }
 }
 

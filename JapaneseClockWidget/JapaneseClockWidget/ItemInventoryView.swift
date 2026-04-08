@@ -15,6 +15,7 @@ struct ItemInventoryView: View {
     @State private var resultItem: PetItem?
     @State private var showResult = false
     @State private var resultPet: Pet?
+    @State private var foodParticles: [FoodParticle] = []
 
     private var ownedItems: [PetItem] {
         PetItem.allCases.filter { petManager.itemCount(for: $0) > 0 }
@@ -160,6 +161,24 @@ struct ItemInventoryView: View {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
             showResult = true
         }
+        if item == .food {
+            launchFoodParticles()
+        }
+    }
+
+    private func launchFoodParticles() {
+        let emojis = ["🍖", "❤️", "✨", "💛", "🍖", "❤️", "✨"]
+        foodParticles = (0..<7).map { i in
+            FoodParticle(
+                id: i,
+                emoji: emojis[i % emojis.count],
+                xOffset: CGFloat.random(in: -80...80),
+                delay: Double(i) * 0.08
+            )
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+            foodParticles = []
+        }
     }
 
     // MARK: - Result Overlay
@@ -175,9 +194,19 @@ struct ItemInventoryView: View {
                         .padding(.top, 8)
                 }
 
-                if let pet = resultPet {
-                    PetView(pet: pet, pixelSize: 7, animated: true)
+                // 펫 + 먹이 파티클
+                ZStack {
+                    if let pet = resultPet {
+                        PetView(pet: pet, pixelSize: 7, animated: true)
+                            .scaleEffect(resultItem == .food ? 1.0 : 1.0)
+                            .modifier(FoodBounceModifier(active: resultItem == .food))
+                    }
+                    // 파티클 레이어
+                    ForEach(foodParticles) { particle in
+                        FoodParticleView(particle: particle)
+                    }
                 }
+                .frame(height: 80)
 
                 if let msg = resultMessage {
                     Text(msg)
@@ -494,6 +523,55 @@ struct FoodQuantitySheet: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Food Particle Models & Views
+
+struct FoodParticle: Identifiable {
+    let id: Int
+    let emoji: String
+    let xOffset: CGFloat
+    let delay: Double
+}
+
+struct FoodParticleView: View {
+    let particle: FoodParticle
+    @State private var appeared = false
+
+    var body: some View {
+        Text(particle.emoji)
+            .font(.system(size: 18))
+            .offset(x: particle.xOffset, y: appeared ? -90 : 0)
+            .opacity(appeared ? 0 : 1)
+            .scaleEffect(appeared ? 0.5 : 1.0)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + particle.delay) {
+                    withAnimation(.easeOut(duration: 1.0)) {
+                        appeared = true
+                    }
+                }
+            }
+    }
+}
+
+// 먹이 사용 시 펫 통통 바운스
+struct FoodBounceModifier: ViewModifier {
+    let active: Bool
+    @State private var bouncing = false
+
+    func body(content: Content) -> some View {
+        content
+            .offset(y: bouncing ? -10 : 0)
+            .onAppear {
+                guard active else { return }
+                withAnimation(.interpolatingSpring(stiffness: 300, damping: 8).repeatCount(3, autoreverses: true)) {
+                    bouncing = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    bouncing = false
+                }
+            }
     }
 }
 

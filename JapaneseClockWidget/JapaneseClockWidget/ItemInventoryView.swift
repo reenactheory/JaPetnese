@@ -2,10 +2,10 @@ import SwiftUI
 
 struct ItemInventoryView: View {
     @ObservedObject var petManager = PetManager.shared
-    @State private var selectedItem: PetItem?
-    @State private var showPetPicker = false
+    @State private var selectedItem: PetItem?       // non-nil이면 sheet 표시
+    @State private var lastSelectedItem: PetItem?   // onDismiss에서 참조용
     @State private var dualSlotPending = false
-    @State private var pendingPetId: UUID?   // 시트 닫힌 후 처리할 petId
+    @State private var pendingPetId: UUID?
     // 먹이 수량 선택
     @State private var showFoodQuantity = false
     @State private var foodQuantity = 1
@@ -52,15 +52,13 @@ struct ItemInventoryView: View {
             }
             .navigationTitle("아이템")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showPetPicker, onDismiss: {
-                // 시트 완전히 닫힌 후에 아이템 적용 — 렌더링 충돌 방지
-                guard let item = selectedItem, let petId = pendingPetId else {
-                    selectedItem = nil
-                    pendingPetId = nil
-                    return
+            // .sheet(item:) 사용 — selectedItem이 non-nil일 때만 sheet 열림
+            // if let 없이 item을 직접 받으므로 race condition 없음
+            .sheet(item: $selectedItem, onDismiss: {
+                guard let item = lastSelectedItem, let petId = pendingPetId else {
+                    lastSelectedItem = nil; pendingPetId = nil; return
                 }
-                selectedItem = nil
-                pendingPetId = nil
+                lastSelectedItem = nil; pendingPetId = nil
 
                 if item == .food && petManager.itemCount(for: .food) > 1 {
                     foodTargetPetId = petId
@@ -73,12 +71,11 @@ struct ItemInventoryView: View {
                         applyItemToPet(item: item, petId: petId, quantity: 1)
                     }
                 }
-            }) {
-                if let item = selectedItem {
-                    PetPickerSheet(item: item, isDualSlot: false) { petId in
-                        pendingPetId = petId
-                        showPetPicker = false
-                    }
+            }) { item in
+                PetPickerSheet(item: item, isDualSlot: false) { petId in
+                    lastSelectedItem = item  // onDismiss에서 쓸 item 저장
+                    pendingPetId = petId
+                    selectedItem = nil       // sheet 닫기
                 }
             }
             .sheet(isPresented: $showFoodQuantity) {
@@ -313,8 +310,7 @@ struct ItemInventoryView: View {
     private func useItem(_ item: PetItem) {
         switch item {
         case .growthPotion, .food:
-            selectedItem = item
-            showPetPicker = true
+            selectedItem = item   // sheet(item:)이 자동으로 sheet 표시
         case .dualSlotTicket:
             if petManager.useDualSlotTicket() {
                 dualSlotPending = true

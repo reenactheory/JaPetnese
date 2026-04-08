@@ -139,7 +139,8 @@ enum WidgetColorMode: String, Codable, CaseIterable {
 
 // MARK: - Pet Item
 
-enum PetItem: String, Codable, CaseIterable {
+enum PetItem: String, Codable, CaseIterable, Identifiable {
+    var id: String { rawValue }
     case growthPotion   // 성장 촉진 포션
     case food           // 먹이 (30분 단축)
     case dualSlotTicket // 펫 선택 슬롯권

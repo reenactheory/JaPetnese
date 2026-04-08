@@ -287,8 +287,12 @@ struct Pet: Codable, Identifiable {
             if hours < threshold {
                 if !isEquipped { return "장착하면 성장해요" }
                 let remaining = threshold - hours
-                if remaining < 1 { return "\(label)까지 \(Int(remaining * 60))분" }
-                return "\(label)까지 \(Int(remaining))시간"
+                let totalMinutes = Int(remaining * 60)
+                if totalMinutes < 1 { return "\(label)까지 잠시 후" }
+                if totalMinutes < 60 { return "\(label)까지 \(totalMinutes)분" }
+                let h = totalMinutes / 60
+                let m = totalMinutes % 60
+                return m > 0 ? "\(label)까지 \(h)시간 \(m)분" : "\(label)까지 \(h)시간"
             }
         }
         return nil

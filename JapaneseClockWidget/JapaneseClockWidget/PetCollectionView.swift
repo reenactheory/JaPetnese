@@ -5,6 +5,8 @@ private let bgCard = Color.white
 
 struct PetCollectionView: View {
     @ObservedObject var petManager = PetManager.shared
+    @State private var now = Date()
+    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
@@ -29,6 +31,7 @@ struct PetCollectionView: View {
             }
             .navigationTitle("도감")
             .navigationBarTitleDisplayMode(.inline)
+            .onReceive(timer) { now = $0 }
         }
     }
 

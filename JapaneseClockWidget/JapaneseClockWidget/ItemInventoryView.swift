@@ -155,9 +155,9 @@ struct ItemInventoryView: View {
         resultItem = item
         resultMessage = message
         resultPet = pet
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
-            showResult = true
-        }
+        // withAnimation 없이 동기적으로 설정 — save()의 objectWillChange와 같은
+        // 렌더 사이클에 묶어서 중간에 흰 화면이 뜨지 않도록 함
+        showResult = true
         if item == .food {
             launchFoodParticles()
         }
